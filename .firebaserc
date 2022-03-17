@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bierkuh-ef2d6": {
+      "hosting": {
+        "bierkuh13": [
+          "bierkuh-ef2d6"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bierkuh-ef2d6"
+  }
+}
