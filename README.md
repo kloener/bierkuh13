@@ -10,6 +10,18 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
+### Common Generation snipps
+
+SCAM Module 
+
+```bash
+export DOMAIN=user
+export FEATURE=user-list
+ng g m ${DOMAIN}/features/${FEATURE}
+ng g s ${DOMAIN}/features/${FEATURE}/${FEATURE}-facade
+ng g m ${DOMAIN}/features/${FEATURE} --export
+```
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
