@@ -22,6 +22,14 @@ ng g s ${DOMAIN}/features/${FEATURE}/${FEATURE}-facade
 ng g m ${DOMAIN}/features/${FEATURE} --export
 ```
 
+Domäne
+
+```bash
+export DOMAIN=user
+export FEATURE=user-list
+ng g feature ${DOMAIN}/features/${FEATURE}
+```
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
