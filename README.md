@@ -15,28 +15,29 @@ Run `ng generate component component-name` to generate a new component. You can 
 Domäne
 
 ```bash
-export DOMAIN=user
+export DOMAIN=crown-caps
 ng g m modules/${DOMAIN}
 ng g s modules/${DOMAIN}/api/${DOMAIN}-api
 ng g class modules/${DOMAIN}/models/${DOMAIN}
+ng g interface modules/${DOMAIN}/models/${DOMAIN}-dto
 ng g s modules/${DOMAIN}/infra/${DOMAIN}-infra
 ```
 
 Domäne Feature SCAM Module 
 
 ```bash
-export DOMAIN=user
-export FEATURE=user-list
+export DOMAIN=crown-caps
+export FEATURE=crown-caps-details
 ng g m modules/${DOMAIN}/features/${FEATURE}
 ng g s modules/${DOMAIN}/features/${FEATURE}/${FEATURE}-facade
-ng g m modules/${DOMAIN}/features/${FEATURE} --export
+ng g c modules/${DOMAIN}/features/${FEATURE} --export
 ```
 
 Domänen Store Feature Module
 
 ```bash
-export DOMAIN=user
-export FEATURE=user-list
+export DOMAIN=crown-caps
+export FEATURE=crown-caps-store
 ng g m modules/${DOMAIN}/store/${FEATURE} -m root-store
 ng g feature modules/${DOMAIN}/store/${FEATURE}/${FEATURE} -a -c -g -m modules/${DOMAIN}/store/${FEATURE} --prefix load
 ```
@@ -52,7 +53,7 @@ ng g c shared/${FEATURE} --export
 PAGE Module
 
 ```bash
-export PAGE=home
+export PAGE=details
 ng g m pages/${PAGE}-page --route ${PAGE} --routing -m app
 ```
 
