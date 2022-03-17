@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "bierkuh13:build:production",
+            "firebaseProject": "bierkuh-ef2d6",
+            "firebaseHostingSite": "bierkuh-ef2d6"
+          }
         }
       }
     }
