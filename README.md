@@ -17,9 +17,9 @@ SCAM Module
 ```bash
 export DOMAIN=user
 export FEATURE=user-list
-ng g m ${DOMAIN}/features/${FEATURE}
-ng g s ${DOMAIN}/features/${FEATURE}/${FEATURE}-facade
-ng g m ${DOMAIN}/features/${FEATURE} --export
+ng g m modules/${DOMAIN}/features/${FEATURE}
+ng g s modules/${DOMAIN}/features/${FEATURE}/${FEATURE}-facade
+ng g m modules/${DOMAIN}/features/${FEATURE} --export
 ```
 
 Domäne
@@ -27,7 +27,7 @@ Domäne
 ```bash
 export DOMAIN=user
 export FEATURE=user-list
-ng g feature ${DOMAIN}/features/${FEATURE}
+ng g feature modules/${DOMAIN}/features/${FEATURE} -a -c -g -m root-store --prefix load
 ```
 
 ## Build
