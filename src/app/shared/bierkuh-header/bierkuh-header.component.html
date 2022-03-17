@@ -1,0 +1,9 @@
+<header>
+  <img [attr.src]="headerPath" />
+  <ng-container *ngIf="isPublicRoute$ | async; else publicLink">
+    <button class="admin fat-outline" routerLink="/admin/overview">Admin</button>
+  </ng-container>
+</header>
+<ng-template #publicLink>
+  <button class="admin fat-outline" routerLink="/">Übersicht</button>
+</ng-template>

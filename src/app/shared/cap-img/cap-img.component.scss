@@ -1,0 +1,19 @@
+$capSize: 128px;
+.cap {
+  --cap-img-size: var(--cap-size, #{$capSize});
+
+  height: var(--cap-img-size);
+  width: var(--cap-img-size);
+
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  transition: transform ease .5s, border-radius ease .5s;
+  transform: scale(1);
+
+  &:hover {
+    transform: scale(1.5) rotate(-10deg);
+    border-radius: 0%;
+    z-index: 1000;
+  }
+}

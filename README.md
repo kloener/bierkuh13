@@ -12,7 +12,17 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ### Common Generation snipps
 
-SCAM Module 
+Domäne
+
+```bash
+export DOMAIN=user
+ng g m modules/${DOMAIN}
+ng g s modules/${DOMAIN}/api/${DOMAIN}-api
+ng g class modules/${DOMAIN}/models/${DOMAIN}
+ng g s modules/${DOMAIN}/infra/${DOMAIN}-infra
+```
+
+Domäne Feature SCAM Module 
 
 ```bash
 export DOMAIN=user
@@ -22,12 +32,28 @@ ng g s modules/${DOMAIN}/features/${FEATURE}/${FEATURE}-facade
 ng g m modules/${DOMAIN}/features/${FEATURE} --export
 ```
 
-Domäne
+Domänen Store Feature Module
 
 ```bash
 export DOMAIN=user
 export FEATURE=user-list
-ng g feature modules/${DOMAIN}/features/${FEATURE} -a -c -g -m root-store --prefix load
+ng g m modules/${DOMAIN}/store/${FEATURE} -m root-store
+ng g feature modules/${DOMAIN}/store/${FEATURE}/${FEATURE} -a -c -g -m modules/${DOMAIN}/store/${FEATURE} --prefix load
+```
+
+SHARED SCAM Module 
+
+```bash
+export FEATURE=upload-button
+ng g m shared/${FEATURE}
+ng g c shared/${FEATURE} --export
+```
+
+PAGE Module
+
+```bash
+export PAGE=home
+ng g m pages/${PAGE}-page --route ${PAGE} --routing -m app
 ```
 
 ## Build

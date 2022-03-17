@@ -1,1 +1,134 @@
-/* You can add global styles to this file, and also import other style files */
+$primary-color: #FFD70A;
+$grey-color: #454648;
+$bg-color: #3B3B3B;
+
+$global-font-color: #eee;
+$global-font-weight: 400;
+$global-font-family: Helvetica, sans-serif;
+$global-font-size: 16px;
+
+$path-header-image: 'assets/Header.png';
+$path-background-image: 'assets/Hintergrund.jpg';
+
+:root {
+  --primary-color: #{
+    $primary-color
+  };
+  --grey-color: #{
+    $grey-color
+  };
+  --bg-color: #{
+    $bg-color
+  };
+  --global-font-color: #{
+    $global-font-color
+  };
+  --global-font-weight: #{
+    $global-font-weight
+  };
+  --global-font-family: #{
+    $global-font-family
+  };
+  --global-font-size: #{
+    $global-font-size
+  };
+  --path-header-image: #{
+    $path-header-image
+  };
+  --path-background-image: #{
+    $path-background-image
+  };
+}
+
+html, body {
+  font: var(--global-font-size) var(--global-font-family);
+  font-weight: var(--global-font-weight);
+  margin: 0;
+  padding: 0;
+
+  color: var(--global-font-color);
+
+  &, & * {
+    box-sizing: border-box;
+  }
+}
+
+a {
+  text-decoration: none;
+  &, &:visited {
+    color: var(--primary-color);
+  }
+  &:focus {
+    outline: 1px dotted var(--primary-color);
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+[role=button] {
+  cursor: pointer;
+  padding: 1rem;
+  margin: 1rem;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: .5rem;
+  display: inline-block;
+  width: auto;
+}
+
+.fat-outline {
+  padding: .5rem;
+  border: .5rem solid var(--primary-color);
+  background: transparent;
+  color: white;
+  border-radius: .5rem;
+
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+button {
+  --button-border-color: var(--global-font-color);
+  padding: .25rem;
+  border: .125rem solid var(--button-border-color);
+  background: transparent;
+  color: white;
+  border-radius: .25rem;
+
+  font-size: 1.125rem;
+
+  &[type=submit] {
+    --button-border-color: var(--primary-color);
+  }
+  &.has-error {
+    --button-border-color: #f00;
+  }
+}
+
+@media (min-width: 700px){
+  .app {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+}
+
+
+body {
+  background: url($path-background-image) 0 0 repeat-y;
+  background-size: cover;
+}
+
+.page {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+img.cap {
+  max-width: 8rem;
+}
+
+.grid-y {
+  display: grid;
+  grid-template: auto / auto;
+  grid-gap: 1rem;
+}

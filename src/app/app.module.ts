@@ -11,6 +11,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { RootStoreModule } from './root-store/root-store.module';
+import { BierkuhHeaderModule } from './shared/bierkuh-header/bierkuh-header.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { RootStoreModule } from './root-store/root-store.module';
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     SharedModule,
+    BierkuhHeaderModule,
     CoreModule,
     RootStoreModule
   ],
