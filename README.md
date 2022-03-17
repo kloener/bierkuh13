@@ -53,7 +53,7 @@ ng g c shared/${FEATURE} --export
 PAGE Module
 
 ```bash
-export PAGE=details
+export PAGE=admin-login
 ng g m pages/${PAGE}-page --route ${PAGE} --routing -m app
 ```
 
