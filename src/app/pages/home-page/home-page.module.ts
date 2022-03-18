@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CapImgModule } from '@app/shared/cap-img/cap-img.module';
+import { CrownCapsListModule } from '@app/modules/crown-caps/features/crown-caps-list/crown-caps-list.module';
 
 import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
@@ -13,8 +13,7 @@ import { HomePageComponent } from './home-page.component';
   imports: [
     CommonModule,
     HomePageRoutingModule,
-
-    CapImgModule,
+    CrownCapsListModule,
   ]
 })
 export class HomePageModule { }
