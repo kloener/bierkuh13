@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { UserInfraService } from '../infra/user-infra.service';
 
 import { selectUserStoreIsLoggedIn } from '../store/user-store/selectors/user-store.selectors';
 
@@ -9,8 +10,10 @@ import { selectUserStoreIsLoggedIn } from '../store/user-store/selectors/user-st
 export class UserApiService {
 
   toApp = {
-    isLoggedIn$: this.store.select(selectUserStoreIsLoggedIn)
+    isLoggedIn$: this.userInfraService.isLoggedIn$
   }
 
-  constructor(private readonly store: Store) { }
+  constructor(
+    private readonly userInfraService: UserInfraService
+    ) {}
 }
