@@ -36,8 +36,8 @@ ng g c modules/${DOMAIN}/features/${FEATURE} --export
 Domänen Store Feature Module
 
 ```bash
-export DOMAIN=crown-caps
-export FEATURE=crown-caps-store
+export DOMAIN=user
+export FEATURE=user-store
 ng g m modules/${DOMAIN}/store/${FEATURE} -m root-store
 ng g feature modules/${DOMAIN}/store/${FEATURE}/${FEATURE} -a -c -g -m modules/${DOMAIN}/store/${FEATURE} --prefix load
 ```

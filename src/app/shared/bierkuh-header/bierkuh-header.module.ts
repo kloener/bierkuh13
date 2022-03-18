@@ -1,5 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
 import { BierkuhHeaderComponent } from './bierkuh-header.component';
 
 
@@ -9,7 +11,7 @@ import { BierkuhHeaderComponent } from './bierkuh-header.component';
     BierkuhHeaderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule, RouterModule,
   ],
   exports: [
     BierkuhHeaderComponent
