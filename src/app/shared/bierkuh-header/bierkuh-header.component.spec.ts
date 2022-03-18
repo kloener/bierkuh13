@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BierkuhHeaderComponent } from './bierkuh-header.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('BierkuhHeaderComponent', () => {
   let component: BierkuhHeaderComponent;
@@ -8,6 +9,7 @@ describe('BierkuhHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ RouterTestingModule ],
       declarations: [ BierkuhHeaderComponent ]
     })
     .compileComponents();

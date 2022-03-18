@@ -10,7 +10,12 @@
   },
   "jest": {
     "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/src/setup-jest.ts"],
+    "moduleNameMapper": {
+      "@app/(.*)": "<rootDir>/src/app/$1"
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setup-jest.ts"
+    ],
     "globalSetup": "jest-preset-angular/global-setup"
   },
   "private": true,
@@ -38,6 +43,8 @@
     "@angular/cli": "~13.3.0",
     "@angular/compiler-cli": "~13.3.0",
     "@ngrx/schematics": "^13.0.2",
+    "@testing-library/angular": "^11.0.3",
+    "@testing-library/user-event": "^14.0.0-beta.13",
     "@types/jest": "^27.4.1",
     "@types/node": "^12.11.1",
     "jest": "^27.5.1",

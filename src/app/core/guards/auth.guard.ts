@@ -9,8 +9,8 @@ import {
   UrlSegment,
   UrlTree,
 } from '@angular/router';
+import { UserApiService } from '@app/modules/user/api/user-api.service';
 import { first, map, Observable } from 'rxjs';
-import { UserApiService } from 'src/app/modules/user/api/user-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +23,8 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot) {
+    route?: ActivatedRouteSnapshot,
+    state?: RouterStateSnapshot) {
     return this.checkAuth();
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CrownCapsListFacadeService } from './crown-caps-list-facade.service';
 
 @Component({
   selector: 'app-crown-caps-list',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrownCapsListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly facadeService: CrownCapsListFacadeService) { }
 
   ngOnInit(): void {
   }

@@ -11,17 +11,21 @@ export class CrownCaps {
   assignees?: string[];
   name: string;
 
-  constructor(dto: CrownCapsDto) {
-    this.name = dto.name;
+  constructor(dto?: CrownCapsDto | null) {
+    this.name = '';
 
-    if (dto.assignees) this.assignees = dto.assignees.split('');
-    if (dto.typ) this.type = dto.typ;
-    if (dto.jahr) this.year = dto.jahr;
-    if (dto.kommentar) this.comment = dto.kommentar;
-    if (dto.brauerei) this.brewery = dto.brauerei;
-    if (dto.farbe) this.color = dto.farbe;
-    if (dto.link) this.link = dto.link;
-    if (dto.anzahl) this.count = dto.anzahl;
+    if (dto) {
+      this.name = dto.name;
+
+      if (dto.assignees) this.assignees = dto.assignees.split('');
+      if (dto.typ) this.type = dto.typ;
+      if (dto.jahr) this.year = dto.jahr;
+      if (dto.kommentar) this.comment = dto.kommentar;
+      if (dto.brauerei) this.brewery = dto.brauerei;
+      if (dto.farbe) this.color = dto.farbe;
+      if (dto.link) this.link = dto.link;
+      if (dto.anzahl) this.count = dto.anzahl;
+    }
   }
 
   toDto(): CrownCapsDto {

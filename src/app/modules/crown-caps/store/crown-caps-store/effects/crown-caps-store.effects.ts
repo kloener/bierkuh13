@@ -11,12 +11,12 @@ import * as CrownCapsStoreActions from '../actions/crown-caps-store.actions';
 export class CrownCapsStoreEffects {
 
   loadCrownCapsStores$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(CrownCapsStoreActions.loadCrownCapsStores),
       concatMap(() =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        EMPTY.pipe(
+        of(1).pipe(
           map(data => CrownCapsStoreActions.loadCrownCapsStoresSuccess({ data })),
           catchError(error => of(CrownCapsStoreActions.loadCrownCapsStoresFailure({ error }))))
       )
