@@ -1,10 +1,12 @@
 $capSize: 128px;
-.cap {
+a, img {
   --cap-img-size: var(--cap-size, #{$capSize});
 
   height: var(--cap-img-size);
   width: var(--cap-img-size);
-
+  display: inline-block;
+}
+img {
   object-fit: cover;
   border-radius: 50%;
   box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.5);
