@@ -17,4 +17,14 @@ export class CrownCapsListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  loadMore(): void {
+    this.facadeService.nextPage();
+  }
+
+  searchChanged(event: any): void {
+    if (event.target && event.target.value) {
+      this.facadeService.search(event.target.value);
+    }
+  }
+
 }
