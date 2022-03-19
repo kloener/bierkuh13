@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-admin-login-page',
   templateUrl: './admin-login-page.component.html',
-  styleUrls: ['./admin-login-page.component.scss']
+  styleUrls: ['./admin-login-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminLoginPageComponent implements OnInit {
 

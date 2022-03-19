@@ -1,4 +1,5 @@
-<input type="text" (blur)="searchChanged($event)" value="" />
-<app-cap-img *ngFor="let item of caps$ | async" [fileUri]="item"></app-cap-img>
+<ng-container *ngFor="let item of caps$ | async">
+  <app-cap-img [name]="item.name" [fileUri]="item.storageRef"></app-cap-img>
+</ng-container>
 
 <button (click)="loadMore()">mehr</button>

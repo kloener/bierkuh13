@@ -1,30 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { CrownCapsListFacadeService } from './crown-caps-list-facade.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { CrownCapsListFacadeService } from '../../application/crown-caps-list-facade.service';
+import { CrownCaps } from '../../domain/crown-caps';
 
 @Component({
   selector: 'app-crown-caps-list',
   templateUrl: './crown-caps-list.component.html',
-  styleUrls: ['./crown-caps-list.component.scss']
+  styleUrls: ['./crown-caps-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CrownCapsListComponent implements OnInit {
-  caps$: Observable<any>;
+export class CrownCapsListComponent {
+  caps$: Observable<CrownCaps[]>;
 
   constructor(private readonly facadeService: CrownCapsListFacadeService) {
-    this.caps$ = this.facadeService.caps$;
-  }
-
-  ngOnInit(): void {
+    this.caps$ = this.facadeService.pagesCaps$;
   }
 
   loadMore(): void {
-    this.facadeService.nextPage();
-  }
-
-  searchChanged(event: any): void {
-    if (event.target && event.target.value) {
-      this.facadeService.search(event.target.value);
-    }
+    this.facadeService.loadMore();
   }
 
 }

@@ -1,0 +1,6 @@
+<form class="search-box" [formGroup]="formGroup">
+  <label class="search-label">
+    <input class="fat-outline" formControlName="search" type="text" placeholder="Suche" />
+    <a *ngIf="searchControl.value" class="reset" (click)="resetSearch()">x</a>
+  </label>
+</form>

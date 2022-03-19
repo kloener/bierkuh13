@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { CrownCapsInfraService } from '../infra/crown-caps-infra.service';
 import { Observable } from 'rxjs';
-import { QueryChange } from 'rxfire/database';
+
+import { CrownCapsListFacadeService } from '../application/crown-caps-list-facade.service';
+import { CrownCaps } from '../domain/crown-caps';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrownCapsApiService {
-  caps$: Observable<QueryChange[]>;
-  constructor(private readonly infraService: CrownCapsInfraService) {
-    this.caps$ = this.infraService.query;
+  caps$: Observable<CrownCaps[]>;
+  constructor(private readonly listFacade: CrownCapsListFacadeService) {
+    this.caps$ = this.listFacade.filteredCaps$;
   }
 }

@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CrownCapsListComponent } from './crown-caps-list.component';
+import { NgModule } from '@angular/core';
 import { CapImgModule } from '@app/shared/cap-img/cap-img.module';
+
+import { CrownCapsListComponent } from './crown-caps-list.component';
 
 
 

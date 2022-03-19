@@ -1,4 +1,7 @@
+import { getFileUri } from '@app/shared/utils/getFileUri';
+
 import { CrownCapsDto } from './crown-caps-dto';
+import { FileInfo } from './file-info';
 
 export class CrownCaps {
   count?: number;
@@ -10,8 +13,12 @@ export class CrownCaps {
   type?: string;
   assignees?: string[];
   name: string;
+  fileName?: string;
+  fileSize?: number;
+  fileType?: string;
+  storageRef?: string;
 
-  constructor(dto?: CrownCapsDto | null) {
+  constructor(dto?: CrownCapsDto | null, fileInfo?: FileInfo, storageRef?: string) {
     this.name = '';
 
     if (dto) {
@@ -25,6 +32,16 @@ export class CrownCaps {
       if (dto.farbe) this.color = dto.farbe;
       if (dto.link) this.link = dto.link;
       if (dto.anzahl) this.count = dto.anzahl;
+    }
+
+    if (fileInfo) {
+      this.fileName = fileInfo.name
+      this.fileSize = fileInfo.size
+      this.fileType = fileInfo.type;
+    }
+
+    if (storageRef) {
+      this.storageRef = getFileUri(storageRef);
     }
   }
 

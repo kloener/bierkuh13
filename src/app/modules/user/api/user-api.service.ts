@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { UserInfraService } from '../infra/user-infra.service';
 
-import { selectUserStoreIsLoggedIn } from '../store/user-store/selectors/user-store.selectors';
+import { UserInfraService } from '../infrastructure/user-infra.service';
 
 @Injectable({
   providedIn: 'root'

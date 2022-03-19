@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { Router, Event, NavigationEnd } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter, map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-bierkuh-header',
   templateUrl: './bierkuh-header.component.html',
-  styleUrls: ['./bierkuh-header.component.scss']
+  styleUrls: ['./bierkuh-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BierkuhHeaderComponent {
 

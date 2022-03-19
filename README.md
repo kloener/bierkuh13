@@ -18,18 +18,18 @@ Domäne
 export DOMAIN=crown-caps
 ng g m modules/${DOMAIN}
 ng g s modules/${DOMAIN}/api/${DOMAIN}-api
-ng g class modules/${DOMAIN}/models/${DOMAIN}
+ng g class modules/${DOMAIN}/domain/${DOMAIN}
 ng g interface modules/${DOMAIN}/models/${DOMAIN}-dto
-ng g s modules/${DOMAIN}/infra/${DOMAIN}-infra
+ng g s modules/${DOMAIN}/infrastructure/${DOMAIN}-data
 ```
 
 Domäne Feature SCAM Module 
 
 ```bash
 export DOMAIN=crown-caps
-export FEATURE=crown-caps-details
+export FEATURE=crown-caps-count
 ng g m modules/${DOMAIN}/features/${FEATURE}
-ng g s modules/${DOMAIN}/features/${FEATURE}/${FEATURE}-facade
+ng g s modules/${DOMAIN}/application/${FEATURE}-facade
 ng g c modules/${DOMAIN}/features/${FEATURE} --export
 ```
 

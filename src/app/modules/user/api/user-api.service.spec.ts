@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { provideMockStore } from '@ngrx/store/testing';
-
-import { UserApiService } from './user-api.service';
-import { UserInfraService } from '../infra/user-infra.service';
 import { of } from 'rxjs';
+
+import { UserInfraService } from '../infrastructure/user-infra.service';
+import { UserApiService } from './user-api.service';
 
 describe('UserApiService', () => {
   let service: UserApiService;
