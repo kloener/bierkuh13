@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DetailsPageRoutingModule } from './details-page-routing.module';
 import { DetailsPageComponent } from './details-page.component';
+import { CrownCapsDetailsModule } from '@app/modules/crown-caps/features/crown-caps-details/crown-caps-details.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { DetailsPageComponent } from './details-page.component';
   ],
   imports: [
     CommonModule,
-    DetailsPageRoutingModule
+    DetailsPageRoutingModule,
+    CrownCapsDetailsModule
   ]
 })
 export class DetailsPageModule { }

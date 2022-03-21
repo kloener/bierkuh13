@@ -1,5 +1,5 @@
 <ng-container *ngFor="let item of caps$ | async">
-  <app-cap-img [name]="item.name" [fileUri]="item.storageRef"></app-cap-img>
+  <app-cap-img [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img>
 </ng-container>
 
 <button (click)="loadMore()">mehr</button>

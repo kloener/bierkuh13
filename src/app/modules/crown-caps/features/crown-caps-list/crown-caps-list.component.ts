@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 
 import { CrownCapsListFacadeService } from '../../application/crown-caps-list-facade.service';
 import { CrownCaps } from '../../domain/crown-caps';
@@ -19,6 +19,11 @@ export class CrownCapsListComponent {
 
   loadMore(): void {
     this.facadeService.loadMore();
+  }
+
+  async onCapClick(item: CrownCaps) {
+    console.log(item);
+    await firstValueFrom(this.facadeService.navigateToDetails(item));
   }
 
 }

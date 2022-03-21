@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CrownCapsListFacadeService } from './crown-caps-list-facade.service';
-import { map, Observable } from 'rxjs';
+import { find, map, Observable, tap } from 'rxjs';
 import { CrownCaps } from '../domain/crown-caps';
 
 @Injectable({
@@ -9,6 +9,10 @@ import { CrownCaps } from '../domain/crown-caps';
 export class CrownCapsDetailsFacadeService {
   constructor(private readonly listFacadeService: CrownCapsListFacadeService) {}
   getDetailsOf(identifier: string): Observable<CrownCaps | undefined> {
-    return this.listFacadeService.allCaps$.pipe(map(list => list.find(item => item.name === identifier)));
+    console.log('getDetailsOf', identifier)
+    return this.listFacadeService.allCaps$.pipe(
+      map(list => list[parseInt(identifier, 10)]),
+      tap(item => {console.log('getDetailsOf->$', item)}),
+    );
   }
 }

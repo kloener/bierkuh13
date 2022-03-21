@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { QueryChange } from 'rxfire/database';
-import { BehaviorSubject, map, Observable, shareReplay, switchMap } from 'rxjs';
+import { BehaviorSubject, find, map, Observable, shareReplay, switchMap, EMPTY, from } from 'rxjs';
 
 import { CrownCaps } from '../domain/crown-caps';
 import { CrownCapsDto } from '../domain/crown-caps-dto';
 import { FileInfo } from '../domain/file-info';
 import { CrownCapsInfraService } from '../infrastructure/crown-caps-infra.service';
+import { concatMap } from 'rxjs/operators';
 
 type SnapshotCrownCap = {
   crownCapInfo: CrownCapsDto;
@@ -51,7 +53,7 @@ export class CrownCapsListFacadeService {
   private readonly query$: Observable<QueryChange[]>;
   private readonly filterSettings$ = new BehaviorSubject<FilterSettings>({ itemsPerPage: DEFAULT_ITEMS_PER_PAGE, limit: DEFAULT_ITEMS_PER_PAGE, offset: 0 });
 
-  constructor(private readonly infraService: CrownCapsInfraService) {
+  constructor(private readonly infraService: CrownCapsInfraService, private readonly router: Router) {
     /**
      * root of all data
      */
@@ -103,6 +105,13 @@ export class CrownCapsListFacadeService {
           refCount: true,
         })
       );
+  }
+
+  navigateToDetails(item: CrownCaps): Observable<boolean> {
+    return this.allCaps$.pipe(
+      map(list => list.findIndex(el => el.name === item.name)),
+      concatMap(idx => idx >= 0 ? from(this.router.navigate(['/', 'details', idx])) : EMPTY),
+    );
   }
 
   getFilterSettings(): FilterSettings {

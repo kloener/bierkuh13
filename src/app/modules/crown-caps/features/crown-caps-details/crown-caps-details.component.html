@@ -1,1 +1,4 @@
-<p>crown-caps-details works!</p>
+<ng-container *ngIf="details$ | async as details">
+  <p>{{ details.name }}</p>
+  <app-cap-img [name]="details.name" [fileUri]="details.storageRef"></app-cap-img>
+</ng-container>
