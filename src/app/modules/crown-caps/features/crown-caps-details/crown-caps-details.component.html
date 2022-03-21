@@ -1,4 +1,11 @@
 <ng-container *ngIf="details$ | async as details">
-  <p>{{ details.name }}</p>
+  <ul>
+    <li><strong>Name: </strong> {{ details.name }}</li>
+    <li *ngIf="details.brewery"><strong>Brauerei: </strong> {{ details.brewery }}</li>
+    <li *ngIf="details.color"><strong>Farbe: </strong> {{ details.color }}</li>
+    <li *ngIf="details.count"><strong>Anzahl: </strong> {{ details.count }}</li>
+  </ul>
   <app-cap-img [name]="details.name" [fileUri]="details.storageRef"></app-cap-img>
 </ng-container>
+
+<button class="back fat-outline" routerLink="/">Zurück</button>
