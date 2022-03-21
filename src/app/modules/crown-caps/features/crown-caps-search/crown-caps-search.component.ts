@@ -7,11 +7,10 @@ import { CrownCapsSearchFacadeService } from '../../application/crown-caps-searc
 @Component({
   selector: 'app-crown-caps-search',
   templateUrl: './crown-caps-search.component.html',
-  styleUrls: ['./crown-caps-search.component.scss']
+  styleUrls: ['./crown-caps-search.component.scss'],
 })
 export class CrownCapsSearchComponent implements OnInit {
-
-  searchControl = new FormControl('');
+  searchControl = new FormControl(this.facadeService.getSearch());
   formGroup: FormGroup = new FormGroup({ search: this.searchControl });
 
   private readonly onDestroy$ = new Subject<void>();
@@ -20,14 +19,10 @@ export class CrownCapsSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchControl.valueChanges
-      .pipe(
-        takeUntil(this.onDestroy$),
-        distinctUntilChanged(),
-        auditTime(100),
-      )
-      .subscribe(search => {
+      .pipe(takeUntil(this.onDestroy$), distinctUntilChanged(), auditTime(100))
+      .subscribe((search) => {
         this.searchChanged(search);
-      })
+      });
   }
 
   ngOnDestroy(): void {
@@ -44,5 +39,4 @@ export class CrownCapsSearchComponent implements OnInit {
   resetSearch(): void {
     this.searchControl.setValue('');
   }
-
 }

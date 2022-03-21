@@ -3,7 +3,7 @@
 </ng-container>
 
 <section *ngIf="pageInfo$ | async as pageInfo">
-  <button (click)="loadPreviousPage()">vorherige Seite</button>
+  <button (click)="loadPreviousPage()" *ngIf="pageInfo.currentPage > 1">vorherige Seite</button>
   <p>{{pageInfo.currentPage}} / {{pageInfo.pages}}</p>
-  <button (click)="loadNextPage()">nächste Seite</button>
+  <button (click)="loadNextPage()" *ngIf="pageInfo.currentPage < pageInfo.pages">nächste Seite</button>
 </section>

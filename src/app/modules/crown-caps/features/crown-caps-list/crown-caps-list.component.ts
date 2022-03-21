@@ -50,7 +50,6 @@ export class CrownCapsListComponent implements OnInit, OnDestroy {
   }
 
   async onCapClick(item: CrownCaps) {
-    console.log(item);
     await firstValueFrom(this.facadeService.navigateToDetails(item));
   }
 }
