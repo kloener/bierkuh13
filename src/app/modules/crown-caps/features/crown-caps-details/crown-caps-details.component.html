@@ -1,9 +1,11 @@
 <ng-container *ngIf="details$ | async as details">
   <ul>
     <li><strong>Name: </strong> {{ details.name }}</li>
+    <li *ngIf="details.assignees">{{ details.assignees| assignee }}</li>
     <li *ngIf="details.brewery"><strong>Brauerei: </strong> {{ details.brewery }}</li>
     <li *ngIf="details.color"><strong>Farbe: </strong> {{ details.color }}</li>
     <li *ngIf="details.count"><strong>Anzahl: </strong> {{ details.count }}</li>
+    <li *ngIf="details.comment"><strong>Kommentar: </strong> {{ details.comment }}</li>
   </ul>
   <app-cap-img [name]="details.name" [fileUri]="details.storageRef"></app-cap-img>
 </ng-container>

@@ -2,4 +2,8 @@
   <app-cap-img [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img>
 </ng-container>
 
-<button (click)="loadMore()">mehr</button>
+<section *ngIf="pageInfo$ | async as pageInfo">
+  <button (click)="loadPreviousPage()">vorherige Seite</button>
+  <p>{{pageInfo.currentPage}} / {{pageInfo.pages}}</p>
+  <button (click)="loadNextPage()">nächste Seite</button>
+</section>
