@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { auditTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {debounceTime, distinctUntilChanged, Subject, takeUntil} from 'rxjs';
 
-import { CrownCapsSearchFacadeService } from '../../application/crown-caps-search-facade.service';
+import {CrownCapsSearchFacadeService} from '../../application/crown-caps-search-facade.service';
 
 @Component({
   selector: 'app-crown-caps-search',
@@ -19,7 +19,7 @@ export class CrownCapsSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchControl.valueChanges
-      .pipe(takeUntil(this.onDestroy$), distinctUntilChanged(), auditTime(100))
+      .pipe(takeUntil(this.onDestroy$), distinctUntilChanged(), debounceTime(500))
       .subscribe((search) => {
         this.searchChanged(search);
       });

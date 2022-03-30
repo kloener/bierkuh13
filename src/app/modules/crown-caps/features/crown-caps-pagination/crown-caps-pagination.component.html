@@ -1,0 +1,5 @@
+<section *ngIf="pageInfo">
+  <button (click)="loadPreviousPage.emit()" *ngIf="pageInfo.currentPage > 1">vorherige Seite</button>
+  <p>{{pageInfo.currentPage}} / {{pageInfo.pages}}</p>
+  <button (click)="loadNextPage.emit()" *ngIf="pageInfo.currentPage < pageInfo.pages">nächste Seite</button>
+</section>

@@ -1,11 +1,19 @@
 $capSize: 128px;
-a, img {
+:host, a, img {
   --cap-img-size: var(--cap-size, #{$capSize});
 
   height: var(--cap-img-size);
   width: var(--cap-img-size);
   display: inline-block;
+
+  text-align: center;
+  line-height: var(--cap-img-size);
+
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  position: relative;
 }
+
 img {
   object-fit: cover;
   border-radius: 50%;
@@ -15,7 +23,11 @@ img {
 
   &:hover {
     transform: scale(1.5) rotate(-10deg);
-    border-radius: 0%;
+    border-radius: 0;
     z-index: 1000;
+  }
+
+  &.has-error {
+    background: rgba(255, 0, 0, 0.1);
   }
 }

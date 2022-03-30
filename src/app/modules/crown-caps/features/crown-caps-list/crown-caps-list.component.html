@@ -1,9 +1,9 @@
-<ng-container *ngFor="let item of caps$ | async">
-  <app-cap-img [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img>
-</ng-container>
-
-<section *ngIf="pageInfo$ | async as pageInfo">
-  <button (click)="loadPreviousPage()" *ngIf="pageInfo.currentPage > 1">vorherige Seite</button>
-  <p>{{pageInfo.currentPage}} / {{pageInfo.pages}}</p>
-  <button (click)="loadNextPage()" *ngIf="pageInfo.currentPage < pageInfo.pages">nächste Seite</button>
+<section class="list">
+  <app-cap-img *ngFor="let item of caps$ | async" [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img>
 </section>
+
+<app-crown-caps-pagination
+  [pageInfo]="pageInfo$ | async"
+  (loadPreviousPage)="loadPreviousPage()"
+  (loadNextPage)="loadNextPage()"
+></app-crown-caps-pagination>

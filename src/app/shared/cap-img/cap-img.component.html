@@ -1,1 +1,1 @@
-<img [src]="fileUri" [attr.alt]="name" [attr.title]="name" loading="lazy">
+<img [src]="fileUri" [attr.alt]="name" [attr.title]="name" (error)="onImageLoadError($event)" loading="lazy">
