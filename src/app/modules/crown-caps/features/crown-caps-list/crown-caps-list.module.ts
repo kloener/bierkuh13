@@ -6,6 +6,9 @@ import { CrownCapsListComponent } from './crown-caps-list.component';
 import {
   CrownCapsPaginationModule
 } from "@app/modules/crown-caps/features/crown-caps-pagination/crown-caps-pagination.module";
+import {
+  CrownCapsLoadMoreModule
+} from "@app/modules/crown-caps/features/crown-caps-load-more/crown-caps-load-more.module";
 
 @NgModule({
   declarations: [
@@ -14,6 +17,7 @@ import {
   imports: [
     CommonModule,
     CapImgModule,
+    CrownCapsLoadMoreModule,
     CrownCapsPaginationModule
   ],
   exports: [

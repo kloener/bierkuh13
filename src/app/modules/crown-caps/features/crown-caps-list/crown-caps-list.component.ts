@@ -45,8 +45,13 @@ export class CrownCapsListComponent implements OnInit, OnDestroy {
   loadPreviousPage(): void {
     this.nextPage.emit(this.pageSubject.getValue() - 1);
   }
+
   loadNextPage(): void {
     this.nextPage.emit(this.pageSubject.getValue() + 1);
+  }
+
+  loadMore() {
+    this.facadeService.loadMore();
   }
 
   async onCapClick(item: CrownCaps) {

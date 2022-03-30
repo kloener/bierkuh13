@@ -23,7 +23,7 @@ type FilterSettings = {
   search?: string;
 };
 
-const DEFAULT_ITEMS_PER_PAGE = 50;
+const DEFAULT_ITEMS_PER_PAGE = 10;
 
 /**
  * List facade that provides all, filtered and a paged caps list observable.
@@ -160,12 +160,11 @@ export class CrownCapsListFacadeService {
    * Increased the visible "items per page"
    */
   loadMore(): void {
-    const { limit, itemsPerPage, ...filterSettings } =
-      this.filterSettings$.getValue();
+    const { limit, itemsPerPage, ...filterSettings } = this.filterSettings$.getValue();
     this.filterSettings$.next({
       ...filterSettings,
-      itemsPerPage,
-      limit: limit + itemsPerPage,
+      itemsPerPage: itemsPerPage + DEFAULT_ITEMS_PER_PAGE,
+      limit: limit + DEFAULT_ITEMS_PER_PAGE,
     });
   }
 
