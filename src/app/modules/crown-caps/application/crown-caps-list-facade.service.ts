@@ -73,7 +73,9 @@ export class CrownCapsListFacadeService {
     this.allCaps$ = this.query$.pipe(
       map((eventList) =>
         [...eventList]
+          // Parse Snapshot
           .map((event) => event.snapshot.toJSON() as SnapshotCrownCap)
+          // Map to UI model
           .map(
             (snapshotJson: SnapshotCrownCap) =>
               new CrownCaps(
@@ -82,10 +84,20 @@ export class CrownCapsListFacadeService {
                 snapshotJson.storageRef
               )
           )
+          /* Filter duplicates
+          .reduce((acc, curr) => {
+            acc.push(curr);
+            if (!acc.some(cap => cap.name === curr.name && cap.fileSize === curr.fileSize)) {
+            } else {
+              console.info('Duplicate found for', curr);
+            }
+            return acc;
+          }, [] as CrownCaps[])
+          /* */
       ),
       shareReplay({
         bufferSize: 1,
-        refCount: true,
+        refCount: false,
       })
     );
 
