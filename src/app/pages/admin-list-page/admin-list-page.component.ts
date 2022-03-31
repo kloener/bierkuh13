@@ -36,5 +36,4 @@ export class AdminListPageComponent implements OnInit {
       this.onNextPage(1);
     }
   }
-
 }

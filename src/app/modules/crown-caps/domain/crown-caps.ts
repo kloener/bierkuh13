@@ -1,4 +1,4 @@
-import { getFileUri } from '@app/shared/utils/getFileUri';
+import { utils } from '@app/shared/utils/utils';
 
 import { CrownCapsDto } from './crown-caps-dto';
 import { FileInfo } from './file-info';
@@ -45,7 +45,7 @@ export class CrownCaps {
     }
 
     if (storageRef) {
-      this.storageRef = getFileUri(storageRef);
+      this.storageRef = utils(storageRef);
     }
   }
 

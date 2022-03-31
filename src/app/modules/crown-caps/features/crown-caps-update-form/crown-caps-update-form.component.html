@@ -1,5 +1,6 @@
+
 <section class="update-form my-4" *ngIf="details$ | async as details">
-  <p>Id: {{ details.identifier }}</p>
+  <p>Id: {{ details.identifier }} <span *ngIf="file$ | async as file">(erstellt am {{ file.timeCreated | date:'dd.MM.YYYY' }})</span></p>
 
   <app-cap-img class="my-12" [name]="details.name" [fileUri]="details.storageRef"></app-cap-img>
 

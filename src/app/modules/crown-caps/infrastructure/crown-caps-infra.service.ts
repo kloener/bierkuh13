@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FirebaseConst } from '@app/constants/firestore';
-import {Database, DatabaseReference, ref, object, set} from '@angular/fire/database';
+import {Database, DatabaseReference, ref, object, set, remove} from '@angular/fire/database';
 import { list, QueryChange } from 'rxfire/database';
 import {EMPTY, firstValueFrom, Observable} from 'rxjs';
 import {catchError} from "rxjs/operators";
 import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
 import {CrownCapsDto} from "@app/modules/crown-caps/domain/crown-caps-dto";
 import {CrownCapSnapshot} from "@app/modules/crown-caps/domain/crown-cap-snapshot";
-import {remove} from "@firebase/database";
+import {encodeBase64} from "@app/shared/utils/utils";
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +47,32 @@ export class CrownCapsInfraService {
 
   async removeCrownCap(identifier: string) {
     return remove(ref(this.database, `${FirebaseConst.capsName}/${identifier}`));
+  }
+
+  async createCrownCapByFile(file: File) {
+    const encodedName = encodeBase64(file.name);
+    const storageRef = `${FirebaseConst.crownCapsFolder}/${file.name}`;
+    const [name, year, type, assignees] = file.name.replace(/\.(.+)$/, '').split('_');
+    const crownCapInfo: CrownCapsDto = {
+      name,
+      assignees: assignees || type || year || '',
+      typ: assignees && year ? type : '',
+      jahr: assignees || type ? year : '',
+      kommentar: '',
+      brauerei: '',
+      farbe: '',
+      link: '',
+      anzahl: 0,
+    }
+    return set(ref(this.database, `${FirebaseConst.capsName}/${encodedName}`), {
+      crownCapInfo,
+      file: {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+      },
+      createdAt: new Date().toISOString(),
+      storageRef,
+    });
   }
 }

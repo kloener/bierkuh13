@@ -16,7 +16,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 Domäne
 
 ```bash
-export DOMAIN=crown-caps
+export DOMAIN=crown-cap-files
 ng g m modules/${DOMAIN}
 ng g s modules/${DOMAIN}/api/${DOMAIN}-api
 ng g class modules/${DOMAIN}/domain/${DOMAIN}
@@ -27,8 +27,8 @@ ng g s modules/${DOMAIN}/infrastructure/${DOMAIN}-data
 Domäne Feature SCAM Module 
 
 ```bash
-export DOMAIN=user
-export FEATURE=logged-in-as-info
+export DOMAIN=crown-caps
+export FEATURE=crown-cap-upload-files-input
 ng g m modules/${DOMAIN}/features/${FEATURE}
 ng g c modules/${DOMAIN}/features/${FEATURE} --export
 ng g s modules/${DOMAIN}/application/${FEATURE}-facade

@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
-import { RootStoreModule } from './root-store/root-store.module';
-import { BierkuhHeaderModule } from './shared/bierkuh-header/bierkuh-header.module';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
+import {environment} from '../environments/environment';
+import {getAuth, provideAuth} from '@angular/fire/auth';
+import {getDatabase, provideDatabase} from '@angular/fire/database';
+import {SharedModule} from './shared/shared.module';
+import {CoreModule} from './core/core.module';
+import {RootStoreModule} from './root-store/root-store.module';
+import {BierkuhHeaderModule} from './shared/bierkuh-header/bierkuh-header.module';
+import {getStorage, provideStorage} from "@angular/fire/storage";
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { BierkuhHeaderModule } from './shared/bierkuh-header/bierkuh-header.modu
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
     SharedModule,
     BierkuhHeaderModule,
     CoreModule,

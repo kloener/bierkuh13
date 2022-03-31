@@ -5,6 +5,7 @@ import {
 import {BehaviorSubject, filter, mergeMap, Observable, tap} from "rxjs";
 import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CrownCapFiles} from "@app/modules/crown-cap-files/domain/crown-cap-files";
 
 @Component({
   selector: 'app-crown-caps-update-form',
@@ -14,6 +15,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class CrownCapsUpdateFormComponent implements OnInit {
   details$: Observable<CrownCaps | undefined>;
+  file$: Observable<CrownCapFiles>;
 
   @Input() set identifier(val: string | null | undefined) {
     if (typeof val === 'string') {
@@ -33,6 +35,10 @@ export class CrownCapsUpdateFormComponent implements OnInit {
       filter((identifier) => Boolean(identifier)),
       mergeMap((identifier) => this.facadeService.getDetailsOf(identifier)),
       tap(details => this.initializeFormGroup(details))
+    );
+    this.file$ = this.identifier$.pipe(
+      filter((identifier) => Boolean(identifier)),
+      mergeMap((identifier) => this.facadeService.getFileOf(identifier)),
     );
   }
 
