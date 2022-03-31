@@ -1,3 +1,4 @@
+
 # Bierkuh13
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
@@ -27,7 +28,7 @@ Domäne Feature SCAM Module
 
 ```bash
 export DOMAIN=crown-caps
-export FEATURE=crown-caps-count
+export FEATURE=crown-caps-update-form
 ng g m modules/${DOMAIN}/features/${FEATURE}
 ng g s modules/${DOMAIN}/application/${FEATURE}-facade
 ng g c modules/${DOMAIN}/features/${FEATURE} --export

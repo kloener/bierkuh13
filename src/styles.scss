@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 $primary-color: #FFD70A;
 $grey-color: #454648;
 $bg-color: #3B3B3B;
@@ -41,94 +45,66 @@ $path-background-image: 'assets/Hintergrund.jpg';
 }
 
 html, body {
+  @apply m-0 p-0;
+
   font: var(--global-font-size) var(--global-font-family);
   font-weight: var(--global-font-weight);
-  margin: 0;
-  padding: 0;
-
   color: var(--global-font-color);
 
   &, & * {
-    box-sizing: border-box;
+    @apply box-border;
   }
 }
-
-a {
-  text-decoration: none;
-  &, &:visited {
-    color: var(--primary-color);
-  }
-  &:focus {
-    outline: 1px dotted var(--primary-color);
-  }
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-[role=button] {
-  cursor: pointer;
-  padding: 1rem;
-  margin: 1rem;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: .5rem;
-  display: inline-block;
-  width: auto;
-}
-
-.fat-outline {
-  padding: .5rem;
-  border: .5rem solid var(--primary-color);
-  background: transparent;
-  color: white;
-  border-radius: .5rem;
-
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-button {
-  --button-border-color: var(--global-font-color);
-  padding: .25rem;
-  border: .125rem solid var(--button-border-color);
-  background: transparent;
-  color: white;
-  border-radius: .25rem;
-
-  font-size: 1.125rem;
-
-  &[type=submit] {
-    --button-border-color: var(--primary-color);
-  }
-  &.has-error {
-    --button-border-color: #f00;
-  }
-}
-
-@media (min-width: 700px){
-  .app {
-    max-width: 80%;
-    margin: 0 auto;
-  }
-}
-
 
 body {
-  background: url($path-background-image) 0 0 repeat-y;
-  background-size: auto;
+  @apply bg-auto bg-repeat-y bg-left-top;
+  background-image: url($path-background-image);
 }
 
-.page {
-  max-width: 80%;
-  margin: 0 auto;
-}
+@layer components {
 
-img.cap {
-  max-width: 8rem;
-}
+  a {
+    text-decoration: none;
 
-.grid-y {
-  display: grid;
-  grid-template: auto / auto;
-  grid-gap: 1rem;
+    &, &:visited {
+      color: var(--primary-color);
+    }
+
+    &:focus {
+      outline: 1px dotted var(--primary-color);
+    }
+
+    &:hover {
+      @apply underline;
+    }
+  }
+
+  [role=button] {
+    @apply cursor-pointer p-4 m-4 rounded-lg inline-block w-auto;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .fat-outline {
+    @apply block p-2 bg-transparent text-white rounded-lg text-2xl font-bold border-8;
+    border-color: var(--primary-color);
+  }
+
+  button {
+    @apply p-1 bg-transparent text-white rounded text-lg border-4;
+
+    --button-border-color: var(--global-font-color);
+    border-color: var(--button-border-color);
+
+    &[type=submit] {
+      --button-border-color: var(--primary-color);
+    }
+
+    &.has-error {
+      --button-border-color: #f00;
+    }
+  }
+
+  .app {
+    @apply md:mx-auto md:my-0 md:max-w-[80vw];
+  }
 }

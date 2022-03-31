@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {debounceTime, distinctUntilChanged, Subject, takeUntil} from 'rxjs';
 
@@ -8,6 +8,7 @@ import {CrownCapsSearchFacadeService} from '../../application/crown-caps-search-
   selector: 'app-crown-caps-search',
   templateUrl: './crown-caps-search.component.html',
   styleUrls: ['./crown-caps-search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CrownCapsSearchComponent implements OnInit {
   searchControl = new FormControl(this.facadeService.getSearch());

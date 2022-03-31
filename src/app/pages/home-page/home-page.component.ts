@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, pluck, tap } from 'rxjs';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Observable, pluck, tap} from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -23,6 +23,10 @@ export class HomePageComponent implements OnInit {
 
   onNextPage(nextPage: number): void {
     this.router.navigate(['..', nextPage], { relativeTo: this.route });
+  }
+
+  navigateToDetails(idx: number) {
+    return this.router.navigate(['/', 'details', idx]);
   }
 
   ngOnInit(): void {}

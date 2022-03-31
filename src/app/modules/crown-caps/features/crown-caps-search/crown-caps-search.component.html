@@ -1,6 +1,6 @@
-<form class="search-box" [formGroup]="formGroup">
-  <label class="search-label">
-    <input class="fat-outline" formControlName="search" type="text" placeholder="Suche" />
-    <a *ngIf="searchControl.value" class="reset" (click)="resetSearch()">x</a>
+<form class="flex m-10" [formGroup]="formGroup">
+  <label class="flex-initial relative">
+    <input class="fat-outline w-100" formControlName="search" type="text" placeholder="Suche" />
+    <a *ngIf="searchControl.value" class="absolute text-3xl top-[1rem] right-[1rem]" (click)="resetSearch()">x</a>
   </label>
 </form>

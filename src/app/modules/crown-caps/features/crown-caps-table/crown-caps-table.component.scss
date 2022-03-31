@@ -1,0 +1,20 @@
+.cap-table table {
+  @apply w-full;
+
+  .cap-image {
+    @apply text-left;
+
+    --cap-size: 64px;
+    width: var(--cap-size);
+  }
+  .cap-name {
+    @apply w-auto text-left py-0 px-4;
+  }
+  .cap-func {
+    @apply text-left w-3/12;
+
+    button {
+      @apply mr-4;
+    }
+  }
+}

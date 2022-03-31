@@ -1,1 +1,3 @@
-<p>admin-list-page works!</p>
+<app-crown-caps-search></app-crown-caps-search>
+<app-crown-caps-count></app-crown-caps-count>
+<app-crown-caps-table [page]="page$ | async" (nextPage)="onNextPage($event)" (editCap)="navigateToDetails($event)"></app-crown-caps-table>

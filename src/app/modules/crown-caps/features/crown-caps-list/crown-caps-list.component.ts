@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, firstValueFrom, Observable, Subject, takeUntil } from 'rxjs';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
 
-import { CrownCapsListFacadeService } from '../../application/crown-caps-list-facade.service';
-import { CrownCaps } from '../../domain/crown-caps';
+import {CrownCapsListFacadeService} from '../../application/crown-caps-list-facade.service';
+import {CrownCaps} from '../../domain/crown-caps';
 
 @Component({
   selector: 'app-crown-caps-list',
@@ -19,7 +19,7 @@ export class CrownCapsListComponent implements OnInit, OnDestroy {
   }
 
   @Output()
-  nextPage = new EventEmitter<number>();
+  capClicked = new EventEmitter<number>();
 
   caps$: Observable<CrownCaps[]>;
   pageInfo$: Observable<{ currentPage: number; pages: number }>;
@@ -37,24 +37,17 @@ export class CrownCapsListComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((page) => this.facadeService.setPage(page));
   }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  loadPreviousPage(): void {
-    this.nextPage.emit(this.pageSubject.getValue() - 1);
-  }
-
-  loadNextPage(): void {
-    this.nextPage.emit(this.pageSubject.getValue() + 1);
   }
 
   loadMore() {
     this.facadeService.loadMore();
   }
 
-  async onCapClick(item: CrownCaps) {
-    await firstValueFrom(this.facadeService.navigateToDetails(item));
+  onCapClick(item: CrownCaps) {
+    this.capClicked.next(item.index);
   }
 }

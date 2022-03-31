@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CrownCapsCountFacadeService } from '../../application/crown-caps-count-facade.service';
@@ -6,7 +6,8 @@ import { CrownCapsCountFacadeService } from '../../application/crown-caps-count-
 @Component({
   selector: 'app-crown-caps-count',
   templateUrl: './crown-caps-count.component.html',
-  styleUrls: ['./crown-caps-count.component.scss']
+  styleUrls: ['./crown-caps-count.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CrownCapsCountComponent implements OnInit {
 

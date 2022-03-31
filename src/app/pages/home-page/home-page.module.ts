@@ -6,6 +6,7 @@ import { CrownCapsSearchModule } from '@app/modules/crown-caps/features/crown-ca
 
 import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
+import {CrownCapsTableModule} from "@app/modules/crown-caps/features/crown-caps-table/crown-caps-table.module";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { HomePageComponent } from './home-page.component';
     CrownCapsListModule,
     CrownCapsSearchModule,
     CrownCapsCountModule,
+    CrownCapsTableModule,
   ]
 })
 export class HomePageModule { }

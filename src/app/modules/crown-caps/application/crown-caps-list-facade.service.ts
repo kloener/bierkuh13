@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { QueryChange } from 'rxfire/database';
-import { BehaviorSubject, combineLatest, EMPTY, from, map, Observable, of, shareReplay, switchMap } from 'rxjs';
-import { concatMap, mergeMap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {QueryChange} from 'rxfire/database';
+import {BehaviorSubject, combineLatest, map, Observable, of, shareReplay, switchMap} from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
 
-import { CrownCaps } from '../domain/crown-caps';
-import { CrownCapsDto } from '../domain/crown-caps-dto';
-import { FileInfo } from '../domain/file-info';
-import { CrownCapsInfraService } from '../infrastructure/crown-caps-infra.service';
+import {CrownCaps} from '../domain/crown-caps';
+import {CrownCapsDto} from '../domain/crown-caps-dto';
+import {FileInfo} from '../domain/file-info';
+import {CrownCapsInfraService} from '../infrastructure/crown-caps-infra.service';
 
 type SnapshotCrownCap = {
   crownCapInfo: CrownCapsDto;
@@ -24,6 +23,16 @@ type FilterSettings = {
 };
 
 const DEFAULT_ITEMS_PER_PAGE = 10;
+
+function createMatcherFor(search: string) {
+  const cleanSearchTermin = search.match(/([a-z0-9]+)/ig)?.join('(.+)');
+  const regexp = new RegExp(`${cleanSearchTermin}`, 'i');
+  return cleanSearchTermin ? regexp : undefined;
+}
+
+function fuzzyIncludes(search: string, phrase: string): boolean {
+  return createMatcherFor(search)?.test(phrase) ?? false;
+}
 
 /**
  * List facade that provides all, filtered and a paged caps list observable.
@@ -60,7 +69,6 @@ export class CrownCapsListFacadeService {
 
   constructor(
     private readonly infraService: CrownCapsInfraService,
-    private readonly router: Router
   ) {
     /**
      * root of all data
@@ -77,23 +85,15 @@ export class CrownCapsListFacadeService {
           .map((event) => event.snapshot.toJSON() as SnapshotCrownCap)
           // Map to UI model
           .map(
-            (snapshotJson: SnapshotCrownCap) =>
+            (snapshotJson: SnapshotCrownCap, idx) =>
               new CrownCaps(
+                idx,
                 snapshotJson.crownCapInfo,
                 snapshotJson.file,
                 snapshotJson.storageRef
               )
           )
-          /* Filter duplicates
-          .reduce((acc, curr) => {
-            acc.push(curr);
-            if (!acc.some(cap => cap.name === curr.name && cap.fileSize === curr.fileSize)) {
-            } else {
-              console.info('Duplicate found for', curr);
-            }
-            return acc;
-          }, [] as CrownCaps[])
-          /* */
+          .sort((a: CrownCaps, b: CrownCaps) => a.name.localeCompare(b.name))
       ),
       shareReplay({
         bufferSize: 1,
@@ -110,7 +110,7 @@ export class CrownCapsListFacadeService {
           map((eventList) =>
             [...eventList].filter((item) =>
               search
-                ? item.name.toLowerCase().includes(search.toLowerCase())
+                ? fuzzyIncludes(search, item.name)
                 : true
             )
           )
@@ -146,12 +146,9 @@ export class CrownCapsListFacadeService {
     );
   }
 
-  navigateToDetails(item: CrownCaps): Observable<boolean> {
+  find(index: number): Observable<CrownCaps | undefined> {
     return this.allCaps$.pipe(
-      map((list) => list.findIndex((el) => el.name === item.name)),
-      concatMap((idx) =>
-        idx >= 0 ? from(this.router.navigate(['/', 'details', idx])) : EMPTY
-      )
+      map(list => list.find(item => item.index === index)),
     );
   }
 

@@ -1,0 +1,29 @@
+<section class="cap-table">
+  <table>
+    <thead>
+      <tr>
+        <th class="cap-image">Bild</th>
+        <th class="cap-name">Name</th>
+        <th class="cap-func">Funktionen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of caps$ | async; let idx = index">
+        <td class="cap-image"><app-cap-img [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img></td>
+        <td class="cap-name">{{ item.name }}</td>
+        <td class="cap-func">
+          <button (click)="onEditClick(item)">Bearbeiten</button>
+          <button (click)="onDeleteClick(item)">Löschen</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="text-center mt-24">
+  <app-crown-caps-pagination
+    [pageInfo]="pageInfo$ | async"
+    (loadPreviousPage)="loadPreviousPage()"
+    (loadNextPage)="loadNextPage()"
+  ></app-crown-caps-pagination>
+</section>

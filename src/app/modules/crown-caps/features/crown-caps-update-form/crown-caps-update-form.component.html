@@ -1,0 +1,41 @@
+<section class="update-form my-4" *ngIf="details$ | async as details">
+  <app-cap-img class="my-12" [name]="details.name" [fileUri]="details.storageRef"></app-cap-img>
+
+  <form class="flex" style="flex-direction: column" *ngIf="formGroup else noFormGroup" [formGroup]="formGroup">
+    <label for="input_name" class="bier-form-label">Name:</label>
+    <input id="input_name" class="bier-form-input" type="text" formControlName="name">
+
+    <label for="input_count" class="bier-form-label">Anzahl an Kronkorken:</label>
+    <input id="input_count" class="bier-form-input" type="text" formControlName="count">
+
+    <label for="input_link" class="bier-form-label">Link zur Webseite oder Aktion:</label>
+    <input id="input_link" class="bier-form-input" type="text" formControlName="link">
+
+    <label for="input_color" class="bier-form-label">Farbe des Kronkorken:</label>
+    <input id="input_color" class="bier-form-input" type="text" formControlName="color">
+
+    <label for="input_brewery" class="bier-form-label">Braurei:</label>
+    <input id="input_brewery" class="bier-form-input" type="text" formControlName="brewery">
+
+    <label for="input_comment" class="bier-form-label">Kommentarfeld:</label>
+    <textarea id="input_comment" class="bier-form-input" formControlName="comment"></textarea>
+
+    <label for="input_year" class="bier-form-label">Jahr:</label>
+    <input id="input_year" class="bier-form-input" type="text" formControlName="year">
+
+    <label for="input_type" class="bier-form-label">Typ (Aktion, Jubiläum usw.):</label>
+    <input id="input_type" class="bier-form-input" type="text" formControlName="type">
+
+    <label for="select_assignees" class="bier-form-label">Wer hat den? (Mehrfachauswahl)</label>
+    <select id="select_assignees" class="bier-form-input" formControlName="assignees" multiple>
+      <option value="H">Heini</option>
+      <option value="K">Keks</option>
+    </select>
+  </form>
+
+  <ng-template #noFormGroup>
+    <p>noFormGroup</p>
+  </ng-template>
+</section>
+
+<button class="back mt-12 fat-outline" routerLink="/admin-list/1">Zurück</button>

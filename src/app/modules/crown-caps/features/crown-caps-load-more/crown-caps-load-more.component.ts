@@ -1,10 +1,20 @@
-import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import {BehaviorSubject, filter, Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-crown-caps-load-more',
   templateUrl: './crown-caps-load-more.component.html',
-  styleUrls: ['./crown-caps-load-more.component.scss']
+  styleUrls: ['./crown-caps-load-more.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CrownCapsLoadMoreComponent implements OnInit, OnDestroy {
   @Input() set autoByIntersection(val: boolean | null | undefined) {

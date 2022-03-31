@@ -1,4 +1,3 @@
 <app-crown-caps-search></app-crown-caps-search>
-<app-crown-caps-count></app-crown-caps-count>
-<app-crown-caps-list [page]="page$ | async" (nextPage)="onNextPage($event)"></app-crown-caps-list>
+<app-crown-caps-list [page]="page$ | async" (capClicked)="navigateToDetails($event)"></app-crown-caps-list>
 

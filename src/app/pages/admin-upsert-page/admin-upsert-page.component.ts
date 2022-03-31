@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {Observable, pluck} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-admin-upsert-page',
@@ -7,8 +9,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminUpsertPageComponent implements OnInit {
+  identifier$: Observable<string>;
 
-  constructor() { }
+  constructor(private readonly route: ActivatedRoute) {
+    this.identifier$ = this.route.params.pipe(pluck('identifier'));
+  }
 
   ngOnInit(): void {
   }
