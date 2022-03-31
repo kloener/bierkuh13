@@ -51,6 +51,10 @@ export class CrownCapsUpdateFormComponent implements OnInit {
       year: this.fb.control(details.year),
       type: this.fb.control(details.type),
       assignees: this.fb.control(details.assignees),
-    })
+    });
+  }
+
+  onSubmit(details: CrownCaps) {
+    this.facadeService.update(details, this.formGroup?.value);
   }
 }

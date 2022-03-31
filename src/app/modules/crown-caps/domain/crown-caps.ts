@@ -5,6 +5,7 @@ import { FileInfo } from './file-info';
 
 export class CrownCaps {
   index: number;
+  identifier: string;
   count?: number;
   link?: string;
   color?: string;
@@ -19,9 +20,10 @@ export class CrownCaps {
   fileType?: string;
   storageRef?: string;
 
-  constructor(index: number, dto?: CrownCapsDto | null, fileInfo?: FileInfo, storageRef?: string) {
+  constructor(index: number, identifier: string, dto?: CrownCapsDto | null, fileInfo?: FileInfo, storageRef?: string) {
     this.name = '';
     this.index = index;
+    this.identifier = identifier;
 
     if (dto) {
       this.name = dto.name;

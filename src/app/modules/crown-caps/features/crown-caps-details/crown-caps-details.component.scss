@@ -1,3 +1,7 @@
 :host {
   @apply flex flex-col text-center justify-center content-center;
 }
+
+app-cap-img {
+  --cap-size: 500px;
+}

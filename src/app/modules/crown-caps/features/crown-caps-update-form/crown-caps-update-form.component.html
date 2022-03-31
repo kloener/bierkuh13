@@ -1,7 +1,9 @@
 <section class="update-form my-4" *ngIf="details$ | async as details">
+  <p>Id: {{ details.identifier }}</p>
+
   <app-cap-img class="my-12" [name]="details.name" [fileUri]="details.storageRef"></app-cap-img>
 
-  <form class="flex" style="flex-direction: column" *ngIf="formGroup else noFormGroup" [formGroup]="formGroup">
+  <form class="flex" style="flex-direction: column" *ngIf="formGroup else noFormGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit(details)">
     <label for="input_name" class="bier-form-label">Name:</label>
     <input id="input_name" class="bier-form-input" type="text" formControlName="name">
 
@@ -31,6 +33,8 @@
       <option value="H">Heini</option>
       <option value="K">Keks</option>
     </select>
+
+    <button class="mt-4" type="submit">Speichern</button>
   </form>
 
   <ng-template #noFormGroup>

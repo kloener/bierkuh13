@@ -4,16 +4,8 @@ import {BehaviorSubject, combineLatest, map, Observable, of, shareReplay, switch
 import {mergeMap} from 'rxjs/operators';
 
 import {CrownCaps} from '../domain/crown-caps';
-import {CrownCapsDto} from '../domain/crown-caps-dto';
-import {FileInfo} from '../domain/file-info';
 import {CrownCapsInfraService} from '../infrastructure/crown-caps-infra.service';
-
-type SnapshotCrownCap = {
-  crownCapInfo: CrownCapsDto;
-  file: FileInfo;
-  fileHash: string;
-  storageRef: string;
-};
+import {CrownCapSnapshot} from "@app/modules/crown-caps/domain/crown-cap-snapshot";
 
 type FilterSettings = {
   limit: number;
@@ -82,12 +74,13 @@ export class CrownCapsListFacadeService {
       map((eventList) =>
         [...eventList]
           // Parse Snapshot
-          .map((event) => event.snapshot.toJSON() as SnapshotCrownCap)
+          .map((event) => ({identifier: event.snapshot.key, snapshotJson: event.snapshot.toJSON() as CrownCapSnapshot}))
           // Map to UI model
           .map(
-            (snapshotJson: SnapshotCrownCap, idx) =>
+            ({identifier, snapshotJson}, idx) =>
               new CrownCaps(
                 idx,
+                `${identifier}`,
                 snapshotJson.crownCapInfo,
                 snapshotJson.file,
                 snapshotJson.storageRef
