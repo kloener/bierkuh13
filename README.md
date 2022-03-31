@@ -27,11 +27,11 @@ ng g s modules/${DOMAIN}/infrastructure/${DOMAIN}-data
 Domäne Feature SCAM Module 
 
 ```bash
-export DOMAIN=crown-caps
-export FEATURE=crown-caps-update-form
+export DOMAIN=user
+export FEATURE=logged-in-as-info
 ng g m modules/${DOMAIN}/features/${FEATURE}
-ng g s modules/${DOMAIN}/application/${FEATURE}-facade
 ng g c modules/${DOMAIN}/features/${FEATURE} --export
+ng g s modules/${DOMAIN}/application/${FEATURE}-facade
 ```
 
 Domänen Store Feature Module

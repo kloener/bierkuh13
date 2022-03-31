@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminLoginPageRoutingModule } from './admin-login-page-routing.module';
 import { AdminLoginPageComponent } from './admin-login-page.component';
+import {LoginFormModule} from "@app/modules/user/features/login-form/login-form.module";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { AdminLoginPageComponent } from './admin-login-page.component';
   ],
   imports: [
     CommonModule,
-    AdminLoginPageRoutingModule
+    AdminLoginPageRoutingModule,
+    LoginFormModule
   ]
 })
 export class AdminLoginPageModule { }

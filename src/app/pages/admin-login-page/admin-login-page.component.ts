@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {UserCredential} from "@angular/fire/auth";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-login-page',
@@ -8,9 +10,15 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class AdminLoginPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly router: Router) { }
 
   ngOnInit(): void {
   }
 
+  onLoggedIn(userCredential: UserCredential) {
+    console.log(userCredential);
+    return this.router.navigate([
+      '/admin-list', 1
+    ])
+  }
 }

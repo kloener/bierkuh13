@@ -29,8 +29,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   private checkAuth(): Observable<boolean | UrlTree> {
-    return of(true);
-    /*return this.userApiService.toApp.isLoggedIn$
+    return this.userApiService.toApp.isLoggedIn$
       .pipe(
         first(),
         map(loggedIn => {
@@ -39,7 +38,7 @@ export class AuthGuard implements CanActivate, CanLoad {
           }
           return true;
         })
-      );/**/
+      );
   }
 
 }
