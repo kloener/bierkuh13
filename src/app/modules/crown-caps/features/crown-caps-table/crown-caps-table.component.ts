@@ -21,11 +21,11 @@ export class CrownCapsTableComponent implements OnInit, OnDestroy {
   nextPage = new EventEmitter<number>();
 
   @Output()
-  editCap = new EventEmitter<number>();
+  editCap = new EventEmitter<CrownCaps>();
   @Output()
-  deleteCap = new EventEmitter<number>();
+  deleteCap = new EventEmitter<CrownCaps>();
   @Output()
-  clickCap = new EventEmitter<number>();
+  clickCap = new EventEmitter<CrownCaps>();
 
   caps$: Observable<CrownCaps[]>;
   pageInfo$: Observable<{ currentPage: number; pages: number }>;
@@ -58,17 +58,17 @@ export class CrownCapsTableComponent implements OnInit, OnDestroy {
   }
 
   onEditClick(item: CrownCaps) {
-    this.editCap.next(item.index);
+    this.editCap.next(item);
   }
 
   onDeleteClick(item: CrownCaps) {
     if (confirm(`"${item.name}" wirklich löschen?`)) {
-      this.deleteCap.next(item.index);
+      this.deleteCap.next(item);
       this.tableFacadeService.removeCrownCap(item);
     }
   }
 
   onCapClick(item: CrownCaps) {
-    this.clickCap.next(item.index);
+    this.clickCap.next(item);
   }
 }

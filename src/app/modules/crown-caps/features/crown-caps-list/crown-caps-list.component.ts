@@ -19,7 +19,7 @@ export class CrownCapsListComponent implements OnInit, OnDestroy {
   }
 
   @Output()
-  capClicked = new EventEmitter<number>();
+  capClicked = new EventEmitter<CrownCaps>();
 
   caps$: Observable<CrownCaps[]>;
   pageInfo$: Observable<{ currentPage: number; pages: number }>;
@@ -48,6 +48,6 @@ export class CrownCapsListComponent implements OnInit, OnDestroy {
   }
 
   onCapClick(item: CrownCaps) {
-    this.capClicked.next(item.index);
+    this.capClicked.next(item);
   }
 }

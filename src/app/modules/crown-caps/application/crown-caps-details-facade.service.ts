@@ -9,6 +9,6 @@ import {CrownCaps} from '../domain/crown-caps';
 export class CrownCapsDetailsFacadeService {
   constructor(private readonly listFacadeService: CrownCapsListFacadeService) {}
   getDetailsOf(identifier: string): Observable<CrownCaps | undefined> {
-    return this.listFacadeService.find(+identifier);
+    return this.listFacadeService.find(identifier);
   }
 }

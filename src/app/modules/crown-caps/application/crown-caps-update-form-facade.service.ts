@@ -18,11 +18,11 @@ export class CrownCapsUpdateFormFacadeService {
   ) {}
 
   getDetailsOf(identifier: string): Observable<CrownCaps | undefined> {
-    return this.listFacadeService.find(+identifier);
+    return this.listFacadeService.find(identifier);
   }
 
   getFileOf(identifier: string) {
-    return this.listFacadeService.find(+identifier).pipe(concatMap(cap => cap && cap.storageRef ? this.crownCapFilesApiService.toCrownCaps.getFileInfo(cap.storageRef) : EMPTY));
+    return this.listFacadeService.find(identifier).pipe(concatMap(cap => cap && cap.storageRef ? this.crownCapFilesApiService.toCrownCaps.getFileInfo(cap.storageRef) : EMPTY));
   }
 
   async update(crownCap: CrownCaps, newValues: Partial<CrownCaps>) {

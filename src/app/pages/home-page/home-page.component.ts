@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, pluck, tap} from 'rxjs';
+import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
 
 @Component({
   selector: 'app-home-page',
@@ -25,8 +26,8 @@ export class HomePageComponent implements OnInit {
     this.router.navigate(['..', nextPage], { relativeTo: this.route });
   }
 
-  navigateToDetails(idx: number) {
-    return this.router.navigate(['/', 'details', idx]);
+  navigateToDetails(cap: CrownCaps) {
+    return this.router.navigate(['/', 'details', cap.identifier]);
   }
 
   ngOnInit(): void {}

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {Observable, pluck, tap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
+import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
 
 @Component({
   selector: 'app-admin-list-page',
@@ -25,8 +26,8 @@ export class AdminListPageComponent implements OnInit {
     return this.router.navigate(['..', nextPage], { relativeTo: this.route });
   }
 
-  navigateToDetails(idx: number) {
-    return this.router.navigate(['/', 'admin-upsert', idx])
+  navigateToDetails(cap: CrownCaps) {
+    return this.router.navigate(['/', 'admin-upsert', cap.identifier])
   }
 
   ngOnInit(): void {}

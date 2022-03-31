@@ -139,9 +139,9 @@ export class CrownCapsListFacadeService {
     );
   }
 
-  find(index: number): Observable<CrownCaps | undefined> {
+  find(identifier: string | number): Observable<CrownCaps | undefined> {
     return this.allCaps$.pipe(
-      map(list => list.find(item => item.index === index)),
+      map(list => list.find(item => typeof identifier === 'number' ? item.index === identifier : item.identifier === identifier)),
     );
   }
 
