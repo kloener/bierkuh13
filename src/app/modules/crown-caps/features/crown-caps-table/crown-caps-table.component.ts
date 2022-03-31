@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {BehaviorSubject, Observable, Subject, takeUntil} from "rxjs";
 import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
-import {CrownCapsListFacadeService} from "@app/modules/crown-caps/application/crown-caps-list-facade.service";
+import {CrownCapsTableFacadeService} from "@app/modules/crown-caps/application/crown-caps-table-facade.service";
 
 @Component({
   selector: 'app-crown-caps-table',
@@ -33,15 +33,15 @@ export class CrownCapsTableComponent implements OnInit, OnDestroy {
   private readonly pageSubject = new BehaviorSubject<number>(1);
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private readonly facadeService: CrownCapsListFacadeService) {
-    this.caps$ = this.facadeService.pagesCaps$;
-    this.pageInfo$ = this.facadeService.pageInfo$;
+  constructor(private readonly tableFacadeService: CrownCapsTableFacadeService) {
+    this.caps$ = this.tableFacadeService.pagesCaps$;
+    this.pageInfo$ = this.tableFacadeService.pageInfo$;
   }
 
   ngOnInit(): void {
     this.pageSubject
       .pipe(takeUntil(this.destroy$))
-      .subscribe((page) => this.facadeService.setPage(page));
+      .subscribe((page) => this.tableFacadeService.setPage(page));
   }
 
   ngOnDestroy(): void {
@@ -62,7 +62,10 @@ export class CrownCapsTableComponent implements OnInit, OnDestroy {
   }
 
   onDeleteClick(item: CrownCaps) {
-    this.deleteCap.next(item.index);
+    if (confirm(`"${item.name}" wirklich löschen?`)) {
+      this.deleteCap.next(item.index);
+      this.tableFacadeService.removeCrownCap(item);
+    }
   }
 
   onCapClick(item: CrownCaps) {

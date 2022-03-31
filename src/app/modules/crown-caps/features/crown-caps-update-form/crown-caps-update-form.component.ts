@@ -4,7 +4,7 @@ import {
 } from "@app/modules/crown-caps/application/crown-caps-update-form-facade.service";
 import {BehaviorSubject, filter, mergeMap, Observable, tap} from "rxjs";
 import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-crown-caps-update-form',
@@ -42,7 +42,7 @@ export class CrownCapsUpdateFormComponent implements OnInit {
   private initializeFormGroup(details: CrownCaps | undefined) {
     if (!details) { return; }
     this.formGroup = this.fb.group({
-      name: this.fb.control(details.name),
+      name: this.fb.control(details.name, [Validators.required]),
       count: this.fb.control(details.count),
       link: this.fb.control(details.link),
       color: this.fb.control(details.color),
@@ -54,7 +54,9 @@ export class CrownCapsUpdateFormComponent implements OnInit {
     });
   }
 
-  onSubmit(details: CrownCaps) {
-    this.facadeService.update(details, this.formGroup?.value);
+  async onSubmit(details: CrownCaps) {
+    if (this.formGroup?.valid) {
+      await this.facadeService.update(details, this.formGroup?.value);
+    }
   }
 }

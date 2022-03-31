@@ -34,7 +34,7 @@
       <option value="K">Keks</option>
     </select>
 
-    <button class="mt-4" type="submit">Speichern</button>
+    <button class="mt-4" [class.has-error]="formGroup.invalid" type="submit">Speichern</button>
   </form>
 
   <ng-template #noFormGroup>

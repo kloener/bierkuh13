@@ -7,6 +7,7 @@ import {catchError} from "rxjs/operators";
 import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
 import {CrownCapsDto} from "@app/modules/crown-caps/domain/crown-caps-dto";
 import {CrownCapSnapshot} from "@app/modules/crown-caps/domain/crown-cap-snapshot";
+import {remove} from "@firebase/database";
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,6 @@ export class CrownCapsInfraService {
       return;
     }
 
-    console.info('Got data', 'snapshot:', snapshot, 'updateDto:', updateDto);
     const updateSnapshotDto: CrownCapSnapshot = {
       ...snapshot,
       crownCapInfo: {
@@ -42,8 +42,10 @@ export class CrownCapsInfraService {
         ...updateDto,
       },
     };
-    const updateResult = await set(capRef, updateSnapshotDto);
+    return set(capRef, updateSnapshotDto);
+  }
 
-    console.info('Updated snappi', updateResult)
+  async removeCrownCap(identifier: string) {
+    return remove(ref(this.database, `${FirebaseConst.capsName}/${identifier}`));
   }
 }
