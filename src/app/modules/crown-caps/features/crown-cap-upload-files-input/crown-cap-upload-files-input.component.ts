@@ -15,7 +15,9 @@ export class CrownCapUploadFilesInputComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createNewCaps(files: File[]) {
-    this.facade.createNewCaps(files);
+  async createNewCaps(files: File[]) {
+    if (confirm(`Wirklich ${files.length} hochladen?`)) {
+      await this.facade.createNewCaps(files);
+    }
   }
 }

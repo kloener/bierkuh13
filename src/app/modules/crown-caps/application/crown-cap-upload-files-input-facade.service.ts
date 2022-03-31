@@ -13,6 +13,9 @@ export class CrownCapUploadFilesInputFacadeService {
   ) { }
 
   createNewCaps(files: File[]) {
-
+    return Promise.all([
+      ...files.map(file => this.infraService.createCrownCapByFile(file)),
+      ...files.map(file => this.fileApi.toCrownCaps.createFile(file)),
+    ])
   }
 }

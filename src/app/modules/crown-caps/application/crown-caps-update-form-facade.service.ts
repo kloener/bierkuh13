@@ -37,7 +37,7 @@ export class CrownCapsUpdateFormFacadeService {
       link: newValues.link,
       anzahl: newValues.count,
     };
-    const result = await this.infraService.updateInfo(crownCap, updateDto);
+    await this.infraService.updateInfo(crownCap, updateDto);
   }
 
 }
