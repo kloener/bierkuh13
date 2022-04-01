@@ -145,6 +145,10 @@ export class CrownCapsListFacadeService {
     );
   }
 
+  getFilterSettingsUpdates(): Observable<FilterSettings> {
+    return this.filterSettings$.asObservable();
+  }
+
   getFilterSettings(): FilterSettings {
     return this.filterSettings$.getValue();
   }

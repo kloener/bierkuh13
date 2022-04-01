@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { CrownCapsListFacadeService } from './crown-caps-list-facade.service';
+import {pluck} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ export class CrownCapsSearchFacadeService {
   getSearch(): string {
     return this.listFacadeService.getFilterSettings().search ?? '';
   }
+
+  getSearchUpdates() { return this.listFacadeService.getFilterSettingsUpdates().pipe(pluck('search')); }
 
   search(search: string): void {
     const filterSettings = this.listFacadeService.getFilterSettings();

@@ -28,7 +28,7 @@ Domäne Feature SCAM Module
 
 ```bash
 export DOMAIN=crown-caps
-export FEATURE=crown-cap-upload-files-input
+export FEATURE=crown-caps-filter
 ng g m modules/${DOMAIN}/features/${FEATURE}
 ng g c modules/${DOMAIN}/features/${FEATURE} --export
 ng g s modules/${DOMAIN}/application/${FEATURE}-facade

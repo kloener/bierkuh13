@@ -10,6 +10,7 @@ import {LoggedInAsInfoModule} from "@app/modules/user/features/logged-in-as-info
 import {
   CrownCapUploadFilesInputModule
 } from "@app/modules/crown-caps/features/crown-cap-upload-files-input/crown-cap-upload-files-input.module";
+import {CrownCapsFilterModule} from "@app/modules/crown-caps/features/crown-caps-filter/crown-caps-filter.module";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {
     CrownCapsTableModule,
     LoggedInAsInfoModule,
     CrownCapUploadFilesInputModule,
+    CrownCapsFilterModule,
   ]
 })
 export class AdminListPageModule { }

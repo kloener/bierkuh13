@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {debounceTime, distinctUntilChanged, Subject, takeUntil} from 'rxjs';
 
@@ -10,7 +10,7 @@ import {CrownCapsSearchFacadeService} from '../../application/crown-caps-search-
   styleUrls: ['./crown-caps-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CrownCapsSearchComponent implements OnInit {
+export class CrownCapsSearchComponent implements OnInit, OnDestroy {
   searchControl = new FormControl(this.facadeService.getSearch());
   formGroup: FormGroup = new FormGroup({ search: this.searchControl });
 
@@ -24,6 +24,12 @@ export class CrownCapsSearchComponent implements OnInit {
       .subscribe((search) => {
         this.searchChanged(search);
       });
+
+    this.facadeService.getSearchUpdates().pipe(takeUntil(this.onDestroy$)).subscribe(searchValue => {
+      if (this.searchControl.value !== searchValue) {
+        this.searchControl.setValue(searchValue);
+      }
+    })
   }
 
   ngOnDestroy(): void {
