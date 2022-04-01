@@ -1,1 +1,1 @@
-<img [src]="fileUri" width="500" height="500" [attr.alt]="name" [attr.title]="name" (error)="onImageLoadError($event)" loading="lazy">
+<img #imgEl appIntersection (isIntersection)="isIntersection($event, imgEl)" [attr.data-src]="fileUri" width="500" height="500" [attr.alt]="name" [attr.title]="name" (error)="onImageLoadError($event)" loading="lazy" decoding="async">
