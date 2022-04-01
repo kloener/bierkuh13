@@ -14,7 +14,7 @@ type FilterSettings = {
   search?: string;
 };
 
-const DEFAULT_ITEMS_PER_PAGE = 100;
+const DEFAULT_ITEMS_PER_PAGE = 50;
 
 function createMatcherFor(search: string) {
   const cleanSearchTermin = search.match(/([a-z0-9]+)/ig)?.join('(.+)');

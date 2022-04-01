@@ -1,5 +1,5 @@
 
-<section class="update-form my-4" *ngIf="details$ | async as details">
+<section class="update-form p-4 my-4" *ngIf="details$ | async as details">
   <app-cap-img class="my-12" [name]="details.name" [fileUri]="details.storageRef"></app-cap-img>
 
   <form class="flex" style="flex-direction: column" *ngIf="formGroup else noFormGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit(details)">
@@ -41,4 +41,4 @@
   </ng-template>
 </section>
 
-<button class="back mt-12 fat-outline" routerLink="/admin-list/1">Zurück</button>
+<button class="back mx-auto my-12 fat-outline" routerLink="/admin-list/1">Zurück</button>

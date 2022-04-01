@@ -5,6 +5,7 @@
     @apply text-left;
 
     --cap-size: 64px;
+    --cap-scale: 5;
     width: var(--cap-size);
   }
   .cap-name {

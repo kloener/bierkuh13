@@ -7,7 +7,7 @@
     <li *ngIf="details.count"><strong>Anzahl: </strong> {{ details.count }}</li>
     <li *ngIf="details.comment"><strong>Kommentar: </strong> {{ details.comment }}</li>
   </ul>
-  <app-cap-img class="w-full mx-auto h-full max-w-[500px] max-h-[500px]" [name]="details.name" [fileUri]="details.storageRef"></app-cap-img>
+  <app-cap-img class="mx-auto w-full h-auto max-w-full" [name]="details.name" [fileUri]="details.storageRef"></app-cap-img>
 </ng-container>
 
 <button class="mt-12 w-6/12 mx-auto fat-outline" routerLink="/">Zurück</button>
