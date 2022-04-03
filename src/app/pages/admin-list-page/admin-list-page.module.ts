@@ -10,7 +10,8 @@ import {LoggedInAsInfoModule} from "@app/modules/user/features/logged-in-as-info
 import {
   CrownCapUploadFilesInputModule
 } from "@app/modules/crown-caps/features/crown-cap-upload-files-input/crown-cap-upload-files-input.module";
-import {CrownCapsFilterModule} from "@app/modules/crown-caps/features/crown-caps-filter/crown-caps-filter.module";
+import {BeerBrandsFilterModule} from "@app/modules/beer-brands/features/beer-brands-filter/beer-brands-filter.module";
+import {BeerBrandsManageModule} from "@app/modules/beer-brands/features/beer-brands-manage/beer-brands-manage.module";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {CrownCapsFilterModule} from "@app/modules/crown-caps/features/crown-caps
     CrownCapsTableModule,
     LoggedInAsInfoModule,
     CrownCapUploadFilesInputModule,
-    CrownCapsFilterModule,
+    BeerBrandsFilterModule,
+    BeerBrandsManageModule,
   ]
 })
 export class AdminListPageModule { }

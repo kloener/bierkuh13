@@ -4,7 +4,7 @@ import {BehaviorSubject, combineLatest, map, Observable, of, shareReplay, switch
 import {mergeMap} from 'rxjs/operators';
 
 import {CrownCaps} from '../domain/crown-caps';
-import {CrownCapsInfraService} from '../infrastructure/crown-caps-infra.service';
+import {CrownCapsDataService} from '../infrastructure/crown-caps-data.service';
 import {CrownCapSnapshot} from "@app/modules/crown-caps/domain/crown-cap-snapshot";
 
 type FilterSettings = {
@@ -60,7 +60,7 @@ export class CrownCapsListFacadeService {
   });
 
   constructor(
-    private readonly infraService: CrownCapsInfraService,
+    private readonly infraService: CrownCapsDataService,
   ) {
     /**
      * root of all data

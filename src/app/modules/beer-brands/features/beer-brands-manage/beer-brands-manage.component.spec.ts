@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CrownCapsFilterComponent } from './crown-caps-filter.component';
+import { BeerBrandsManageComponent } from './beer-brands-manage.component';
 
-describe('CrownCapsFilterComponent', () => {
-  let component: CrownCapsFilterComponent;
-  let fixture: ComponentFixture<CrownCapsFilterComponent>;
+describe('BeerBrandsManageComponent', () => {
+  let component: BeerBrandsManageComponent;
+  let fixture: ComponentFixture<BeerBrandsManageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrownCapsFilterComponent ]
+      declarations: [ BeerBrandsManageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CrownCapsFilterComponent);
+    fixture = TestBed.createComponent(BeerBrandsManageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -12,7 +12,7 @@ import {encodeBase64} from "@app/shared/utils/utils";
 @Injectable({
   providedIn: 'root'
 })
-export class CrownCapsInfraService {
+export class CrownCapsDataService {
   ref: DatabaseReference;
   query: Observable<QueryChange[]>;
 

@@ -7,7 +7,7 @@ import { CrownCapsSearchModule } from '@app/modules/crown-caps/features/crown-ca
 import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
 import {CrownCapsTableModule} from "@app/modules/crown-caps/features/crown-caps-table/crown-caps-table.module";
-import {CrownCapsFilterModule} from "@app/modules/crown-caps/features/crown-caps-filter/crown-caps-filter.module";
+import {BeerBrandsFilterModule} from "@app/modules/beer-brands/features/beer-brands-filter/beer-brands-filter.module";
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import {CrownCapsFilterModule} from "@app/modules/crown-caps/features/crown-caps
     CrownCapsSearchModule,
     CrownCapsCountModule,
     CrownCapsTableModule,
-    CrownCapsFilterModule,
+    BeerBrandsFilterModule,
   ]
 })
 export class HomePageModule { }

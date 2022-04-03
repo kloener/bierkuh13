@@ -1,0 +1,19 @@
+<section class="my-8">
+  <button (click)="manageBrands = !manageBrands">Marken verwalten</button>
+
+  <div class="bg-slate-200/50 p-4 rounded" *ngIf="manageBrands">
+    <div class="create my-4 p-4 bg-sky-500 rounded">
+      <label class="block my-4">
+        Markenname:
+        <input class="text-black p-2 rounded" type="text" value="" #inputElement></label>
+      <button (click)="create(inputElement.value)">erstellen</button>
+    </div>
+
+    <ul class="">
+      <li *ngFor="let brand of list$ | async">
+        {{ brand.name }}
+        <button (click)="deleteBrand(brand)">Löschen</button>
+      </li>
+    </ul>
+  </div>
+</section>

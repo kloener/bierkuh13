@@ -1,0 +1,14 @@
+<div class="flex flex-row flex-wrap mb-4">
+  <div class="filter mr-4">
+    <p>Marken: </p>
+    <select #brandSelectEl class="text-black p-2 rounded" (change)="onChange($event.target)">
+      <option value=""></option>
+      <ng-container *ngIf="letters$ | async as lettersMap">
+        <optgroup *ngFor="let letter of lettersMap.values()" [label]="letter.letter">
+          <option *ngFor="let brand of letter.brands" [value]="brand.name">{{ brand.name }}</option>
+        </optgroup>
+      </ng-container>
+    </select>
+  </div>
+</div>
+

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {CrownCapsInfraService} from "@app/modules/crown-caps/infrastructure/crown-caps-infra.service";
+import {CrownCapsDataService} from "@app/modules/crown-caps/infrastructure/crown-caps-data.service";
 import {CrownCapFilesApiService} from "@app/modules/crown-cap-files/api/crown-cap-files-api.service";
 
 @Injectable({
@@ -8,7 +8,7 @@ import {CrownCapFilesApiService} from "@app/modules/crown-cap-files/api/crown-ca
 export class CrownCapUploadFilesInputFacadeService {
 
   constructor(
-    private readonly infraService: CrownCapsInfraService,
+    private readonly infraService: CrownCapsDataService,
     private readonly fileApi: CrownCapFilesApiService
   ) { }
 

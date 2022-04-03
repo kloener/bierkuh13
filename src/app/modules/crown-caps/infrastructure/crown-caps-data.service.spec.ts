@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CrownCapsInfraService } from './crown-caps-infra.service';
+import { CrownCapsDataService } from './crown-caps-data.service';
 
 describe('CrownCapsInfraService', () => {
-  let service: CrownCapsInfraService;
+  let service: CrownCapsDataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CrownCapsInfraService);
+    service = TestBed.inject(CrownCapsDataService);
   });
 
   it('should be created', () => {

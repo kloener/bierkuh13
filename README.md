@@ -16,9 +16,10 @@ Run `ng generate component component-name` to generate a new component. You can 
 Domäne
 
 ```bash
-export DOMAIN=crown-cap-files
+export DOMAIN=beer-brands
 ng g m modules/${DOMAIN}
 ng g s modules/${DOMAIN}/api/${DOMAIN}-api
+ng g s modules/${DOMAIN}/application/${DOMAIN}-facade
 ng g class modules/${DOMAIN}/domain/${DOMAIN}
 ng g interface modules/${DOMAIN}/models/${DOMAIN}-dto
 ng g s modules/${DOMAIN}/infrastructure/${DOMAIN}-data
@@ -27,11 +28,11 @@ ng g s modules/${DOMAIN}/infrastructure/${DOMAIN}-data
 Domäne Feature SCAM Module 
 
 ```bash
-export DOMAIN=crown-caps
-export FEATURE=crown-caps-filter
+export DOMAIN=beer-brands
+export FEATURE=beer-brands-manage
 ng g m modules/${DOMAIN}/features/${FEATURE}
 ng g c modules/${DOMAIN}/features/${FEATURE} --export
-ng g s modules/${DOMAIN}/application/${FEATURE}-facade
+ng g s modules/${DOMAIN}/features/${FEATURE}/${FEATURE}-facade
 ```
 
 Domänen Store Feature Module

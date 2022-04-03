@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CrownCapsFilterComponent } from './crown-caps-filter.component';
+import { BeerBrandsFilterComponent } from './beer-brands-filter.component';
 
 
 
 @NgModule({
   declarations: [
-    CrownCapsFilterComponent
+    BeerBrandsFilterComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    CrownCapsFilterComponent
+    BeerBrandsFilterComponent
   ]
 })
-export class CrownCapsFilterModule { }
+export class BeerBrandsFilterModule { }
