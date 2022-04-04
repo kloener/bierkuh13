@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {map, Observable, shareReplay, Subject} from "rxjs";
-import {BeerBrands} from "@app/modules/beer-brands/domain/beer-brands";
-import {BeerBrandsDataService} from "@app/modules/beer-brands/infrastructure/beer-brands-data.service";
-import {BeerBrandsDto} from "@app/modules/beer-brands/models/beer-brands-dto";
+import { BeerBrands } from '@app/modules/beer-brands/domain/beer-brands';
+import { BeerBrandsDataService } from '@app/modules/beer-brands/infrastructure/beer-brands-data.service';
+import { map, Observable, shareReplay, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +12,13 @@ export class BeerBrandsFacadeService {
   private brandChangedSubject = new Subject<string>();
 
   constructor(private readonly data: BeerBrandsDataService) {
-    this.list$ = this.data.query.pipe(
+    this.list$ = this.data.list().pipe(
       map((eventList) =>
-        [...eventList]
-          .map((event) => ({identifier: event.snapshot.key, snapshotJson: event.snapshot.toJSON() as BeerBrandsDto}))
-          .map(
-            ({identifier, snapshotJson}) =>
+          eventList.map(
+            ({identifier, json}) =>
               new BeerBrands(
                 `${identifier}`,
-                snapshotJson
+                json
               )
           )
           .sort((a: BeerBrands, b: BeerBrands) => a.name.localeCompare(b.name))
@@ -34,7 +31,7 @@ export class BeerBrandsFacadeService {
   }
 
   create(value: string) {
-    return this.data.upsert(Math.random().toString(16).substring(2), {
+    return this.data.create({
       name: value,
     });
   }
