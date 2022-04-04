@@ -1,16 +1,17 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { BeerBrands } from '@app/modules/beer-brands/domain/beer-brands';
 import {
-  BeerBrandsFilterFacadeService
-} from "@app/modules/beer-brands/features/beer-brands-filter/beer-brands-filter-facade.service";
-import {BeerBrands} from "@app/modules/beer-brands/domain/beer-brands";
-import {map, Observable} from "rxjs";
+  BeerBrandsFilterFacadeService,
+} from '@app/modules/beer-brands/features/beer-brands-filter/beer-brands-filter-facade.service';
+import { map, Observable } from 'rxjs';
 
 type LetteredBrands = { letter: string, brands: BeerBrands[] };
 
 @Component({
   selector: 'app-beer-brands-filter',
   templateUrl: './beer-brands-filter.component.html',
-  styleUrls: ['./beer-brands-filter.component.scss']
+  styleUrls: ['./beer-brands-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BeerBrandsFilterComponent implements OnInit {
 

@@ -1,7 +1,10 @@
-<app-logged-in-as-info></app-logged-in-as-info>
-<app-crown-cap-upload-files-input></app-crown-cap-upload-files-input>
-<app-crown-caps-search></app-crown-caps-search>
-<app-beer-brands-filter></app-beer-brands-filter>
-<app-beer-brands-manage></app-beer-brands-manage>
-<app-crown-caps-count></app-crown-caps-count>
-<app-crown-caps-table [page]="page$ | async" (nextPage)="onNextPage($event)" (editCap)="navigateToDetails($event)"></app-crown-caps-table>
+<div class="my-4 p-4">
+  <app-logged-in-as-info></app-logged-in-as-info>
+  <button class="fat-outline" routerLink="//admin-beer-brands">Marken</button>
+  <h1 class="mt-8 text-xl">Kronkorken verwalten</h1>
+  <app-crown-cap-upload-files-input></app-crown-cap-upload-files-input>
+  <app-crown-caps-search></app-crown-caps-search>
+  <app-beer-brands-filter></app-beer-brands-filter>
+  <app-crown-caps-count></app-crown-caps-count>
+  <app-crown-caps-table [page]="page$ | async" (nextPage)="onNextPage($event)" (editCap)="navigateToDetails($event)"></app-crown-caps-table>
+</div>

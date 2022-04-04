@@ -2,7 +2,7 @@ import { Database, ref, remove, set, update } from '@angular/fire/database';
 import { list } from 'rxfire/database';
 import { map, Observable } from 'rxjs';
 
-import { generateId } from './generate-id.funct';
+import { generateId } from './id-gen.service';
 
 export abstract class CrudFirebaseDatabase<T> {
   /**

@@ -1,9 +1,10 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-upload-file-input',
   templateUrl: './upload-file-input.component.html',
-  styleUrls: ['./upload-file-input.component.scss']
+  styleUrls: ['./upload-file-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UploadFileInputComponent implements OnInit {
   private files?: File[];

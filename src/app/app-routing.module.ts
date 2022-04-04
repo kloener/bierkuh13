@@ -42,6 +42,7 @@ const routes: Routes = [
         (m) => m.AdminLoginPageModule
       ),
   },
+  { path: 'admin-beer-brands', loadChildren: () => import('./pages/admin-beer-brands-page/admin-beer-brands-page.module').then(m => m.AdminBeerBrandsPageModule) },
 ];
 
 @NgModule({

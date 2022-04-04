@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter, map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-bierkuh-header',
@@ -11,18 +9,9 @@ import { filter, map, Observable } from 'rxjs';
 export class BierkuhHeaderComponent {
 
   readonly headerPath: string;
-  isPublicRoute$: Observable<boolean>;
 
-  constructor(router: Router) {
+  constructor() {
     this.headerPath = 'assets/Header.png';
-    this.isPublicRoute$ = router.events.pipe(
-      filter<any>(event => isNavigationEnd(event)),
-      map((event: NavigationEnd) => !event.url.includes('admin')),
-    );
-
-    function isNavigationEnd<T>(event: T): boolean {
-      return event instanceof NavigationEnd;
-    }
   }
 
 }
