@@ -99,8 +99,5 @@
       }
     }
   },
-  "defaultProject": "bierkuh13",
-  "cli": {
-    "defaultCollection": "@ngrx/schematics"
-  }
+  "defaultProject": "bierkuh13"
 }
