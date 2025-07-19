@@ -7,7 +7,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Development
 - `npm start` or `ng serve` - Run development server on http://localhost:4200
 - `npm run build` or `ng build` - Build the application for production
-- `npm test` or `jest --coverage` - Run tests with coverage using Jest
 
 ### Code Generation
 Use the Angular CLI patterns documented in README.md:
