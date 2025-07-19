@@ -4,9 +4,11 @@ import { BehaviorSubject, combineLatest, map, Observable, of, shareReplay, switc
 import { mergeMap } from 'rxjs/operators';
 
 import { CrownCaps } from '../domain/crown-caps';
+import { CrownCapsBuilder } from '../domain/crown-caps-builder';
 import { CrownCapsDataService } from '../infrastructure/crown-caps-data.service';
 import { CrownCapSnapshot } from "@app/modules/crown-caps/domain/crown-cap-snapshot";
 import { CrownCapsSearchService } from './crown-caps-search.service';
+import { UrlBuilderService } from '@app/shared/utils/url-builder.service';
 import { 
   FilterSettings, 
   PageInfo, 
@@ -53,6 +55,7 @@ export class CrownCapsListFacadeService implements ICrownCapsDataProvider, ICrow
   constructor(
     private readonly infraService: CrownCapsDataService,
     private readonly searchService: CrownCapsSearchService,
+    private readonly urlBuilder: UrlBuilderService,
   ) {
     /**
      * root of all data
@@ -65,18 +68,16 @@ export class CrownCapsListFacadeService implements ICrownCapsDataProvider, ICrow
     this.allCaps$ = this.query$.pipe(
       map((eventList) =>
         [...eventList]
-          // Parse Snapshot
-          .map((event) => ({identifier: event.snapshot.key, snapshotJson: event.snapshot.toJSON() as CrownCapSnapshot}))
-          // Map to UI model
-          .map(
-            ({identifier, snapshotJson}, idx) =>
-              new CrownCaps(
-                idx,
-                `${identifier}`,
-                snapshotJson.crownCapInfo,
-                snapshotJson.file,
-                snapshotJson.storageRef
-              )
+          .map((event) => ({
+            identifier: event.snapshot.key, 
+            snapshotJson: event.snapshot.toJSON() as CrownCapSnapshot
+          }))
+          .map(({identifier, snapshotJson}, idx) => 
+            new CrownCapsBuilder(idx, `${identifier}`, this.urlBuilder)
+              .fromDto(snapshotJson.crownCapInfo)
+              .withFileInfo(snapshotJson.file)
+              .withStorageRef(snapshotJson.storageRef)
+              .build()
           )
           .sort((a: CrownCaps, b: CrownCaps) => a.name.localeCompare(b.name))
       ),
