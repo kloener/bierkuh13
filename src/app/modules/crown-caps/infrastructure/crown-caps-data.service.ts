@@ -9,6 +9,8 @@ import { CrownCapsDto } from "@app/modules/crown-caps/domain/crown-caps-dto";
 import { CrownCapSnapshot } from "@app/modules/crown-caps/domain/crown-cap-snapshot";
 import { CrownCapFactoryService } from '../domain/crown-cap-factory.service';
 import { CrudFirebaseDatabase } from '@app/core/crud-firebase-database';
+import { NanoIdGenerator } from '@app/core/services/identifier-generator.service';
+import { IsoTimestampProvider } from '@app/core/services/timestamp-provider.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +20,11 @@ export class CrownCapsDataService extends CrudFirebaseDatabase<CrownCapSnapshot>
 
   constructor(
     private readonly database: Database,
-    private readonly crownCapFactory: CrownCapFactoryService
+    private readonly crownCapFactory: CrownCapFactoryService,
+    identifierGenerator: NanoIdGenerator,
+    timestampProvider: IsoTimestampProvider
   ) {
-    super();
+    super(identifierGenerator, timestampProvider);
     this.query = list(ref(this.database, this.getPath())).pipe(
       catchError(err => {
         alert(err.message);
