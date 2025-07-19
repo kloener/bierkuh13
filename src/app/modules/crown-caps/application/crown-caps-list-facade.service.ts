@@ -1,30 +1,23 @@
-import {Injectable} from '@angular/core';
-import {QueryChange} from 'rxfire/database';
-import {BehaviorSubject, combineLatest, map, Observable, of, shareReplay, switchMap} from 'rxjs';
-import {mergeMap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { QueryChange } from 'rxfire/database';
+import { BehaviorSubject, combineLatest, map, Observable, of, shareReplay, switchMap } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
-import {CrownCaps} from '../domain/crown-caps';
-import {CrownCapsDataService} from '../infrastructure/crown-caps-data.service';
-import {CrownCapSnapshot} from "@app/modules/crown-caps/domain/crown-cap-snapshot";
-
-type FilterSettings = {
-  limit: number;
-  offset: number;
-  itemsPerPage: number;
-  search?: string;
-};
+import { CrownCaps } from '../domain/crown-caps';
+import { CrownCapsBuilder } from '../domain/crown-caps-builder';
+import { CrownCapsDataService } from '../infrastructure/crown-caps-data.service';
+import { CrownCapSnapshot } from "@app/modules/crown-caps/domain/crown-cap-snapshot";
+import { CrownCapsSearchService } from './crown-caps-search.service';
+import { UrlBuilderService } from '@app/shared/utils/url-builder.service';
+import { 
+  FilterSettings, 
+  PageInfo, 
+  ICrownCapsDataProvider, 
+  ICrownCapsFilter, 
+  ICrownCapsPagination 
+} from './interfaces/crown-caps-list.interfaces';
 
 const DEFAULT_ITEMS_PER_PAGE = 50;
-
-function createMatcherFor(search: string) {
-  const cleanSearchTermin = search.match(/([a-z0-9]+)/ig)?.join('(.+)');
-  const regexp = new RegExp(`${cleanSearchTermin}`, 'i');
-  return cleanSearchTermin ? regexp : undefined;
-}
-
-function fuzzyIncludes(search: string, phrase: string): boolean {
-  return createMatcherFor(search)?.test(phrase) ?? false;
-}
 
 /**
  * List facade that provides all, filtered and a paged caps list observable.
@@ -32,7 +25,7 @@ function fuzzyIncludes(search: string, phrase: string): boolean {
 @Injectable({
   providedIn: 'root',
 })
-export class CrownCapsListFacadeService {
+export class CrownCapsListFacadeService implements ICrownCapsDataProvider, ICrownCapsFilter, ICrownCapsPagination {
   /**
    * list of all available caps
    */
@@ -50,7 +43,7 @@ export class CrownCapsListFacadeService {
    * @see nextPage
    */
   pagesCaps$: Observable<CrownCaps[]>;
-  pageInfo$: Observable<{ currentPage: number; pages: number }>;
+  pageInfo$: Observable<PageInfo>;
 
   private readonly query$: Observable<QueryChange[]>;
   private readonly filterSettings$ = new BehaviorSubject<FilterSettings>({
@@ -61,6 +54,8 @@ export class CrownCapsListFacadeService {
 
   constructor(
     private readonly infraService: CrownCapsDataService,
+    private readonly searchService: CrownCapsSearchService,
+    private readonly urlBuilder: UrlBuilderService,
   ) {
     /**
      * root of all data
@@ -73,18 +68,16 @@ export class CrownCapsListFacadeService {
     this.allCaps$ = this.query$.pipe(
       map((eventList) =>
         [...eventList]
-          // Parse Snapshot
-          .map((event) => ({identifier: event.snapshot.key, snapshotJson: event.snapshot.toJSON() as CrownCapSnapshot}))
-          // Map to UI model
-          .map(
-            ({identifier, snapshotJson}, idx) =>
-              new CrownCaps(
-                idx,
-                `${identifier}`,
-                snapshotJson.crownCapInfo,
-                snapshotJson.file,
-                snapshotJson.storageRef
-              )
+          .map((event) => ({
+            identifier: event.snapshot.key, 
+            snapshotJson: event.snapshot.toJSON() as CrownCapSnapshot
+          }))
+          .map(({identifier, snapshotJson}, idx) => 
+            new CrownCapsBuilder(idx, `${identifier}`, this.urlBuilder)
+              .fromDto(snapshotJson.crownCapInfo)
+              .withFileInfo(snapshotJson.file)
+              .withStorageRef(snapshotJson.storageRef)
+              .build()
           )
           .sort((a: CrownCaps, b: CrownCaps) => a.name.localeCompare(b.name))
       ),
@@ -100,13 +93,7 @@ export class CrownCapsListFacadeService {
     this.filteredCaps$ = this.filterSettings$.asObservable().pipe(
       switchMap(({ search }) =>
         this.allCaps$.pipe(
-          map((eventList) =>
-            [...eventList].filter((item) =>
-              search
-                ? fuzzyIncludes(search, item.name)
-                : true
-            )
-          )
+          map((eventList) => this.searchService.filterItems(eventList, search))
         )
       ),
       shareReplay({
@@ -139,10 +126,20 @@ export class CrownCapsListFacadeService {
     );
   }
 
+  // ICrownCapsDataProvider methods
+  getAllCaps(): Observable<CrownCaps[]> {
+    return this.allCaps$;
+  }
+
   find(identifier: string | number): Observable<CrownCaps | undefined> {
     return this.allCaps$.pipe(
       map(list => list.find(item => typeof identifier === 'number' ? item.index === identifier : item.identifier === identifier)),
     );
+  }
+
+  // ICrownCapsFilter methods
+  getFilteredCaps(): Observable<CrownCaps[]> {
+    return this.filteredCaps$;
   }
 
   getFilterSettingsUpdates(): Observable<FilterSettings> {
@@ -153,13 +150,22 @@ export class CrownCapsListFacadeService {
     return this.filterSettings$.getValue();
   }
 
-  updateFilterSettings(settings: Partial<FilterSettings>) {
+  updateFilterSettings(settings: Partial<FilterSettings>): void {
     const filterSettings = this.getFilterSettings();
 
     this.filterSettings$.next({
       ...filterSettings,
       ...settings,
     });
+  }
+
+  // ICrownCapsPagination methods
+  getPagedCaps(): Observable<CrownCaps[]> {
+    return this.pagesCaps$;
+  }
+
+  getPageInfo(): Observable<PageInfo> {
+    return this.pageInfo$;
   }
 
   /**

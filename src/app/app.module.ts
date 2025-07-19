@@ -9,7 +9,6 @@ import {getAuth, provideAuth} from '@angular/fire/auth';
 import {getDatabase, provideDatabase} from '@angular/fire/database';
 import {SharedModule} from './shared/shared.module';
 import {CoreModule} from './core/core.module';
-import {RootStoreModule} from './root-store/root-store.module';
 import {BierkuhHeaderModule} from './shared/bierkuh-header/bierkuh-header.module';
 import {getStorage, provideStorage} from "@angular/fire/storage";
 
@@ -26,8 +25,7 @@ import {getStorage, provideStorage} from "@angular/fire/storage";
     provideStorage(() => getStorage()),
     SharedModule,
     BierkuhHeaderModule,
-    CoreModule,
-    RootStoreModule
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,10 +1,18 @@
+import { Injectable } from '@angular/core';
 import { Database, ref, remove, set, update } from '@angular/fire/database';
 import { list } from 'rxfire/database';
 import { map, Observable } from 'rxjs';
 
-import { generateId } from './id-gen.service';
+import { IIdentifierGenerator, ITimestampProvider, ICrudRepository, RepositoryItem } from './interfaces/repository.interfaces';
+import { NanoIdGenerator } from './services/identifier-generator.service';
+import { IsoTimestampProvider } from './services/timestamp-provider.service';
 
-export abstract class CrudFirebaseDatabase<T> {
+export abstract class CrudFirebaseDatabase<T> implements ICrudRepository<T> {
+  constructor(
+    protected readonly identifierGenerator: IIdentifierGenerator,
+    protected readonly timestampProvider: ITimestampProvider,
+  ) {}
+
   /**
    * @param withIdentifier if provided returns the path to the identifier, otherwise to the list.
    */
@@ -15,7 +23,7 @@ export abstract class CrudFirebaseDatabase<T> {
    *
    * @returns returns list of query changes that can then be converted to your model.
    */
-  list(): Observable<{ identifier: string; json: T}[]> {
+  list(): Observable<RepositoryItem<T>[]> {
     const listRef = ref(this.getDatabase(), this.getPath());
     return list(listRef).pipe(
       map(eventList => eventList.map(event => {
@@ -31,8 +39,8 @@ export abstract class CrudFirebaseDatabase<T> {
    * @param identifier
    * @returns
    */
-  async remove(identifier: string) {
-    return remove(ref(this.getDatabase(), this.getPath(identifier)));
+  async remove(identifier: string): Promise<void> {
+    await remove(ref(this.getDatabase(), this.getPath(identifier)));
   }
 
   /**
@@ -40,11 +48,11 @@ export abstract class CrudFirebaseDatabase<T> {
    * @param dto
    * @returns generated id on success.
    */
-  async create(dto: T) {
-    const identifier = await generateId();
+  async create(dto: T): Promise<string> {
+    const identifier = await this.identifierGenerator.generate();
     await set(ref(this.getDatabase(), this.getPath(identifier)), {
       ...dto,
-      _createdAt: new Date().toISOString()
+      _createdAt: this.timestampProvider.getCurrentTimestamp()
     });
     return identifier;
   }
@@ -55,10 +63,10 @@ export abstract class CrudFirebaseDatabase<T> {
    * @param dto
    * @returns
    */
-  async update(identifier: string, dto: T) {
-    return update(ref(this.getDatabase(), this.getPath(identifier)), {
+  async update(identifier: string, dto: T): Promise<void> {
+    await update(ref(this.getDatabase(), this.getPath(identifier)), {
       ...dto,
-      _updatedAt: new Date().toISOString()
+      _updatedAt: this.timestampProvider.getCurrentTimestamp()
     });
   }
 }
