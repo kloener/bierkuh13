@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseConst } from '@app/constants/firestore';
 import { CrownCapsDto } from './crown-caps-dto';
 import { CrownCapSnapshot } from './crown-cap-snapshot';
-import { encodeBase64 } from '@app/shared/utils/utils';
+import { EncodingService } from '@app/shared/utils/encoding.service';
 
 export interface CrownCapCreationData {
   encodedName: string;
@@ -21,8 +21,10 @@ export interface CrownCapCreationData {
 })
 export class CrownCapFactoryService {
   
+  constructor(private readonly encodingService: EncodingService) {}
+  
   createFromFile(file: File): CrownCapCreationData {
-    const encodedName = encodeBase64(file.name);
+    const encodedName = this.encodingService.encodeBase64(file.name);
     const storageRef = `${FirebaseConst.crownCapsFolder}/${file.name}`;
     const fileNameParts = this.parseFileName(file.name);
     

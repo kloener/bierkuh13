@@ -1,21 +1,22 @@
-import { environment } from '../../../environments/environment';
+import { FirebaseStorageUrlBuilder } from './url-builder.service';
+import { Base64Encoder } from './encoding.service';
 
-const {firebase} = environment;
-const {storageBucket} = firebase;
-const fileUriPrefix = `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/`;
-const fileUriSuffix = `?alt=media`;
+// Backward compatibility - create instances for legacy function exports
+const urlBuilder = new FirebaseStorageUrlBuilder();
+const encoder = new Base64Encoder();
 
 export const utils: (firestorePath: string) => string = (firestorePath: string) => {
-  const encodedPath = encodeURIComponent(firestorePath.substring(1));
-  return `${fileUriPrefix}${encodedPath}${fileUriSuffix}`;
+  return urlBuilder.buildFileUrl(firestorePath);
 };
 
 export const getStorageRefFromFileUri: (fileUri: string) => string = (fileUri: string) => {
-  let firestorePath = fileUri.substring(fileUriPrefix.length);
-  firestorePath = firestorePath.substring(0, firestorePath.length - fileUriSuffix.length);
-  const decodedPath = decodeURIComponent(firestorePath);
-  return `/${decodedPath}`;
+  return urlBuilder.extractStoragePath(fileUri);
 };
 
-export function encodeBase64(str: string): string { return btoa(encodeURIComponent(str)); }
-export function decodeBase64(str: string): string { return decodeURIComponent(atob(str)); }
+export function encodeBase64(str: string): string {
+  return encoder.encode(str);
+}
+
+export function decodeBase64(str: string): string {
+  return encoder.decode(str);
+}
