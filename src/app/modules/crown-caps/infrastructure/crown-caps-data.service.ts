@@ -1,38 +1,49 @@
 import { Injectable } from '@angular/core';
 import { FirebaseConst } from '@app/constants/firestore';
-import {Database, DatabaseReference, ref, object, set, remove} from '@angular/fire/database';
+import { Database, DatabaseReference, ref, object, set } from '@angular/fire/database';
 import { list, QueryChange } from 'rxfire/database';
-import {EMPTY, firstValueFrom, Observable} from 'rxjs';
-import {catchError} from "rxjs/operators";
-import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
-import {CrownCapsDto} from "@app/modules/crown-caps/domain/crown-caps-dto";
-import {CrownCapSnapshot} from "@app/modules/crown-caps/domain/crown-cap-snapshot";
-import {encodeBase64} from "@app/shared/utils/utils";
+import { EMPTY, firstValueFrom, Observable } from 'rxjs';
+import { catchError } from "rxjs/operators";
+import { CrownCaps } from "@app/modules/crown-caps/domain/crown-caps";
+import { CrownCapsDto } from "@app/modules/crown-caps/domain/crown-caps-dto";
+import { CrownCapSnapshot } from "@app/modules/crown-caps/domain/crown-cap-snapshot";
+import { CrownCapFactoryService } from '../domain/crown-cap-factory.service';
+import { CrudFirebaseDatabase } from '@app/core/crud-firebase-database';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CrownCapsDataService {
-  ref: DatabaseReference;
+export class CrownCapsDataService extends CrudFirebaseDatabase<CrownCapSnapshot> {
   query: Observable<QueryChange[]>;
 
-  constructor(private readonly database: Database) {
-    this.ref = ref(database, FirebaseConst.capsName);
-    this.query = list(this.ref).pipe(catchError(err => {
-      alert(err.message);
-      window.location.reload();
-      return EMPTY;
-    }));
+  constructor(
+    private readonly database: Database,
+    private readonly crownCapFactory: CrownCapFactoryService
+  ) {
+    super();
+    this.query = list(ref(this.database, this.getPath())).pipe(
+      catchError(err => {
+        alert(err.message);
+        window.location.reload();
+        return EMPTY;
+      })
+    );
   }
 
-  async updateInfo(crownCap: CrownCaps, updateDto: Partial<CrownCapsDto>) {
-    const capRef = ref(this.database, `${FirebaseConst.capsName}/${crownCap.identifier}`);
-    const dbSnapshot = await firstValueFrom(object(capRef));
-    const snapshot = dbSnapshot.snapshot.toJSON() as CrownCapSnapshot | null;
+  getPath(withIdentifier?: string): string {
+    return withIdentifier 
+      ? `${FirebaseConst.capsName}/${withIdentifier}`
+      : FirebaseConst.capsName;
+  }
 
+  getDatabase(): Database {
+    return this.database;
+  }
+
+  async updateInfo(crownCap: CrownCaps, updateDto: Partial<CrownCapsDto>): Promise<void> {
+    const snapshot = await this.getSnapshot(crownCap.identifier);
     if (!snapshot) {
-      console.warn('Could not convert snapshot JSON');
-      return;
+      throw new Error(`Crown cap with identifier ${crownCap.identifier} not found`);
     }
 
     const updateSnapshotDto: CrownCapSnapshot = {
@@ -42,37 +53,28 @@ export class CrownCapsDataService {
         ...updateDto,
       },
     };
-    return set(capRef, updateSnapshotDto);
+    
+    await this.update(crownCap.identifier, updateSnapshotDto);
   }
 
-  async removeCrownCap(identifier: string) {
-    return remove(ref(this.database, `${FirebaseConst.capsName}/${identifier}`));
+  async removeCrownCap(identifier: string): Promise<void> {
+    await this.remove(identifier);
   }
 
-  async createCrownCapByFile(file: File) {
-    const encodedName = encodeBase64(file.name);
-    const storageRef = `${FirebaseConst.crownCapsFolder}/${file.name}`;
-    const [name, year, type, assignees] = file.name.replace(/\.(.+)$/, '').split('_');
-    const crownCapInfo: CrownCapsDto = {
-      name,
-      assignees: assignees || type || year || '',
-      typ: assignees && year ? type : '',
-      jahr: assignees || type ? year : '',
-      kommentar: '',
-      brauerei: '',
-      farbe: '',
-      link: '',
-      anzahl: 0,
-    }
-    return set(ref(this.database, `${FirebaseConst.capsName}/${encodedName}`), {
-      crownCapInfo,
-      file: {
-        name: file.name,
-        size: file.size,
-        type: file.type,
-      },
-      createdAt: new Date().toISOString(),
-      storageRef,
-    });
+  async createCrownCapByFile(file: File): Promise<string> {
+    const crownCapData = this.crownCapFactory.createFromFile(file);
+    const snapshot: CrownCapSnapshot = {
+      crownCapInfo: crownCapData.crownCapInfo,
+      file: crownCapData.file,
+      fileHash: '', // Will be set when file is uploaded
+      storageRef: crownCapData.storageRef,
+    };
+    return await this.create(snapshot);
+  }
+
+  private async getSnapshot(identifier: string): Promise<CrownCapSnapshot | null> {
+    const capRef = ref(this.database, this.getPath(identifier));
+    const dbSnapshot = await firstValueFrom(object(capRef));
+    return dbSnapshot.snapshot.toJSON() as CrownCapSnapshot | null;
   }
 }
