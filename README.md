@@ -25,7 +25,7 @@ ng g interface modules/${DOMAIN}/models/${DOMAIN}-dto
 ng g s modules/${DOMAIN}/infrastructure/${DOMAIN}-data
 ```
 
-Domäne Feature SCAM Module 
+Domäne Feature SCAM Module
 
 ```bash
 export DOMAIN=beer-brands
@@ -44,7 +44,7 @@ ng g m modules/${DOMAIN}/store/${FEATURE} -m root-store
 ng g feature modules/${DOMAIN}/store/${FEATURE}/${FEATURE} -a -c -g -m modules/${DOMAIN}/store/${FEATURE} --prefix load
 ```
 
-SHARED SCAM Module 
+SHARED SCAM Module
 
 ```bash
 export FEATURE=upload-button
@@ -62,6 +62,44 @@ ng g m pages/${PAGE}-page --route ${PAGE} --routing -m app
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Firebase Deployment
+
+### Manual Deployment
+
+To deploy to Firebase Hosting manually:
+
+1. Build the project: `npm run build`
+2. Deploy: `firebase deploy`
+
+Project will be available at: <https://bierkuh-ef2d6.web.app/>
+
+### Automated Deployment (GitHub Actions)
+
+The project automatically deploys to Firebase when changes are merged to the `main` branch via GitHub Actions.
+
+#### Required GitHub Secrets
+
+To enable automated deployment, configure these secrets in your GitHub repository:
+
+**1. GITHUB_TOKEN**
+- **What it is:** Automatically provided by GitHub for all repositories
+- **Purpose:** Allows the action to access repository information and create deployment comments
+- **Setup:** No setup required - GitHub provides this automatically
+
+**2. FIREBASE_SERVICE_ACCOUNT_BIERKUH_EF2D6**
+- **What it is:** A Firebase service account key for authentication
+- **Purpose:** Allows GitHub Actions to deploy to your Firebase project
+- **Setup:**
+  1. Go to [Firebase Console](https://console.firebase.google.com/)
+  2. Select your project (`bierkuh-ef2d6`)
+  3. Go to Project Settings → Service Accounts
+  4. Click "Generate new private key"
+  5. Download the JSON file
+  6. In GitHub: Go to Settings → Secrets and variables → Actions
+  7. Click "New repository secret"
+  8. Name: `FIREBASE_SERVICE_ACCOUNT_BIERKUH_EF2D6`
+  9. Value: Paste the entire JSON content from the downloaded file
 
 ## Further help
 
