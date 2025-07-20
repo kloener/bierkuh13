@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, input, output} from '@angular/core';
 
 @Component({
   selector: 'app-crown-caps-pagination',
@@ -12,8 +12,8 @@ export class CrownCapsPaginationComponent implements OnInit {
     currentPage: number;
     pages: number;
 } | null>();
-  @Output() loadPreviousPage = new EventEmitter();
-  @Output() loadNextPage = new EventEmitter();
+  readonly loadPreviousPage = output();
+  readonly loadNextPage = output();
 
   constructor() {
   }

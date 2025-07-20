@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, OnInit, inject, output } from '@angular/core';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 @Directive({
@@ -8,7 +8,7 @@ import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 export class IntersectionDirective implements OnInit, OnDestroy {
   private readonly elementRef = inject(ElementRef);
 
-  @Output() isIntersection = new EventEmitter<boolean>();
+  readonly isIntersection = output<boolean>();
 
   private observer: IntersectionObserver | undefined;
   private readonly isIntersectingSubject = new BehaviorSubject<boolean>(false);

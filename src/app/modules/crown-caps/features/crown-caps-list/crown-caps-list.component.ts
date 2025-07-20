@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, inject, output } from '@angular/core';
 import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
 
 import {CrownCapsListFacadeService} from '../../application/crown-caps-list-facade.service';
@@ -27,8 +27,7 @@ export class CrownCapsListComponent implements OnInit, OnDestroy {
     }
   }
 
-  @Output()
-  capClicked = new EventEmitter<CrownCaps>();
+  readonly capClicked = output<CrownCaps>();
 
   caps$: Observable<CrownCaps[]>;
   pageInfo$: Observable<{ currentPage: number; pages: number }>;
@@ -57,6 +56,6 @@ export class CrownCapsListComponent implements OnInit, OnDestroy {
   }
 
   onCapClick(item: CrownCaps) {
-    this.capClicked.next(item);
+    this.capClicked.emit(item);
   }
 }

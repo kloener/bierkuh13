@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { IntersectionDirective } from '../intersection/intersection.directive';
 
 @Component({
@@ -13,7 +13,7 @@ export class CapImgComponent {
   readonly fileUri = input<(string | null) | undefined>(null);
   readonly name = input<(string | null) | undefined>(null);
 
-  @Output() error = new EventEmitter();
+  readonly error = output();
 
   onImageLoadError(event: ErrorEvent) {
     const imgEl = event.target as HTMLImageElement;

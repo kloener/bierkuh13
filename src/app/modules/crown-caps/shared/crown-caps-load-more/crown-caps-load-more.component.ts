@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, output } from '@angular/core';
 import { IntersectionDirective } from '@app/shared/intersection/intersection.directive';
 
 @Component({
@@ -15,7 +15,7 @@ export class CrownCapsLoadMoreComponent {
     this.useIntersection = Boolean(val);
   }
 
-  @Output() loadMore = new EventEmitter();
+  readonly loadMore = output();
 
   private useIntersection: boolean = false;
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, output } from '@angular/core';
 
 @Component({
   selector: 'app-upload-file-input',
@@ -9,8 +9,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
 export class UploadFileInputComponent implements OnInit {
   private files?: File[];
 
-  @Output()
-  uploadFiles = new EventEmitter<File[]>();
+  readonly uploadFiles = output<File[]>();
 
   constructor() { }
 
@@ -23,7 +22,7 @@ export class UploadFileInputComponent implements OnInit {
 
   doUpload(fileInput: HTMLInputElement) {
     if (this.files?.length) {
-      this.uploadFiles.next(this.files);
+      this.uploadFiles.emit(this.files);
       this.files = undefined;
       fileInput.value = '';
       fileInput.type = ''

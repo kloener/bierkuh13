@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, output } from '@angular/core';
 import { UserCredential } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -23,8 +23,7 @@ export class LoginFormComponent implements OnInit {
 
   loginFailed = false;
 
-  @Output()
-  loggedIn = new EventEmitter<UserCredential>();
+  readonly loggedIn = output<UserCredential>();
 
   async onLoginSubmit(): Promise<void> {
     this.loginFailed = false;
@@ -36,7 +35,7 @@ export class LoginFormComponent implements OnInit {
     const result = await this.facadeService.login(this.loginForm.value);
 
     if (result) {
-      this.loggedIn.next(result);
+      this.loggedIn.emit(result);
     } else {
       this.loginFailed = true;
     }
