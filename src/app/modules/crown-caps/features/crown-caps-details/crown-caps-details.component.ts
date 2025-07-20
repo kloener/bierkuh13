@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { BehaviorSubject, filter, mergeMap, Observable } from 'rxjs';
 
 import { CrownCapsDetailsFacadeService } from '../../application/crown-caps-details-facade.service';
@@ -12,7 +13,7 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './crown-caps-details.component.html',
   styleUrls: ['./crown-caps-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, CapImgComponent, AssigneePipe],
+  imports: [AsyncPipe, RouterLink, CapImgComponent, AssigneePipe],
 })
 export class CrownCapsDetailsComponent implements OnInit {
   private readonly facadeService = inject(CrownCapsDetailsFacadeService);

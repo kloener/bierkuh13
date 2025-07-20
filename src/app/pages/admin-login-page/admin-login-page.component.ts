@@ -11,12 +11,8 @@ import { LoginFormComponent } from "@app/modules/user/features/login-form/login-
   standalone: true,
   imports: [LoginFormComponent]
 })
-export class AdminLoginPageComponent implements OnInit {
+export class AdminLoginPageComponent  {
   private readonly router = inject(Router);
-
-
-  ngOnInit(): void {
-  }
 
   onLoggedIn(userCredential: UserCredential) {
     console.log(userCredential);

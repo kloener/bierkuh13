@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import {Observable, pluck, tap} from "rxjs";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
 import { LoggedInAsInfoComponent } from "@app/modules/user/features/logged-in-as-info/logged-in-as-info.component";
 import { CrownCapUploadFilesInputComponent } from "@app/modules/crown-caps/features/crown-cap-upload-files-input/crown-cap-upload-files-input.component";
@@ -16,7 +16,7 @@ import { AsyncPipe } from '@angular/common';
   styleUrls: ['./admin-list-page.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, LoggedInAsInfoComponent, CrownCapUploadFilesInputComponent, CrownCapsSearchComponent, BeerBrandsFilterComponent, CrownCapsCountComponent, CrownCapsTableComponent]
+  imports: [AsyncPipe, RouterLink, LoggedInAsInfoComponent, CrownCapUploadFilesInputComponent, CrownCapsSearchComponent, BeerBrandsFilterComponent, CrownCapsCountComponent, CrownCapsTableComponent]
 })
 export class AdminListPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);

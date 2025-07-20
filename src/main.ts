@@ -1,4 +1,4 @@
-import { appRoutes } from './app/app-routing.module';
+import { appRoutes } from './app/app-routes';
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { provideRouter, withComponentInputBinding } from '@angular/router';

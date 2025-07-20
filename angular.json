@@ -86,12 +86,6 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n",
-          "options": {
-            "browserTarget": "bierkuh13:build"
-          }
-        },
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {

@@ -8,13 +8,14 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import {CrownCapFiles} from "@app/modules/crown-cap-files/domain/crown-cap-files";
 import { AsyncPipe } from '@angular/common';
 import { CapImgComponent } from '../../../../shared/cap-img/cap-img.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-crown-caps-update-form',
   templateUrl: './crown-caps-update-form.component.html',
   styleUrls: ['./crown-caps-update-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, ReactiveFormsModule, CapImgComponent]
+  imports: [AsyncPipe, RouterLink, ReactiveFormsModule, CapImgComponent]
 })
 export class CrownCapsUpdateFormComponent implements OnInit {
   private readonly facadeService = inject(CrownCapsUpdateFormFacadeService);
