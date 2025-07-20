@@ -73,12 +73,15 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "bierkuh13:build"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "bierkuh13:build:production"
+              "buildTarget": "bierkuh13:build:production"
             },
             "development": {
-              "browserTarget": "bierkuh13:build:development"
+              "buildTarget": "bierkuh13:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -108,7 +111,8 @@
       "standalone": true
     },
     "@schematics/angular:directive": {
-      "type": "directive"
+      "type": "directive",
+      "standalone": true
     },
     "@schematics/angular:service": {
       "type": "service"
@@ -123,7 +127,8 @@
       "typeSeparator": "."
     },
     "@schematics/angular:pipe": {
-      "typeSeparator": "."
+      "typeSeparator": ".",
+      "standalone": true
     },
     "@schematics/angular:resolver": {
       "typeSeparator": "."

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {getMetadata, ref,  uploadBytes, deleteObject, Storage, StorageReference} from '@angular/fire/storage';
 import {FirebaseConst} from "@app/constants/firestore";
 import {CrownCapFiles} from "@app/modules/crown-cap-files/domain/crown-cap-files";
@@ -7,9 +7,11 @@ import {CrownCapFiles} from "@app/modules/crown-cap-files/domain/crown-cap-files
   providedIn: 'root'
 })
 export class CrownCapFilesDataService {
+  private readonly storage = inject(Storage);
+
   private readonly folderRef: StorageReference;
 
-  constructor(private readonly storage: Storage) {
+  constructor() {
     this.folderRef = ref(this.storage, FirebaseConst.crownCapsFolder);
   }
 

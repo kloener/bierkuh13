@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {CrownCapFilesDataService} from "@app/modules/crown-cap-files/infrastructure/crown-cap-files-data.service";
 import {FirebaseConst} from "@app/constants/firestore";
 import {getStorageRefFromFileUri} from "@app/shared/utils/utils";
@@ -12,6 +12,8 @@ function toRelativeStoragePath(absoluteStorageRef: string) {
   providedIn: 'root'
 })
 export class CrownCapFilesApiService {
+  private readonly infraService = inject(CrownCapFilesDataService);
+
   toCrownCaps = {
     getFileInfo: (absoluteStorageRef: string) => {
       const pathFromRoot = getStorageRefFromFileUri(absoluteStorageRef);
@@ -27,6 +29,4 @@ export class CrownCapFilesApiService {
     },
     createFile: (file: File) => this.infraService.createFile(file),
   }
-
-  constructor(private readonly infraService: CrownCapFilesDataService) { }
 }

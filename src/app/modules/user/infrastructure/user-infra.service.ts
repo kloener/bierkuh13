@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Auth, UserCredential, signInWithEmailAndPassword, User} from '@angular/fire/auth';
 import {map, Observable} from 'rxjs';
 
@@ -6,10 +6,12 @@ import {map, Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class UserInfraService {
+  private readonly fireAuth = inject(Auth);
+
   authState$: Observable<User | null>;
   isLoggedIn$: Observable<boolean>;
 
-  constructor(private readonly fireAuth: Auth) {
+  constructor() {
     this.authState$ = new Observable<User | null>(observer => {
       return this.fireAuth.onAuthStateChanged(
         user => observer.next(user),

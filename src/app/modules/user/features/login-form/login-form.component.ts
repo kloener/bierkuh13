@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { UserCredential } from '@angular/fire/auth';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginFormFacadeService } from '@app/modules/user/application/login-form-facade.service';
 
@@ -8,9 +8,14 @@ import { LoginFormFacadeService } from '@app/modules/user/application/login-form
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ReactiveFormsModule]
 })
 export class LoginFormComponent implements OnInit {
+  private readonly router = inject(Router);
+  private readonly facadeService = inject(LoginFormFacadeService);
+  private readonly fb = inject(FormBuilder);
+
   loginForm: FormGroup = this.fb.group({
     username: this.fb.control('', [Validators.required]),
     password: this.fb.control('', [Validators.required]),
@@ -20,8 +25,6 @@ export class LoginFormComponent implements OnInit {
 
   @Output()
   loggedIn = new EventEmitter<UserCredential>();
-
-  constructor(private readonly router: Router, private readonly facadeService: LoginFormFacadeService, private readonly fb: FormBuilder) {}
 
   async onLoginSubmit(): Promise<void> {
     this.loginFailed = false;

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { UserInfraService } from '../infrastructure/user-infra.service';
 
@@ -6,12 +6,10 @@ import { UserInfraService } from '../infrastructure/user-infra.service';
   providedIn: 'root'
 })
 export class UserApiService {
+  private readonly userInfraService = inject(UserInfraService);
+
 
   toApp = {
     isLoggedIn$: this.userInfraService.isLoggedIn$
   }
-
-  constructor(
-    private readonly userInfraService: UserInfraService
-    ) {}
 }

@@ -1,19 +1,25 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import {
   CrownCapsUpdateFormFacadeService
 } from "@app/modules/crown-caps/application/crown-caps-update-form-facade.service";
 import {BehaviorSubject, filter, mergeMap, Observable, tap} from "rxjs";
 import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import {CrownCapFiles} from "@app/modules/crown-cap-files/domain/crown-cap-files";
+import { AsyncPipe } from '@angular/common';
+import { CapImgComponent } from '../../../../shared/cap-img/cap-img.component';
 
 @Component({
   selector: 'app-crown-caps-update-form',
   templateUrl: './crown-caps-update-form.component.html',
   styleUrls: ['./crown-caps-update-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [AsyncPipe, ReactiveFormsModule, CapImgComponent]
 })
 export class CrownCapsUpdateFormComponent implements OnInit {
+  private readonly facadeService = inject(CrownCapsUpdateFormFacadeService);
+  private readonly fb = inject(FormBuilder);
+
   details$: Observable<CrownCaps | undefined>;
   file$: Observable<CrownCapFiles>;
 
@@ -27,10 +33,7 @@ export class CrownCapsUpdateFormComponent implements OnInit {
 
   private readonly identifier$ = new BehaviorSubject<string>('');
 
-  constructor(
-    private readonly facadeService: CrownCapsUpdateFormFacadeService,
-    private readonly fb: FormBuilder
-  ) {
+  constructor() {
     this.details$ = this.identifier$.pipe(
       filter((identifier) => Boolean(identifier)),
       mergeMap((identifier) => this.facadeService.getDetailsOf(identifier)),

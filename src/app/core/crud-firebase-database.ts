@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Database, ref, remove, set, update } from '@angular/fire/database';
 import { list } from 'rxfire/database';
 import { map, Observable } from 'rxjs';

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {map, Observable} from "rxjs";
 import {UserInfraService} from "@app/modules/user/infrastructure/user-infra.service";
 
@@ -6,9 +6,9 @@ import {UserInfraService} from "@app/modules/user/infrastructure/user-infra.serv
   providedIn: 'root'
 })
 export class LoginFormFacadeService {
-  readonly isLoggedIn$: Observable<boolean> = this.infraServie.authState$.pipe(map(auth => Boolean(auth && auth.uid)));
+  private readonly infraServie = inject(UserInfraService);
 
-  constructor(private readonly infraServie: UserInfraService) { }
+  readonly isLoggedIn$: Observable<boolean> = this.infraServie.authState$.pipe(map(auth => Boolean(auth && auth.uid)));
 
   async login(credentials: { username: string, password: string }) {
     try {

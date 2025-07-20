@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { QueryChange } from 'rxfire/database';
 import { BehaviorSubject, combineLatest, map, Observable, of, shareReplay, switchMap } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -26,6 +26,10 @@ const DEFAULT_ITEMS_PER_PAGE = 50;
   providedIn: 'root',
 })
 export class CrownCapsListFacadeService implements ICrownCapsDataProvider, ICrownCapsFilter, ICrownCapsPagination {
+  private readonly infraService = inject(CrownCapsDataService);
+  private readonly searchService = inject(CrownCapsSearchService);
+  private readonly urlBuilder = inject(UrlBuilderService);
+
   /**
    * list of all available caps
    */
@@ -52,11 +56,7 @@ export class CrownCapsListFacadeService implements ICrownCapsDataProvider, ICrow
     offset: 0,
   });
 
-  constructor(
-    private readonly infraService: CrownCapsDataService,
-    private readonly searchService: CrownCapsSearchService,
-    private readonly urlBuilder: UrlBuilderService,
-  ) {
+  constructor() {
     /**
      * root of all data
      */

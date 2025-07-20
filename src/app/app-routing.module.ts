@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './core/guards/auth.guard';
 
-const routes: Routes = [
+export const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/home/1' },
   {
     path: 'home',
@@ -45,8 +45,3 @@ const routes: Routes = [
   { path: 'admin-beer-brands', loadComponent: () => import('./pages/admin-beer-brands-page/admin-beer-brands-page.component').then(m => m.AdminBeerBrandsPageComponent) },
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

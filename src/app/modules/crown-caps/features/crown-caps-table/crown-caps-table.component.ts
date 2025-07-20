@@ -1,16 +1,21 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import {BehaviorSubject, Observable, Subject, takeUntil} from "rxjs";
 import {CrownCaps} from "@app/modules/crown-caps/domain/crown-caps";
 import {CrownCapsTableFacadeService} from "@app/modules/crown-caps/application/crown-caps-table-facade.service";
+import { CrownCapsPaginationComponent } from '../../shared/crown-caps-pagination/crown-caps-pagination.component';
+import { CapImgComponent } from '../../../../shared/cap-img/cap-img.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-crown-caps-table',
   templateUrl: './crown-caps-table.component.html',
   styleUrls: ['./crown-caps-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
-  imports: [CrownCapsPaginationComponent, CapImgComponent]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [AsyncPipe, CrownCapsPaginationComponent, CapImgComponent]
 })
 export class CrownCapsTableComponent implements OnInit, OnDestroy {
+  private readonly tableFacadeService = inject(CrownCapsTableFacadeService);
+
   @Input()
   set page(pageVal: string | undefined | null) {
     if (pageVal) {
@@ -34,7 +39,7 @@ export class CrownCapsTableComponent implements OnInit, OnDestroy {
   private readonly pageSubject = new BehaviorSubject<number>(1);
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private readonly tableFacadeService: CrownCapsTableFacadeService) {
+  constructor() {
     this.caps$ = this.tableFacadeService.pagesCaps$;
     this.pageInfo$ = this.tableFacadeService.pageInfo$;
   }

@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {debounceTime, distinctUntilChanged, Subject, takeUntil} from 'rxjs';
 
 import {CrownCapsSearchFacadeService} from '../../application/crown-caps-search-facade.service';
@@ -8,26 +8,27 @@ import {CrownCapsSearchFacadeService} from '../../application/crown-caps-search-
   selector: 'app-crown-caps-search',
   templateUrl: './crown-caps-search.component.html',
   styleUrls: ['./crown-caps-search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ReactiveFormsModule]
 })
 export class CrownCapsSearchComponent implements OnInit, OnDestroy {
+  private readonly facadeService = inject(CrownCapsSearchFacadeService);
+
   searchControl = new FormControl(this.facadeService.getSearch());
   formGroup: FormGroup = new FormGroup({ search: this.searchControl });
 
   private readonly onDestroy$ = new Subject<void>();
 
-  constructor(private readonly facadeService: CrownCapsSearchFacadeService) {}
-
   ngOnInit(): void {
     this.searchControl.valueChanges
       .pipe(takeUntil(this.onDestroy$), distinctUntilChanged(), debounceTime(500))
       .subscribe((search) => {
-        this.searchChanged(search);
+        this.searchChanged(search ?? undefined);
       });
 
     this.facadeService.getSearchUpdates().pipe(takeUntil(this.onDestroy$)).subscribe(searchValue => {
       if (this.searchControl.value !== searchValue) {
-        this.searchControl.setValue(searchValue);
+        this.searchControl.setValue(searchValue ?? null);
       }
     })
   }

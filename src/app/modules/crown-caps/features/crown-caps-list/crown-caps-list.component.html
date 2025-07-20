@@ -1,5 +1,5 @@
 <section class="text-center mt-24">
-  @for (item of caps$ | async; track item) {
+  @for (item of caps$ | async; track item.name) {
     <app-cap-img [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img>
   }
 </section>

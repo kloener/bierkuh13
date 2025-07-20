@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CrownCaps } from '../domain/crown-caps';
 
 export interface ISearchStrategy {
@@ -27,7 +27,8 @@ export class FuzzySearchStrategy implements ISearchStrategy {
   providedIn: 'root'
 })
 export class CrownCapsSearchService {
-  constructor(private readonly searchStrategy: FuzzySearchStrategy) {}
+  private readonly searchStrategy = inject(FuzzySearchStrategy);
+
 
   filterItems(items: CrownCaps[], searchTerm?: string): CrownCaps[] {
     if (!searchTerm) {

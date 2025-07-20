@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 export interface IEncoder {
   encode(input: string): string;
@@ -22,7 +22,8 @@ export class Base64Encoder implements IEncoder {
   providedIn: 'root'
 })
 export class EncodingService {
-  constructor(private readonly base64Encoder: Base64Encoder) {}
+  private readonly base64Encoder = inject(Base64Encoder);
+
 
   encodeBase64(str: string): string {
     return this.base64Encoder.encode(str);

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BeerBrands } from '@app/modules/beer-brands/domain/beer-brands';
 import { BeerBrandsDataService } from '@app/modules/beer-brands/infrastructure/beer-brands-data.service';
 import { map, Observable, shareReplay, Subject } from 'rxjs';
@@ -7,11 +7,13 @@ import { map, Observable, shareReplay, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class BeerBrandsFacadeService {
+  private readonly data = inject(BeerBrandsDataService);
+
   list$: Observable<BeerBrands[]>;
 
   private brandChangedSubject = new Subject<string>();
 
-  constructor(private readonly data: BeerBrandsDataService) {
+  constructor() {
     this.list$ = this.data.list().pipe(
       map((eventList) =>
           eventList.map(
