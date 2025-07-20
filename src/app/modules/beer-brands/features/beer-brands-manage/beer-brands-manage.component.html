@@ -3,23 +3,25 @@
     <label class="block my-4">
       Markenname (kommagetrennt für mehrere gleichzeitig):
       <input class="text-black p-2 rounded" type="text" value="" #inputElement></label>
-    <button (click)="create(inputElement.value)">Erstellen</button>
-  </div>
+      <button (click)="create(inputElement.value)">Erstellen</button>
+    </div>
 
-  <table class="">
-    <thead>
-      <tr>
-        <th class="w-12 text-left">#</th>
-        <th class="w-3/4 text-left">Name</th>
-        <th class="w-24">Funktion</th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let brand of list$ | async; let idx = index" [class.bg-gray-700]="idx % 2 === 0">
-      <td>{{ idx + 1 }}</td>
-      <td [title]="brand.id">{{ brand.name }}</td>
-      <td><button class="my-2" (click)="deleteBrand(brand)">Löschen</button></td>
-    </tr>
-    </tbody>
-  </table>
-</section>
+    <table class="">
+      <thead>
+        <tr>
+          <th class="w-12 text-left">#</th>
+          <th class="w-3/4 text-left">Name</th>
+          <th class="w-24">Funktion</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (brand of list$ | async; track brand; let idx = $index) {
+          <tr [class.bg-gray-700]="idx % 2 === 0">
+            <td>{{ idx + 1 }}</td>
+            <td [title]="brand.id">{{ brand.name }}</td>
+            <td><button class="my-2" (click)="deleteBrand(brand)">Löschen</button></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </section>

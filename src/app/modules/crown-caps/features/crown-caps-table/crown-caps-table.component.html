@@ -8,14 +8,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of caps$ | async; let idx = index">
-        <td class="cap-image"><app-cap-img [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img></td>
-        <td class="cap-name">{{ item.name }}</td>
-        <td class="cap-func">
-          <button (click)="onEditClick(item)">Bearbeiten</button>
-          <button (click)="onDeleteClick(item)">Löschen</button>
-        </td>
-      </tr>
+      @for (item of caps$ | async; track item; let idx = $index) {
+        <tr>
+          <td class="cap-image"><app-cap-img [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img></td>
+          <td class="cap-name">{{ item.name }}</td>
+          <td class="cap-func">
+            <button (click)="onEditClick(item)">Bearbeiten</button>
+            <button (click)="onDeleteClick(item)">Löschen</button>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 </section>

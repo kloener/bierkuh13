@@ -19,15 +19,16 @@ import {getStorage, provideStorage} from "@angular/fire/storage";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    provideStorage(() => getStorage()),
     SharedModule,
     BierkuhHeaderModule,
     CoreModule
   ],
-  providers: [],
+  providers: [
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+    provideStorage(() => getStorage())
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

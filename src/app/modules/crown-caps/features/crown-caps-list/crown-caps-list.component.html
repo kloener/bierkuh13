@@ -1,5 +1,7 @@
 <section class="text-center mt-24">
-  <app-cap-img *ngFor="let item of caps$ | async" [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img>
+  @for (item of caps$ | async; track item) {
+    <app-cap-img [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img>
+  }
 </section>
 
 <section class="text-center mt-24">

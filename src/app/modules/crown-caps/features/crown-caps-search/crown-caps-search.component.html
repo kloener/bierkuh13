@@ -1,6 +1,8 @@
 <form class="flex my-8" [formGroup]="formGroup">
   <label class="grow relative">
     <input class="fat-outline w-full" formControlName="search" type="text" placeholder="Suche" />
-    <a *ngIf="searchControl.value" class="absolute text-3xl top-[1rem] right-[1rem]" (click)="resetSearch()">x</a>
+    @if (searchControl.value) {
+      <a class="absolute text-3xl top-[1rem] right-[1rem]" (click)="resetSearch()">x</a>
+    }
   </label>
 </form>

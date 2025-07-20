@@ -8,6 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm start` or `ng serve` - Run development server on http://localhost:4200
 - `npm run build` or `ng build` - Build the application for production
 
+For all changes Claude needs to create a new Branch with a speaking name and commit each change accordingly.
+
 ### Code Generation
 Use the Angular CLI patterns documented in README.md:
 
