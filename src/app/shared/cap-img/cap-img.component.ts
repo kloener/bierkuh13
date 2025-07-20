@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, input } from '@angular/core';
 import { IntersectionDirective } from '../intersection/intersection.directive';
 
 @Component({
@@ -10,8 +10,8 @@ import { IntersectionDirective } from '../intersection/intersection.directive';
   imports: [IntersectionDirective]
 })
 export class CapImgComponent {
-  @Input() fileUri?: string | null = null;
-  @Input() name?: string | null = null;
+  readonly fileUri = input<(string | null) | undefined>(null);
+  readonly name = input<(string | null) | undefined>(null);
 
   @Output() error = new EventEmitter();
 

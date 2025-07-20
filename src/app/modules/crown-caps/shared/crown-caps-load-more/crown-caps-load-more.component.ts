@@ -9,6 +9,8 @@ import { IntersectionDirective } from '@app/shared/intersection/intersection.dir
   imports: [IntersectionDirective]
 })
 export class CrownCapsLoadMoreComponent {
+  // TODO: Skipped for migration because:
+  //  Accessor inputs cannot be migrated as they are too complex.
   @Input() set autoByIntersection(val: boolean | null | undefined) {
     this.useIntersection = Boolean(val);
   }

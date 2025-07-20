@@ -18,6 +18,8 @@ import { AsyncPipe } from '@angular/common';
 export class CrownCapsListComponent implements OnInit, OnDestroy {
   private readonly facadeService = inject(CrownCapsListFacadeService);
 
+  // TODO: Skipped for migration because:
+  //  Accessor inputs cannot be migrated as they are too complex.
   @Input()
   set page(pageVal: string | undefined | null) {
     if (pageVal) {

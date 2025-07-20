@@ -1,10 +1,11 @@
-@if (pageInfo) {
+@let _pageInfo = pageInfo();
+@if (_pageInfo) {
   <section class="flex flex-row justify-center">
-    @if (pageInfo.currentPage > 1) {
+    @if (_pageInfo.currentPage > 1) {
       <button class="flex-initial" (click)="loadPreviousPage.emit()">vorherige Seite</button>
     }
-    <p class="flex-initial grow">Seite {{pageInfo.currentPage}} von {{pageInfo.pages}}</p>
-    @if (pageInfo.currentPage < pageInfo.pages) {
+    <p class="flex-initial grow">Seite {{_pageInfo.currentPage}} von {{_pageInfo.pages}}</p>
+    @if (_pageInfo.currentPage < _pageInfo.pages) {
       <button class="flex-initial" (click)="loadNextPage.emit()">nächste Seite</button>
     }
   </section>

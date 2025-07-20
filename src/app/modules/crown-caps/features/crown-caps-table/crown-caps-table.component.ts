@@ -16,6 +16,8 @@ import { AsyncPipe } from '@angular/common';
 export class CrownCapsTableComponent implements OnInit, OnDestroy {
   private readonly tableFacadeService = inject(CrownCapsTableFacadeService);
 
+  // TODO: Skipped for migration because:
+  //  Accessor inputs cannot be migrated as they are too complex.
   @Input()
   set page(pageVal: string | undefined | null) {
     if (pageVal) {

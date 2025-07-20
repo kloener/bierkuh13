@@ -24,6 +24,8 @@ export class CrownCapsUpdateFormComponent implements OnInit {
   details$: Observable<CrownCaps | undefined>;
   file$: Observable<CrownCapFiles>;
 
+  // TODO: Skipped for migration because:
+  //  Accessor inputs cannot be migrated as they are too complex.
   @Input() set identifier(val: string | null | undefined) {
     if (typeof val === 'string') {
       this.identifier$.next(val);
