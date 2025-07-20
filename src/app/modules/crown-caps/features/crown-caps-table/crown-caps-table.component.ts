@@ -8,6 +8,7 @@ import {CrownCapsTableFacadeService} from "@app/modules/crown-caps/application/c
   templateUrl: './crown-caps-table.component.html',
   styleUrls: ['./crown-caps-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [CrownCapsPaginationComponent, CapImgComponent]
 })
 export class CrownCapsTableComponent implements OnInit, OnDestroy {
   @Input()

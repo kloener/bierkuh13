@@ -4,7 +4,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
   selector: 'app-crown-caps-pagination',
   templateUrl: './crown-caps-pagination.component.html',
   styleUrls: ['./crown-caps-pagination.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrownCapsPaginationComponent implements OnInit {
 

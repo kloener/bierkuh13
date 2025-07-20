@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { IntersectionDirective } from '../intersection/intersection.directive';
 
 @Component({
   selector: 'app-cap-img',
   templateUrl: './cap-img.component.html',
   styleUrls: ['./cap-img.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [IntersectionDirective]
 })
 export class CapImgComponent {
   @Input() fileUri?: string | null = null;

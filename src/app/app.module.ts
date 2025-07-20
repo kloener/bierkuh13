@@ -9,7 +9,7 @@ import {getAuth, provideAuth} from '@angular/fire/auth';
 import {getDatabase, provideDatabase} from '@angular/fire/database';
 import {SharedModule} from './shared/shared.module';
 import {CoreModule} from './core/core.module';
-import {BierkuhHeaderModule} from './shared/bierkuh-header/bierkuh-header.module';
+import {BierkuhHeaderComponent} from './shared/bierkuh-header/bierkuh-header.component';
 import {getStorage, provideStorage} from "@angular/fire/storage";
 
 @NgModule({
@@ -20,7 +20,7 @@ import {getStorage, provideStorage} from "@angular/fire/storage";
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    BierkuhHeaderModule,
+    BierkuhHeaderComponent,
     CoreModule
   ],
   providers: [

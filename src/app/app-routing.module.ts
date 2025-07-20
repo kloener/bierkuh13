@@ -7,42 +7,42 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/home/1' },
   {
     path: 'home',
-    loadChildren: () =>
-      import('./pages/home-page/home-page.module').then(
-        (m) => m.HomePageModule
+    loadComponent: () =>
+      import('./pages/home-page/home-page.component').then(
+        (m) => m.HomePageComponent
       ),
   },
   {
     path: 'admin-list',
     canLoad: [AuthGuard],
-    loadChildren: () =>
-      import('./pages/admin-list-page/admin-list-page.module').then(
-        (m) => m.AdminListPageModule
+    loadComponent: () =>
+      import('./pages/admin-list-page/admin-list-page.component').then(
+        (m) => m.AdminListPageComponent
       ),
   },
   {
     path: 'admin-upsert',
     canLoad: [AuthGuard],
-    loadChildren: () =>
-      import('./pages/admin-upsert-page/admin-upsert-page.module').then(
-        (m) => m.AdminUpsertPageModule
+    loadComponent: () =>
+      import('./pages/admin-upsert-page/admin-upsert-page.component').then(
+        (m) => m.AdminUpsertPageComponent
       ),
   },
   {
     path: 'details',
-    loadChildren: () =>
-      import('./pages/details-page/details-page.module').then(
-        (m) => m.DetailsPageModule
+    loadComponent: () =>
+      import('./pages/details-page/details-page.component').then(
+        (m) => m.DetailsPageComponent
       ),
   },
   {
     path: 'admin-login',
-    loadChildren: () =>
-      import('./pages/admin-login-page/admin-login-page.module').then(
-        (m) => m.AdminLoginPageModule
+    loadComponent: () =>
+      import('./pages/admin-login-page/admin-login-page.component').then(
+        (m) => m.AdminLoginPageComponent
       ),
   },
-  { path: 'admin-beer-brands', loadChildren: () => import('./pages/admin-beer-brands-page/admin-beer-brands-page.module').then(m => m.AdminBeerBrandsPageModule) },
+  { path: 'admin-beer-brands', loadComponent: () => import('./pages/admin-beer-brands-page/admin-beer-brands-page.component').then(m => m.AdminBeerBrandsPageComponent) },
 ];
 
 @NgModule({

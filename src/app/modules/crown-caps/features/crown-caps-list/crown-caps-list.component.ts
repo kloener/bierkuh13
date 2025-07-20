@@ -9,6 +9,7 @@ import {CrownCaps} from '../../domain/crown-caps';
   templateUrl: './crown-caps-list.component.html',
   styleUrls: ['./crown-caps-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CrownCapsPaginationComponent, CrownCapsLoadMoreComponent, CapImgComponent],
 })
 export class CrownCapsListComponent implements OnInit, OnDestroy {
   @Input()

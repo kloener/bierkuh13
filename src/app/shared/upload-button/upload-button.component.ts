@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   selector: 'app-upload-button',
   templateUrl: './upload-button.component.html',
   styleUrls: ['./upload-button.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UploadButtonComponent implements OnInit {
 

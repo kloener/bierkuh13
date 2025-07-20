@@ -9,6 +9,7 @@ import { CrownCaps } from '../../domain/crown-caps';
   templateUrl: './crown-caps-details.component.html',
   styleUrls: ['./crown-caps-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CapImgComponent, AssigneePipe],
 })
 export class CrownCapsDetailsComponent implements OnInit {
   details$: Observable<CrownCaps | undefined>;

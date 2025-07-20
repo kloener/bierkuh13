@@ -3,6 +3,7 @@ import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 @Directive({
   selector: '[appIntersection]',
+  standalone: true
 })
 export class IntersectionDirective implements OnInit, OnDestroy {
   @Output() isIntersection = new EventEmitter<boolean>();
