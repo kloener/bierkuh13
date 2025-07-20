@@ -1,1 +1,3 @@
-<p *ngIf="userName$ | async as userName">Angemeldet als: {{ userName }} <a role="button" class="cursor-pointer" (click)="logout()">Abmelden</a></p>
+@if (userName$ | async; as userName) {
+  <p>Angemeldet als: {{ userName }} <a role="button" class="cursor-pointer" (click)="logout()">Abmelden</a></p>
+}

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Database } from '@angular/fire/database';
 import { FirebaseConst } from '@app/constants/firestore';
 import { CrudFirebaseDatabase } from '@app/core/crud-firebase-database';
@@ -10,11 +10,12 @@ import { IsoTimestampProvider } from '@app/core/services/timestamp-provider.serv
   providedIn: 'root'
 })
 export class BeerBrandsDataService extends CrudFirebaseDatabase<BeerBrandsDto> {
-  constructor(
-    private readonly database: Database,
-    identifierGenerator: NanoIdGenerator,
-    timestampProvider: IsoTimestampProvider
-  ) {
+  private readonly database = inject(Database);
+
+  constructor() {
+    const identifierGenerator = inject(NanoIdGenerator);
+    const timestampProvider = inject(IsoTimestampProvider);
+
     super(identifierGenerator, timestampProvider);
   }
 

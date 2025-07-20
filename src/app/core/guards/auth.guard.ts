@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -16,7 +16,9 @@ import {first, map, Observable, of} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
-  constructor(private readonly userApiService: UserApiService, private readonly router: Router) {}
+  private readonly userApiService = inject(UserApiService);
+  private readonly router = inject(Router);
+
 
   canLoad(route: Route, segments: UrlSegment[]) {
     return this.checkAuth();

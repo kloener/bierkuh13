@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { LoggedInAsInfoComponent } from "@app/modules/user/features/logged-in-as-info/logged-in-as-info.component";
+import { BeerBrandsManageComponent } from "@app/modules/beer-brands/features/beer-brands-manage/beer-brands-manage.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-beer-brands-page',
   templateUrl: './admin-beer-brands-page.component.html',
   styleUrls: ['./admin-beer-brands-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [RouterLink, LoggedInAsInfoComponent, BeerBrandsManageComponent]
 })
-export class AdminBeerBrandsPageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class AdminBeerBrandsPageComponent  {
 
 }

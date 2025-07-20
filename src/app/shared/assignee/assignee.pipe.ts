@@ -19,6 +19,7 @@ export const fullAssignee: (short?: string[]) => string = (short) => {
 
 @Pipe({
   name: 'assignee',
+  standalone: true
 })
 export class AssigneePipe implements PipeTransform {
   transform(value?: string[]): string {

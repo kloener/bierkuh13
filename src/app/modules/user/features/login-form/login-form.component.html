@@ -1,7 +1,7 @@
 <form class="m-12" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
-  <label for="input_username" class="inline-block mb-2 text-white mt-8 mb-2">Benutzer:</label>
+  <label for="input_username" class="inline-block text-white mt-8 mb-2">Benutzer:</label>
   <input id="input_username" class="block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" formControlName="username" type="text">
-  <label for="input_password" class="inline-block mb-2 text-white mt-8 mb-2">Passwort:</label>
+  <label for="input_password" class="inline-block text-white mt-8 mb-2">Passwort:</label>
   <input id="input_password" class="block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" formControlName="password" type="password">
 
   <button class="block mx-auto my-4" [class.has-error]="loginFailed" type="submit">Anmelden</button>

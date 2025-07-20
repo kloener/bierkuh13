@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {BeerBrandsFacadeService} from "@app/modules/beer-brands/application/beer-brands-facade.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BeerBrandsApiService {
+  private readonly domainService = inject(BeerBrandsFacadeService);
 
-  constructor(private readonly domainService: BeerBrandsFacadeService) { }
 
   getBrandChangesForCrownCaps() { return this.domainService.getBrandChanges(); }
 }

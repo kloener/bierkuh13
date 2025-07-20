@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
 export interface IUrlBuilder {
@@ -36,7 +36,8 @@ export class FirebaseStorageUrlBuilder implements IUrlBuilder {
   providedIn: 'root'
 })
 export class UrlBuilderService {
-  constructor(private readonly firebaseUrlBuilder: FirebaseStorageUrlBuilder) {}
+  private readonly firebaseUrlBuilder = inject(FirebaseStorageUrlBuilder);
+
 
   buildFileUrl(storagePath: string): string {
     return this.firebaseUrlBuilder.buildFileUrl(storagePath);

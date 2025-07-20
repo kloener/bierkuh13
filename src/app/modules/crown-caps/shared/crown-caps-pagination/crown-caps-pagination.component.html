@@ -1,5 +1,12 @@
-<section class="flex flex-row justify-center" *ngIf="pageInfo">
-  <button class="flex-initial" (click)="loadPreviousPage.emit()" *ngIf="pageInfo.currentPage > 1">vorherige Seite</button>
-  <p class="flex-initial grow">Seite {{pageInfo.currentPage}} von {{pageInfo.pages}}</p>
-  <button class="flex-initial" (click)="loadNextPage.emit()" *ngIf="pageInfo.currentPage < pageInfo.pages">nächste Seite</button>
-</section>
+@let _pageInfo = pageInfo();
+@if (_pageInfo) {
+  <section class="flex flex-row justify-center">
+    @if (_pageInfo.currentPage > 1) {
+      <button class="flex-initial" (click)="loadPreviousPage.emit()">vorherige Seite</button>
+    }
+    <p class="flex-initial grow">Seite {{_pageInfo.currentPage}} von {{_pageInfo.pages}}</p>
+    @if (_pageInfo.currentPage < _pageInfo.pages) {
+      <button class="flex-initial" (click)="loadNextPage.emit()">nächste Seite</button>
+    }
+  </section>
+}

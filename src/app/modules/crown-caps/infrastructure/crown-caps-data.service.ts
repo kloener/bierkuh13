@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FirebaseConst } from '@app/constants/firestore';
 import { Database, DatabaseReference, ref, object, set } from '@angular/fire/database';
 import { list, QueryChange } from 'rxfire/database';
@@ -16,15 +16,16 @@ import { IsoTimestampProvider } from '@app/core/services/timestamp-provider.serv
   providedIn: 'root'
 })
 export class CrownCapsDataService extends CrudFirebaseDatabase<CrownCapSnapshot> {
+  private readonly database = inject(Database);
+  private readonly crownCapFactory = inject(CrownCapFactoryService);
+
   query: Observable<QueryChange[]>;
 
-  constructor(
-    private readonly database: Database,
-    private readonly crownCapFactory: CrownCapFactoryService,
-    identifierGenerator: NanoIdGenerator,
-    timestampProvider: IsoTimestampProvider
-  ) {
+  constructor() {
+    const identifierGenerator = inject(NanoIdGenerator);
+    const timestampProvider = inject(IsoTimestampProvider);
     super(identifierGenerator, timestampProvider);
+
     this.query = list(ref(this.database, this.getPath())).pipe(
       catchError(err => {
         alert(err.message);
@@ -35,7 +36,7 @@ export class CrownCapsDataService extends CrudFirebaseDatabase<CrownCapSnapshot>
   }
 
   getPath(withIdentifier?: string): string {
-    return withIdentifier 
+    return withIdentifier
       ? `${FirebaseConst.capsName}/${withIdentifier}`
       : FirebaseConst.capsName;
   }
@@ -57,7 +58,7 @@ export class CrownCapsDataService extends CrudFirebaseDatabase<CrownCapSnapshot>
         ...updateDto,
       },
     };
-    
+
     await this.update(crownCap.identifier, updateSnapshotDto);
   }
 

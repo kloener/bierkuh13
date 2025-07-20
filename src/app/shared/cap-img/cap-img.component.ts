@@ -1,16 +1,19 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { IntersectionDirective } from '../intersection/intersection.directive';
 
 @Component({
   selector: 'app-cap-img',
   templateUrl: './cap-img.component.html',
   styleUrls: ['./cap-img.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [IntersectionDirective]
 })
 export class CapImgComponent {
-  @Input() fileUri?: string | null = null;
-  @Input() name?: string | null = null;
+  readonly fileUri = input<(string | null) | undefined>(null);
+  readonly name = input<(string | null) | undefined>(null);
 
-  @Output() error = new EventEmitter();
+  readonly error = output();
 
   onImageLoadError(event: ErrorEvent) {
     const imgEl = event.target as HTMLImageElement;

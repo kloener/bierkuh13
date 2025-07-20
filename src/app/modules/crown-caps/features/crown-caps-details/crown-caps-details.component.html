@@ -1,13 +1,23 @@
-<ng-container *ngIf="details$ | async as details">
+@if (details$ | async; as details) {
   <ul>
     <li><strong>Name: </strong> {{ details.name }}</li>
-    <li *ngIf="details.assignees">{{ details.assignees| assignee }}</li>
-    <li *ngIf="details.brewery"><strong>Brauerei: </strong> {{ details.brewery }}</li>
-    <li *ngIf="details.color"><strong>Farbe: </strong> {{ details.color }}</li>
-    <li *ngIf="details.count"><strong>Anzahl: </strong> {{ details.count }}</li>
-    <li *ngIf="details.comment"><strong>Kommentar: </strong> {{ details.comment }}</li>
+    @if (details.assignees) {
+      <li>{{ details.assignees| assignee }}</li>
+    }
+    @if (details.brewery) {
+      <li><strong>Brauerei: </strong> {{ details.brewery }}</li>
+    }
+    @if (details.color) {
+      <li><strong>Farbe: </strong> {{ details.color }}</li>
+    }
+    @if (details.count) {
+      <li><strong>Anzahl: </strong> {{ details.count }}</li>
+    }
+    @if (details.comment) {
+      <li><strong>Kommentar: </strong> {{ details.comment }}</li>
+    }
   </ul>
   <app-cap-img class="mx-auto w-full h-auto max-w-full" [name]="details.name" [fileUri]="details.storageRef"></app-cap-img>
-</ng-container>
+}
 
 <button class="mt-12 w-6/12 mx-auto fat-outline" routerLink="/">Zurück</button>

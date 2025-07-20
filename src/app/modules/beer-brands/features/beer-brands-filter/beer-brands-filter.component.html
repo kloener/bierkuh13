@@ -3,11 +3,15 @@
     <p>Marken: </p>
     <select #brandSelectEl class="text-black p-2 rounded" (change)="onChange($event.target)">
       <option value=""></option>
-      <ng-container *ngIf="letters$ | async as lettersMap">
-        <optgroup *ngFor="let letter of lettersMap.values()" [label]="letter.letter">
-          <option *ngFor="let brand of letter.brands" [value]="brand.name">{{ brand.name }}</option>
-        </optgroup>
-      </ng-container>
+      @if (letters$ | async; as lettersMap) {
+        @for (letter of lettersMap.values(); track letter) {
+          <optgroup [label]="letter.letter">
+            @for (brand of letter.brands; track brand) {
+              <option [value]="brand.name">{{ brand.name }}</option>
+            }
+          </optgroup>
+        }
+      }
     </select>
   </div>
 </div>

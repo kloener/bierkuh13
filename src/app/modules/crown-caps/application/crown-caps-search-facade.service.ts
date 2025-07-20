@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { CrownCapsListFacadeService } from './crown-caps-list-facade.service';
 import {pluck} from "rxjs";
@@ -8,8 +8,11 @@ import {BeerBrandsApiService} from "@app/modules/beer-brands/api/beer-brands-api
   providedIn: 'root'
 })
 export class CrownCapsSearchFacadeService {
+  private readonly listFacadeService = inject(CrownCapsListFacadeService);
+  private readonly beerBrandsApiService = inject(BeerBrandsApiService);
 
-  constructor(private readonly listFacadeService: CrownCapsListFacadeService, private readonly beerBrandsApiService: BeerBrandsApiService) {
+
+  constructor() {
     this.beerBrandsApiService.getBrandChangesForCrownCaps().subscribe(val => this.search(val));
   }
 
