@@ -1,8 +1,19 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {debounceTime, distinctUntilChanged, Subject, takeUntil} from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  inject,
+  viewChild,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 
-import {CrownCapsSearchFacadeService} from '../../application/crown-caps-search-facade.service';
+import { KeyboardShortcutsService } from '@app/core/keyboard-shortcuts/keyboard-shortcuts.service';
+import { CrownCapsSearchFacadeService } from '../../application/crown-caps-search-facade.service';
 
 @Component({
   selector: 'app-crown-caps-search',
@@ -13,11 +24,25 @@ import {CrownCapsSearchFacadeService} from '../../application/crown-caps-search-
 })
 export class CrownCapsSearchComponent implements OnInit, OnDestroy {
   private readonly facadeService = inject(CrownCapsSearchFacadeService);
+  private readonly keyboardShortcuts = inject(KeyboardShortcutsService);
+  private readonly destroyRef = inject(DestroyRef);
+
+  readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
   searchControl = new FormControl(this.facadeService.getSearch());
   formGroup: FormGroup = new FormGroup({ search: this.searchControl });
 
   private readonly onDestroy$ = new Subject<void>();
+
+  constructor() {
+    this.keyboardShortcuts.focusSearchRequested
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        const el = this.searchInput()?.nativeElement;
+        el?.focus();
+        el?.select();
+      });
+  }
 
   ngOnInit(): void {
     this.searchControl.valueChanges

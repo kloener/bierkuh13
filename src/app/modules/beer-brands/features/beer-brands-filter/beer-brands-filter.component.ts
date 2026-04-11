@@ -1,10 +1,20 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, viewChild } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  OnInit,
+  inject,
+  viewChild,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { KeyboardShortcutsService } from '@app/core/keyboard-shortcuts/keyboard-shortcuts.service';
 import { BeerBrands } from '@app/modules/beer-brands/domain/beer-brands';
 import {
   BeerBrandsFilterFacadeService,
 } from '@app/modules/beer-brands/features/beer-brands-filter/beer-brands-filter-facade.service';
 import { map, Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 
 type LetteredBrands = { letter: string, brands: BeerBrands[] };
 
@@ -17,7 +27,8 @@ type LetteredBrands = { letter: string, brands: BeerBrands[] };
 })
 export class BeerBrandsFilterComponent implements OnInit {
   private readonly facade = inject(BeerBrandsFilterFacadeService);
-
+  private readonly keyboardShortcuts = inject(KeyboardShortcutsService);
+  private readonly destroyRef = inject(DestroyRef);
 
   letters$: Observable<Map<string, LetteredBrands>>;
 
@@ -26,6 +37,13 @@ export class BeerBrandsFilterComponent implements OnInit {
   readonly brandSelectEl = viewChild('brandSelectEl', { read: ElementRef });
 
   constructor() {
+    this.keyboardShortcuts.focusBrandFilterRequested
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        const el = this.brandSelectEl()?.nativeElement as HTMLSelectElement | undefined;
+        el?.focus();
+      });
+
     this.list$ = this.facade.list$;
     this.letters$ = this.list$.pipe(
       map(list => list.reduce((acc, curr) => {

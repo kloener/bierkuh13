@@ -61,17 +61,32 @@ body {
   background-image: url($path-background-image);
 }
 
+@layer base {
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+}
+
 @layer components {
 
   a {
     text-decoration: none;
+    transition: color 0.15s ease, opacity 0.15s ease;
 
     &, &:visited {
       color: var(--primary-color);
-    }
-
-    &:focus {
-      outline: 1px dotted var(--primary-color);
     }
 
     &:hover {
@@ -80,20 +95,41 @@ body {
   }
 
   [role=button] {
-    @apply cursor-pointer p-4 m-4 rounded-lg inline-block w-auto;
+    @apply cursor-pointer p-4 m-4 rounded-ui inline-block w-auto transition-colors duration-150;
     background: rgba(0, 0, 0, 0.4);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.55);
+    }
   }
 
   .fat-outline {
-    @apply block p-2 bg-transparent text-white rounded-lg text-2xl font-bold border-8;
+    @apply block w-full p-3 bg-surface-muted text-white rounded-ui text-2xl font-bold border-4 transition-shadow duration-150;
     border-color: var(--primary-color);
+
+    &:hover {
+      @apply shadow-md;
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--primary-color);
+    }
   }
 
   button {
-    @apply p-1 bg-transparent text-white rounded text-lg border-4;
+    @apply px-3 py-2 bg-transparent text-white rounded-ui text-lg border-2 transition-colors duration-150;
 
     --button-border-color: var(--global-font-color);
     border-color: var(--button-border-color);
+
+    &:hover:not(:disabled) {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    &:disabled {
+      @apply opacity-50 cursor-not-allowed;
+    }
 
     &[type=submit] {
       --button-border-color: var(--primary-color);

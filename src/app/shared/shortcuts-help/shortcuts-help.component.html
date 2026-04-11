@@ -1,0 +1,45 @@
+@if (shortcuts.helpOpen()) {
+  <div
+    class="shortcuts-help__backdrop"
+    (click)="close()"
+    role="presentation"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="shortcuts-help__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="shortcuts-help-title"
+    (click)="onPanelClick($event)"
+  >
+    <div class="shortcuts-help__head">
+      <h2 id="shortcuts-help-title" class="shortcuts-help__title">Tastaturkürzel</h2>
+      <button type="button" class="shortcuts-help__close" (click)="close()" aria-label="Hilfe schließen">
+        ×
+      </button>
+    </div>
+    <p class="shortcuts-help__intro">Kürzel funktionieren nicht, während ein Eingabefeld fokussiert ist (außer Strg/⌘-Kombinationen).</p>
+    <dl class="shortcuts-help__list">
+      <div class="shortcuts-help__row">
+        <dt>Suche fokussieren</dt>
+        <dd><kbd>Strg</kbd>/<kbd>⌘</kbd> + <kbd>K</kbd> oder <kbd>/</kbd></dd>
+      </div>
+      <div class="shortcuts-help__row">
+        <dt>Markenfilter fokussieren</dt>
+        <dd><kbd>Strg</kbd>/<kbd>⌘</kbd> + <kbd>⇧</kbd> + <kbd>M</kbd></dd>
+      </div>
+      <div class="shortcuts-help__row">
+        <dt>Biermarken verwalten</dt>
+        <dd><kbd>Strg</kbd>/<kbd>⌘</kbd> + <kbd>,</kbd></dd>
+      </div>
+      <div class="shortcuts-help__row">
+        <dt>Diese Hilfe</dt>
+        <dd><kbd>⇧</kbd> + <kbd>?</kbd></dd>
+      </div>
+      <div class="shortcuts-help__row">
+        <dt>Schließen</dt>
+        <dd><kbd>Esc</kbd></dd>
+      </div>
+    </dl>
+  </div>
+}

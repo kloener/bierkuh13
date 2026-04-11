@@ -1,18 +1,24 @@
-<div class="flex flex-row flex-wrap mb-4">
-  <div class="filter mr-4">
-    <p>Marken: </p>
-    <select #brandSelectEl class="text-black p-2 rounded" (change)="onChange($event.target)">
-      <option value=""></option>
-      @if (letters$ | async; as lettersMap) {
-        @for (letter of lettersMap.values(); track letter) {
-          <optgroup [label]="letter.letter">
-            @for (brand of letter.brands; track brand) {
-              <option [value]="brand.name">{{ brand.name }}</option>
-            }
-          </optgroup>
-        }
-      }
-    </select>
+<div class="beer-brands-filter flex flex-col gap-2 mb-6">
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <label class="text-sm font-medium text-white/90" for="beer-brand-filter">Marke filtern</label>
+    <span class="text-xs text-white/45 hidden sm:inline" translate="no" aria-hidden="true">⇧⌘M</span>
   </div>
+  <select
+    #brandSelectEl
+    id="beer-brand-filter"
+    class="beer-brands-filter__select w-full max-w-xl"
+    aria-label="Biermarke zum Filtern wählen"
+    (change)="onChange($event.target)"
+  >
+    <option value="">Alle Marken</option>
+    @if (letters$ | async; as lettersMap) {
+      @for (letter of lettersMap.values(); track letter) {
+        <optgroup [label]="letter.letter">
+          @for (brand of letter.brands; track brand) {
+            <option [value]="brand.name">{{ brand.name }}</option>
+          }
+        </optgroup>
+      }
+    }
+  </select>
 </div>
-

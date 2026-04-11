@@ -1,8 +1,27 @@
-<form class="flex my-8" [formGroup]="formGroup">
-  <label class="grow relative">
-    <input class="fat-outline w-full" formControlName="search" type="text" placeholder="Suche" />
+<form class="crown-caps-search flex flex-col gap-2 my-6 md:my-8" [formGroup]="formGroup">
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <label class="text-sm font-medium text-white/90" for="crown-caps-search-input">Suche</label>
+    <span class="text-xs text-white/45 hidden sm:inline" translate="no" aria-hidden="true">⌘K</span>
+  </div>
+  <div class="relative grow">
+    <input
+      id="crown-caps-search-input"
+      #searchInput
+      class="fat-outline w-full pr-14"
+      formControlName="search"
+      type="search"
+      autocomplete="off"
+      placeholder="Suche"
+    />
     @if (searchControl.value) {
-      <a class="absolute text-3xl top-[1rem] right-[1rem]" (click)="resetSearch()">x</a>
+      <button
+        type="button"
+        class="search-clear"
+        (click)="resetSearch()"
+        aria-label="Suche leeren"
+      >
+        ×
+      </button>
     }
-  </label>
+  </div>
 </form>
