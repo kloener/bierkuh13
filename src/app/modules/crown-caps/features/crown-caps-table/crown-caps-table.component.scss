@@ -13,3 +13,11 @@
     @apply w-auto whitespace-nowrap sm:w-[11rem];
   }
 }
+
+.cap-table__cap-cell {
+  @apply cursor-pointer outline-none transition-shadow;
+
+  &:focus-visible {
+    @apply ring-2 ring-primary ring-offset-2 ring-offset-bierkuh-bg;
+  }
+}
