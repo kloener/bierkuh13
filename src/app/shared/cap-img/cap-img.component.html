@@ -1,1 +1,16 @@
-<img #imgEl appIntersection (isIntersection)="isIntersection($event, imgEl)" [attr.data-src]="fileUri()" width="500" height="500" [attr.alt]="name()" [attr.title]="name()" (error)="onImageLoadError($event)" loading="lazy" decoding="async">
+<img
+  #imgEl
+  class="cap-img__media"
+  [class.cap-img__media--ready]="imageReady()"
+  appIntersection
+  (isIntersection)="isIntersection($event, imgEl)"
+  [attr.data-src]="fileUri()"
+  width="500"
+  height="500"
+  [attr.alt]="name()"
+  [attr.title]="name()"
+  (load)="onImageLoaded()"
+  (error)="onImageLoadError($event)"
+  loading="lazy"
+  decoding="async"
+/>

@@ -8,15 +8,38 @@ $capScaleFactor: 1.5;
   max-width: 80%;
 }
 
-img {
-  @apply object-cover rounded-full shadow-md transition-all scale-100 ease-in duration-500;
+.cap-img__media {
+  @apply object-cover rounded-full shadow-md z-0;
+  opacity: 0;
+  transform: translateY(0.5rem) scale(0.94);
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.2s ease;
 
-  &:hover {
+  &.cap-img__media--ready {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  &.cap-img__media--ready:hover {
     @apply z-50;
     transform: scale(var(--cap-scale-factor)) rotate(-12deg);
   }
 
   &.has-error {
     @apply bg-red-600;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cap-img__media {
+    transition: none;
+  }
+
+  .cap-img__media.cap-img__media--ready:hover {
+    transform: none;
   }
 }
