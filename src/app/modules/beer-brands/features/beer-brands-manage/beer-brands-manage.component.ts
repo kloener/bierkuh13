@@ -25,8 +25,14 @@ export class BeerBrandsManageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  create(value: string) {
-    value.split(',').forEach(val => this.facade.create(val.trim()));
+  create(input: HTMLInputElement) {
+    const value = input.value;
+    value
+      .split(',')
+      .map((v) => v.trim())
+      .filter(Boolean)
+      .forEach((name) => this.facade.create(name));
+    input.value = '';
   }
 
   deleteBrand(brand: BeerBrands) {

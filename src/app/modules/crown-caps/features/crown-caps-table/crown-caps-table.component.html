@@ -1,20 +1,24 @@
-<section class="cap-table">
-  <table>
+<section class="cap-table admin-table-wrap">
+  <table class="admin-table">
     <thead>
       <tr>
         <th class="cap-image">Bild</th>
         <th class="cap-name">Name</th>
-        <th class="cap-func">Funktionen</th>
+        <th class="cap-func">Aktionen</th>
       </tr>
     </thead>
     <tbody>
-      @for (item of caps$ | async; track item; let idx = $index) {
+      @for (item of caps$ | async; track item.identifier) {
         <tr>
-          <td class="cap-image"><app-cap-img [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img></td>
-          <td class="cap-name">{{ item.name }}</td>
+          <td class="cap-image">
+            <app-cap-img [name]="item.name" [fileUri]="item.storageRef" (click)="onCapClick(item)"></app-cap-img>
+          </td>
+          <td class="cap-name font-medium">{{ item.name }}</td>
           <td class="cap-func">
-            <button (click)="onEditClick(item)">Bearbeiten</button>
-            <button (click)="onDeleteClick(item)">Löschen</button>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" (click)="onEditClick(item)">Bearbeiten</button>
+              <button type="button" (click)="onDeleteClick(item)">Löschen</button>
+            </div>
           </td>
         </tr>
       }
@@ -22,10 +26,10 @@
   </table>
 </section>
 
-<section class="text-center mt-24">
+<div class="mt-8">
   <app-crown-caps-pagination
     [pageInfo]="pageInfo$ | async"
     (loadPreviousPage)="loadPreviousPage()"
     (loadNextPage)="loadNextPage()"
   ></app-crown-caps-pagination>
-</section>
+</div>

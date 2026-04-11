@@ -1,9 +1,24 @@
-<form class="m-12" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
-  <label for="input_username" class="inline-block text-white mt-8 mb-2">Benutzer:</label>
-  <input id="input_username" class="block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" formControlName="username" type="text">
-  <label for="input_password" class="inline-block text-white mt-8 mb-2">Passwort:</label>
-  <input id="input_password" class="block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" formControlName="password" type="password">
+<form class="admin-form mt-6" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+  <label for="input_username" class="admin-label !mt-0">Benutzer</label>
+  <input
+    id="input_username"
+    class="admin-input admin-input--wide"
+    formControlName="username"
+    type="text"
+    autocomplete="username"
+  />
 
-  <button class="block mx-auto my-4" [class.has-error]="loginFailed" type="submit">Anmelden</button>
-  <button class="block mx-auto my-4" type="button" routerLink="/">Abbrechen</button>
+  <label for="input_password" class="admin-label">Passwort</label>
+  <input
+    id="input_password"
+    class="admin-input admin-input--wide"
+    formControlName="password"
+    type="password"
+    autocomplete="current-password"
+  />
+
+  <div class="admin-form-actions justify-center">
+    <button [class.has-error]="loginFailed" type="submit">Anmelden</button>
+    <button type="button" routerLink="/">Abbrechen</button>
+  </div>
 </form>

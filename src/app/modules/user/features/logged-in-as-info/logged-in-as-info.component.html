@@ -1,3 +1,6 @@
 @if (userName$ | async; as userName) {
-  <p>Angemeldet als: {{ userName }} <a role="button" class="cursor-pointer" (click)="logout()">Abmelden</a></p>
+  <div class="admin-user-bar">
+    <span>Angemeldet als <strong>{{ userName }}</strong></span>
+    <button type="button" class="admin-logout-btn" (click)="logout()">Abmelden</button>
+  </div>
 }
