@@ -1,0 +1,56 @@
+:host {
+  display: contents;
+}
+
+.shortcuts-help__backdrop {
+  @apply fixed inset-0 z-40 bg-black/55 backdrop-blur-sm;
+}
+
+.shortcuts-help__panel {
+  @apply fixed left-1/2 top-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-ui border-2 border-primary p-5 text-white shadow-xl;
+  background: color-mix(in srgb, var(--bg-color) 92%, transparent);
+}
+
+.shortcuts-help__head {
+  @apply flex items-start justify-between gap-3 border-b border-white/15 pb-3;
+}
+
+.shortcuts-help__title {
+  @apply m-0 text-lg font-semibold text-primary;
+}
+
+.shortcuts-help__close {
+  @apply -mr-1 -mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-0 bg-transparent text-3xl leading-none text-white transition-colors;
+
+  &:hover {
+    @apply text-primary;
+  }
+
+  &:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-bierkuh-bg;
+  }
+}
+
+.shortcuts-help__intro {
+  @apply mt-3 text-sm text-white/75;
+}
+
+.shortcuts-help__list {
+  @apply mt-4 space-y-3 m-0;
+}
+
+.shortcuts-help__row {
+  @apply flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4;
+
+  dt {
+    @apply m-0 text-sm font-medium text-white/90;
+  }
+
+  dd {
+    @apply m-0 text-sm text-white/70;
+  }
+
+  kbd {
+    @apply inline-block rounded border border-white/25 bg-black/35 px-1.5 py-0.5 font-mono text-xs text-primary;
+  }
+}

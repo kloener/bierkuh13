@@ -1,0 +1,11 @@
+.beer-brands-filter__select {
+  @apply cursor-pointer rounded-ui border-4 border-primary bg-white px-3 py-3 text-lg font-semibold text-black shadow-sm transition-shadow duration-150;
+
+  &:hover {
+    @apply shadow-md;
+  }
+
+  &:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-bierkuh-bg;
+  }
+}

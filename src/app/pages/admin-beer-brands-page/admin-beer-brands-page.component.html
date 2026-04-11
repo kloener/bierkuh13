@@ -1,6 +1,11 @@
-<div class="my-4 p-4">
+<div class="admin-page">
   <app-logged-in-as-info></app-logged-in-as-info>
-  <button class="fat-outline" routerLink="/admin-list/1">Kronkorken</button>
-  <h1 class="mt-8 text-xl">Marken verwalten</h1>
+
+  <div class="admin-toolbar">
+    <a class="admin-nav-link" routerLink="/admin-list/1">Zu den Kronkorken</a>
+  </div>
+
+  <h1 class="admin-page-title">Marken verwalten</h1>
+
   <app-beer-brands-manage></app-beer-brands-manage>
 </div>

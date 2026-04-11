@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+
+.bierkuh-header {
+  @apply border-b border-white/10 bg-surface-muted backdrop-blur-sm;
+}
+
+.bierkuh-header__brand {
+  @apply px-2 pt-2 pb-0;
+}
+
+.bierkuh-header__nav {
+  @apply flex flex-wrap items-center justify-center gap-2 px-3 py-3 md:justify-end md:pr-4;
+}
+
+.bierkuh-header__pill {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-base font-medium text-white no-underline transition-colors duration-150;
+  @apply bg-black/35 border border-white/15;
+
+  &,
+  &:visited {
+    @apply text-white;
+  }
+
+  &:hover {
+    @apply border-primary text-primary bg-black/45;
+  }
+
+  &:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-bierkuh-bg;
+  }
+
+  &.bierkuh-header__pill--active {
+    @apply border-primary text-primary;
+    background: color-mix(in srgb, var(--primary-color) 18%, rgba(0, 0, 0, 0.35));
+  }
+}
+
+.bierkuh-header__pill--icon .bierkuh-header__pill-text {
+  @apply hidden sm:inline;
+}

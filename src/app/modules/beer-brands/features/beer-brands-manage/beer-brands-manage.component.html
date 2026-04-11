@@ -1,27 +1,35 @@
-<section>
-  <div class="create my-4 p-4 bg-sky-500 rounded">
-    <label class="block my-4">
-      Markenname (kommagetrennt für mehrere gleichzeitig):
-      <input class="text-black p-2 rounded" type="text" value="" #inputElement></label>
-      <button (click)="create(inputElement.value)">Erstellen</button>
-    </div>
-
-    <table class="">
-      <thead>
-        <tr>
-          <th class="w-12 text-left">#</th>
-          <th class="w-3/4 text-left">Name</th>
-          <th class="w-24">Funktion</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (brand of list$ | async; track brand; let idx = $index) {
-          <tr [class.bg-gray-700]="idx % 2 === 0">
-            <td>{{ idx + 1 }}</td>
-            <td [title]="brand.id">{{ brand.name }}</td>
-            <td><button class="my-2" (click)="deleteBrand(brand)">Löschen</button></td>
-          </tr>
-        }
-      </tbody>
-    </table>
+<div class="flex flex-col gap-6">
+  <section class="admin-panel admin-panel--accent">
+    <h2 class="admin-section-title">Neue Marken anlegen</h2>
+    <p class="admin-help-text">Mehrere Namen kommasepariert eintragen (z. B. „Marke A, Marke B“).</p>
+    <label for="brand-create-input" class="admin-label !mt-0">Markenname</label>
+    <input id="brand-create-input" #inputElement class="admin-input admin-input--wide" type="text" autocomplete="off" />
+    <button type="button" class="mt-4" (click)="create(inputElement)">Erstellen</button>
   </section>
+
+  <section class="admin-panel">
+    <h2 class="admin-section-title">Vorhandene Marken</h2>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th class="w-14">#</th>
+            <th>Name</th>
+            <th class="w-36 text-right sm:text-left">Aktion</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (brand of list$ | async; track brand.id; let idx = $index) {
+            <tr>
+              <td class="text-white/60">{{ idx + 1 }}</td>
+              <td [title]="brand.id">{{ brand.name }}</td>
+              <td class="text-right sm:text-left">
+                <button type="button" (click)="deleteBrand(brand)">Löschen</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

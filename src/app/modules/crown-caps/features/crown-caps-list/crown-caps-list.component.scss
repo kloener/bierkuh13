@@ -1,3 +1,7 @@
-.list {
+.list.cap-list {
   @apply flex flex-wrap;
+}
+
+.cap-list__item {
+  @apply cursor-pointer;
 }

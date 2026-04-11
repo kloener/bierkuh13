@@ -1,2 +1,7 @@
-<input class="block" type="file" #fileInput (change)="filesChanged($event)" multiple accept=".png,.jpg" />
-<button class="my-4" (click)="doUpload(fileInput)">Hochladen</button>
+<div class="admin-upload-row">
+  <label class="admin-file-trigger">
+    <span>Bilder auswählen …</span>
+    <input #fileInput type="file" (change)="filesChanged($event)" multiple accept=".png,.jpg,.jpeg" />
+  </label>
+  <button type="button" (click)="doUpload(fileInput)">Hochladen</button>
+</div>

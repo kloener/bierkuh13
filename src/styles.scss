@@ -61,17 +61,32 @@ body {
   background-image: url($path-background-image);
 }
 
+@layer base {
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+}
+
 @layer components {
 
   a {
     text-decoration: none;
+    transition: color 0.15s ease, opacity 0.15s ease;
 
     &, &:visited {
       color: var(--primary-color);
-    }
-
-    &:focus {
-      outline: 1px dotted var(--primary-color);
     }
 
     &:hover {
@@ -80,20 +95,41 @@ body {
   }
 
   [role=button] {
-    @apply cursor-pointer p-4 m-4 rounded-lg inline-block w-auto;
+    @apply cursor-pointer p-4 m-4 rounded-ui inline-block w-auto transition-colors duration-150;
     background: rgba(0, 0, 0, 0.4);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.55);
+    }
   }
 
   .fat-outline {
-    @apply block p-2 bg-transparent text-white rounded-lg text-2xl font-bold border-8;
+    @apply block w-full p-3 bg-surface-muted text-white rounded-ui text-2xl font-bold border-4 transition-shadow duration-150;
     border-color: var(--primary-color);
+
+    &:hover {
+      @apply shadow-md;
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--primary-color);
+    }
   }
 
   button {
-    @apply p-1 bg-transparent text-white rounded text-lg border-4;
+    @apply px-3 py-2 bg-transparent text-white rounded-ui text-lg border-2 transition-colors duration-150;
 
     --button-border-color: var(--global-font-color);
     border-color: var(--button-border-color);
+
+    &:hover:not(:disabled) {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    &:disabled {
+      @apply opacity-50 cursor-not-allowed;
+    }
 
     &[type=submit] {
       --button-border-color: var(--primary-color);
@@ -106,5 +142,204 @@ body {
 
   .app {
     @apply md:mx-auto md:my-0 md:max-w-[80vw];
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* —— Admin / forms (aligned with primary yellow + dark panels) —— */
+
+  .admin-page {
+    @apply flex flex-col gap-6;
+  }
+
+  .admin-panel {
+    @apply rounded-ui border border-white/15 bg-surface-muted p-4 backdrop-blur-sm md:p-6;
+  }
+
+  .admin-panel--accent {
+    border-color: var(--primary-color);
+    background: color-mix(in srgb, var(--primary-color) 10%, rgba(0, 0, 0, 0.4));
+  }
+
+  .admin-page-title {
+    @apply text-2xl font-bold tracking-tight text-white md:text-3xl;
+  }
+
+  .admin-section-title {
+    @apply m-0 mb-1 text-sm font-semibold uppercase tracking-wider text-primary;
+  }
+
+  .admin-help-text {
+    @apply m-0 mb-4 text-sm text-white/70;
+  }
+
+  .admin-user-bar {
+    @apply flex flex-wrap items-center justify-between gap-3 rounded-ui border border-white/15 bg-black/35 px-4 py-3 text-sm text-white/90 backdrop-blur-sm;
+  }
+
+  .admin-user-bar strong {
+    @apply font-semibold text-primary;
+  }
+
+  .admin-logout-btn {
+    @apply shrink-0 rounded-full border-2 border-white/30 bg-transparent px-4 py-1.5 text-sm text-white transition-colors;
+
+    &:hover {
+      @apply border-primary text-primary;
+    }
+  }
+
+  .admin-toolbar {
+    @apply flex flex-wrap items-center gap-3;
+  }
+
+  .admin-nav-link {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-primary bg-black/35 px-5 py-2.5 text-base font-medium no-underline transition-colors;
+
+    &,
+    &:visited {
+      @apply text-white;
+    }
+
+    &:hover {
+      @apply bg-black/50 text-primary;
+    }
+
+    &:focus-visible {
+      @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-bierkuh-bg;
+    }
+  }
+
+  .admin-label {
+    @apply mt-6 block text-sm font-medium text-white/90 first:mt-0;
+  }
+
+  .admin-input,
+  .admin-textarea,
+  .admin-select {
+    @apply w-full max-w-2xl rounded-ui border-4 border-primary bg-white px-3 py-3 text-lg font-medium text-black shadow-sm transition-shadow duration-150;
+
+    &::placeholder {
+      @apply text-neutral-500;
+    }
+
+    &:hover {
+      @apply shadow-md;
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--primary-color);
+    }
+  }
+
+  .admin-textarea {
+    @apply min-h-[8rem] resize-y;
+  }
+
+  .admin-select[multiple] {
+    @apply min-h-[10rem];
+  }
+
+  .admin-input--wide {
+    max-width: none;
+  }
+
+  .admin-form-actions {
+    @apply mt-8 flex flex-wrap gap-3;
+  }
+
+  .admin-count {
+    @apply my-4 text-base font-medium text-white/85;
+  }
+
+  .admin-table-wrap {
+    @apply overflow-x-auto rounded-ui border border-white/15;
+  }
+
+  .admin-table {
+    @apply w-full border-collapse text-left text-sm text-white;
+
+    thead th {
+      @apply border-b border-white/20 bg-black/40 px-3 py-3 text-xs font-semibold uppercase tracking-wide text-primary;
+    }
+
+    tbody td {
+      @apply border-b border-white/10 px-3 py-3 align-middle;
+    }
+
+    tbody tr {
+      @apply transition-colors;
+    }
+
+    tbody tr:hover {
+      @apply bg-white/[0.06];
+    }
+
+    tbody tr:nth-child(even) {
+      @apply bg-black/15;
+    }
+  }
+
+  .admin-pagination {
+    @apply flex flex-col items-stretch justify-center gap-3 rounded-ui border border-white/15 bg-black/25 px-4 py-4 text-center sm:flex-row sm:items-center sm:gap-6;
+
+    p {
+      @apply m-0 flex-1 text-sm text-white/90;
+    }
+
+    button {
+      @apply whitespace-nowrap;
+    }
+  }
+
+  .admin-login {
+    @apply flex min-h-[50vh] items-center justify-center px-3 py-10;
+  }
+
+  .admin-login__card {
+    @apply w-full max-w-md;
+  }
+
+  .admin-login__subtitle {
+    @apply m-0 mt-2 text-center text-sm text-white/65;
+  }
+
+  .admin-upload-intro {
+    @apply m-0 mb-3 text-sm font-medium text-white/90;
+  }
+
+  .admin-upload-hint {
+    @apply m-0 mb-4 text-xs text-white/60;
+  }
+
+  .admin-upload-row {
+    @apply flex flex-wrap items-center gap-3;
+  }
+
+  .admin-file-trigger {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-ui border-2 border-dashed border-primary bg-black/25 px-4 py-3 text-sm font-medium text-primary transition-colors;
+
+    &:hover {
+      @apply bg-black/40 text-white;
+    }
+
+    &:focus-within {
+      box-shadow: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--primary-color);
+    }
+  }
+
+  .admin-file-trigger input[type='file'] {
+    @apply sr-only;
   }
 }
