@@ -1,10 +1,78 @@
+<div class="cap-table__filters admin-toolbar flex-wrap items-center gap-2 mb-4" role="group" aria-label="Nach Zuordnung filtern">
+  <span class="text-sm text-white/75 shrink-0">Zuordnung:</span>
+  <button
+    type="button"
+    class="cap-table__filter-chip"
+    [class.cap-table__filter-chip--active]="assigneeFilter() === 'any'"
+    [attr.aria-pressed]="assigneeFilter() === 'any'"
+    (click)="onAssigneeFilterClick('any')"
+  >
+    Alle
+  </button>
+  <button
+    type="button"
+    class="cap-table__filter-chip"
+    [class.cap-table__filter-chip--active]="assigneeFilter() === 'heini'"
+    [attr.aria-pressed]="assigneeFilter() === 'heini'"
+    (click)="onAssigneeFilterClick('heini')"
+  >
+    Heini
+  </button>
+  <button
+    type="button"
+    class="cap-table__filter-chip"
+    [class.cap-table__filter-chip--active]="assigneeFilter() === 'keks'"
+    [attr.aria-pressed]="assigneeFilter() === 'keks'"
+    (click)="onAssigneeFilterClick('keks')"
+  >
+    Keks
+  </button>
+  <button
+    type="button"
+    class="cap-table__filter-chip"
+    [class.cap-table__filter-chip--active]="assigneeFilter() === 'both'"
+    [attr.aria-pressed]="assigneeFilter() === 'both'"
+    (click)="onAssigneeFilterClick('both')"
+  >
+    Beide
+  </button>
+</div>
+
 <section class="cap-table admin-table-wrap">
   <table class="admin-table">
     <thead>
       <tr>
-        <th class="cap-image">Bild</th>
-        <th class="cap-name">Name</th>
-        <th class="cap-func">Aktionen</th>
+        <th class="cap-image" scope="col">Bild</th>
+        <th
+          class="cap-name"
+          scope="col"
+          [attr.aria-sort]="sortField() === 'name' ? (sortDirection() === 'asc' ? 'ascending' : 'descending') : 'none'"
+        >
+          <button type="button" class="cap-table__sort-btn" (click)="onSortHeaderClick('name')">
+            Name
+            @if (sortField() === 'name') {
+              <span class="cap-table__sort-indicator" aria-hidden="true">{{
+                sortDirection() === 'asc' ? '↑' : '↓'
+              }}</span>
+            }
+          </button>
+        </th>
+        <th
+          class="cap-count text-right"
+          scope="col"
+          [attr.aria-sort]="sortField() === 'count' ? (sortDirection() === 'asc' ? 'ascending' : 'descending') : 'none'"
+        >
+          <button type="button" class="cap-table__sort-btn cap-table__sort-btn--end" (click)="onSortHeaderClick('count')">
+            Anzahl
+            @if (sortField() === 'count') {
+              <span class="cap-table__sort-indicator" aria-hidden="true">{{
+                sortDirection() === 'asc' ? '↑' : '↓'
+              }}</span>
+            }
+          </button>
+        </th>
+        <th class="cap-assignees" scope="col">Wer</th>
+        <th class="cap-func" scope="col">Aktionen</th>
       </tr>
     </thead>
     <tbody #tableNavRoot (keydown)="onTableKeydown($event)">
@@ -23,6 +91,8 @@
             <app-cap-img [name]="item.name" [fileUri]="item.storageRef"></app-cap-img>
           </td>
           <td class="cap-name font-medium">{{ item.name }}</td>
+          <td class="cap-count text-right tabular-nums">{{ countDisplay(item) }}</td>
+          <td class="cap-assignees text-sm text-white/80">{{ assigneeShort(item) }}</td>
           <td class="cap-func">
             <div class="flex flex-wrap gap-2">
               <button type="button" (click)="onEditClick(item)">Bearbeiten</button>

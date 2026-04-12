@@ -6,6 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  computed,
   effect,
   inject,
   output,
@@ -16,8 +17,9 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 
-import { CrownCaps } from '@app/modules/crown-caps/domain/crown-caps';
+import type { AssigneeFilter } from '@app/modules/crown-caps/application/crown-caps-admin-table.util';
 import { CrownCapsTableFacadeService } from '@app/modules/crown-caps/application/crown-caps-table-facade.service';
+import { CrownCaps } from '@app/modules/crown-caps/domain/crown-caps';
 import { CrownCapsPaginationComponent } from '../../shared/crown-caps-pagination/crown-caps-pagination.component';
 import { CapImgComponent } from '../../../../shared/cap-img/cap-img.component';
 import {
@@ -53,6 +55,14 @@ export class CrownCapsTableComponent implements OnInit, OnDestroy {
   pageInfo$: Observable<{ currentPage: number; pages: number }>;
 
   readonly caps = toSignal(this.tableFacadeService.pagesCaps$, { initialValue: [] as CrownCaps[] });
+
+  readonly adminTableUi = toSignal(this.tableFacadeService.adminTableUi$, {
+    initialValue: this.tableFacadeService.getAdminTableUi(),
+  });
+
+  readonly sortField = computed(() => this.adminTableUi().field);
+  readonly sortDirection = computed(() => this.adminTableUi().direction);
+  readonly assigneeFilter = computed(() => this.adminTableUi().assigneeFilter);
 
   readonly tableNavRoot = viewChild<ElementRef<HTMLElement>>('tableNavRoot');
   readonly capNavEls = viewChildren<ElementRef<HTMLElement>>('capNav');
@@ -162,5 +172,31 @@ export class CrownCapsTableComponent implements OnInit, OnDestroy {
       event.preventDefault();
       this.onCapClick(item);
     }
+  }
+
+  onSortHeaderClick(field: 'name' | 'count'): void {
+    this.tableFacadeService.setTableSort(field);
+    this.focusedCapIndex.set(0);
+  }
+
+  onAssigneeFilterClick(filter: AssigneeFilter): void {
+    this.tableFacadeService.setAssigneeFilter(filter);
+    this.focusedCapIndex.set(0);
+  }
+
+  assigneeShort(item: CrownCaps): string {
+    const set = new Set(item.assignees ?? []);
+    const bits: string[] = [];
+    if (set.has('H')) {
+      bits.push('H');
+    }
+    if (set.has('K')) {
+      bits.push('K');
+    }
+    return bits.length ? bits.join('·') : '–';
+  }
+
+  countDisplay(item: CrownCaps): string {
+    return item.count != null ? String(item.count) : '–';
   }
 }

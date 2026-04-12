@@ -9,8 +9,53 @@
     @apply min-w-[8rem];
   }
 
+  .cap-count {
+    @apply w-24 whitespace-nowrap;
+  }
+
+  .cap-assignees {
+    @apply w-16 whitespace-nowrap;
+  }
+
   .cap-func {
     @apply w-auto whitespace-nowrap sm:w-[11rem];
+  }
+}
+
+.cap-table__sort-btn {
+  @apply m-0 flex w-full max-w-full cursor-pointer items-center gap-1 border-0 bg-transparent p-0 text-left text-xs font-semibold uppercase tracking-wide text-primary transition-opacity;
+
+  &:hover {
+    @apply opacity-90 underline;
+  }
+
+  &:focus-visible {
+    @apply rounded outline-none ring-2 ring-primary ring-offset-2 ring-offset-bierkuh-bg;
+  }
+}
+
+.cap-table__sort-btn--end {
+  @apply justify-end text-right;
+}
+
+.cap-table__sort-indicator {
+  @apply text-base font-normal text-white;
+}
+
+.cap-table__filter-chip {
+  @apply rounded-full border-2 border-white/30 bg-black/30 px-3 py-1 text-sm text-white/90 transition-colors;
+
+  &:hover {
+    @apply border-primary text-primary;
+  }
+
+  &:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-bierkuh-bg;
+  }
+
+  &.cap-table__filter-chip--active {
+    @apply border-primary text-primary;
+    background: color-mix(in srgb, var(--primary-color) 16%, rgba(0, 0, 0, 0.35));
   }
 }
 
